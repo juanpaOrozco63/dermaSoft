@@ -1,0 +1,56 @@
+<div class="container mt-5 ">
+    <h1 class="text-center mb-2">{{title}}</h1>
+    <hr>
+    <div class="text-center">
+        <img src="https://www.asf.com.mx/Imagenes/Login.png">
+    </div>
+
+    <hr>
+    <form autocomplete="off">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Email</label>
+            <div class="col-8">
+                <input class="form-control" type="email" placeholder="Email" name="email">
+
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Password</label>
+            <div class="col-8">
+                <input class="form-control" type="password" placeholder="Password" name="password">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">&nbsp;</label>
+            <div class="input-group col-md-8">
+                <button type="submit" class="btn btn-outline-success btn-block">
+                        Sign in
+                    </button>
+            </div>
+        </div>
+        <div class="form-group row mb-0">
+            <label class="col">&nbsp;</label>
+
+            <div class="input-group col-md-10">
+                <p>Sign up | <a routerLink="/register" class="badge badge-success" style="cursor: pointer;">Here</a> |
+
+                </p>
+            </div>
+
+
+        </div>
+        <div class="form-group row">
+            <label class="col">&nbsp;</label>
+
+            <div class="input-group col-md-10">
+                <p>Forgot password? | <a routerLink="/restorePassword" class="badge badge-danger">Here</a> |
+                </p>
+            </div>
+
+
+        </div>
+
+
+    </form>
+</div>

@@ -1,0 +1,73 @@
+<div class="container mt-5">
+
+    <h1 class="text-center">{{title}}</h1>
+    <hr>
+    <div class="text-center">
+        <img src="https://www.maihiro.com/_Resources/Persistent/57ff025ff9efa2dd72e614dcb79a3f711ecd9e82/aussage-studienteilnehmer-trendstudie-199x199.png">
+    </div>
+    <hr>
+    <form autocomplete="off">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Email</label>
+            <div class="col-8">
+                <input class="form-control" type="email" placeholder="Email" name="email" required minlength="3" maxlength="255" email>
+
+            </div>
+        </div>
+        <div class=" form-group row ">
+            <label class="col-2 col-form-label ">Name</label>
+            <div class="col-8 ">
+                <input class="form-control " type="text " placeholder="Name" name="name" required minlength="4" maxlength="255">
+
+            </div>
+        </div>
+        <div class=" form-group row ">
+            <label class="col-2 col-form-label ">Phone</label>
+            <div class="col-8 ">
+                <input class="form-control " type="text" placeholder="Phone" name="phone" required minlength="6" maxlength="255">
+            </div>
+        </div>
+        <div class=" form-group row ">
+            <label class="col-2 col-form-label ">Address</label>
+            <div class="col-8 ">
+
+                <input class="form-control " type="text " placeholder="Address" name="address" required minlength="3" maxlength="255">
+
+
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Password</label>
+            <div class="col-8">
+                <input class="form-control" type="password" placeholder="Password" name="password" required minlength="6" maxlength="255">
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Confirm password</label>
+            <div class="col-8">
+                <input class="form-control" type="password" placeholder="Confirm Password" name="confirmPassword" required minlength="6" maxlength="255">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">&nbsp;</label>
+            <div class="input-group col-md-8">
+                <button type="submit" class="btn btn-outline-info btn-block">
+                        Sign up
+                    </button>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label class="col">&nbsp;</label>
+            <div class="input-group col-md-10">
+                <p>Sign in | <a routerLink="/login" class="badge badge-info">Here</a> |</p>
+            </div>
+
+        </div>
+
+
+    </form>
+</div>
