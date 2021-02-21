@@ -12,13 +12,13 @@ import { PatientModule } from './patient/patient.module';
 // MOdulo Shared
 import { SharedModule } from './shared/shared.module';
 // Routes
-import {RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 @NgModule({
   declarations: [
     AppComponent,
   ],
-  imports: [  
+  imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
     AdminModule,
