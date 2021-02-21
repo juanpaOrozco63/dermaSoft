@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   //Objeto Login JWT
   public user: User;
   //Login
-  public strEmail: string = '';
+  public strIdentification: string = '';
   public strPassword: string = '';
 
   constructor(private router: Router, private authService: AuthService, private adminService: AdminService) { }
@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
       data => {
         localStorage.setItem("token", data.token);
         //Método login admin
-        this.adminService.loginAdmin(this.strEmail, this.strPassword).subscribe(
+        this.adminService.loginAdmin(this.strIdentification, this.strPassword).subscribe(
           data => {
             this.router.navigate(['/admin-principal']);
           }, err => {
-            console.error(err);
+            console.error(err.error.error);
           }
         );
       }, err => {

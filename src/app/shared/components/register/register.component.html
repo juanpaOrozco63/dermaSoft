@@ -7,48 +7,34 @@
     </div>
     <hr>
     <form autocomplete="off">
-        <div class="form-group row">
-            <label class="col-2 col-form-label">Email</label>
-            <div class="col-8">
-                <input class="form-control" type="email" placeholder="Email" name="email" required minlength="3" maxlength="255" email>
-
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="tIdentificacion">Tipo de identificación</label>
+                <input type="text" name="tIdentificacion" id="tIdentificacion" #tIdentificacion placeholder="Tipo de identificación" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="nIdentificacion">Número de identificación</label>
+                <input type="number" name="nIdentificacion" id="nIdentificacion" #nIdentificacion placeholder="Número de identificación" class="form-control">
             </div>
         </div>
-        <div class=" form-group row ">
-            <label class="col-2 col-form-label ">Name</label>
-            <div class="col-8 ">
-                <input class="form-control " type="text " placeholder="Name" name="name" required minlength="4" maxlength="255">
-
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" #email placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" #password placeholder="Password" class="form-control">
             </div>
         </div>
-        <div class=" form-group row ">
-            <label class="col-2 col-form-label ">Phone</label>
-            <div class="col-8 ">
-                <input class="form-control " type="text" placeholder="Phone" name="phone" required minlength="6" maxlength="255">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="ciudad">Ciudad</label>
+                <input type="text" name="ciudad" id="ciudad" #ciudad placeholder="Ciudad" class="form-control">
             </div>
-        </div>
-        <div class=" form-group row ">
-            <label class="col-2 col-form-label ">Address</label>
-            <div class="col-8 ">
-
-                <input class="form-control " type="text " placeholder="Address" name="address" required minlength="3" maxlength="255">
-
-
-            </div>
-        </div>
-
-
-        <div class="form-group row">
-            <label class="col-2 col-form-label">Password</label>
-            <div class="col-8">
-                <input class="form-control" type="password" placeholder="Password" name="password" required minlength="6" maxlength="255">
-
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-2 col-form-label">Confirm password</label>
-            <div class="col-8">
-                <input class="form-control" type="password" placeholder="Confirm Password" name="confirmPassword" required minlength="6" maxlength="255">
+            <div class="form-group col-md-6">
+                <label for="eps">Eps</label>
+                <input type="text" name="eps" id="eps" #eps placeholder="Eps" class="form-control">
             </div>
         </div>
         <div class="form-group row">

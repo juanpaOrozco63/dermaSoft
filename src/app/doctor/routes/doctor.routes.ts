@@ -1,40 +1,5 @@
 import { Routes } from '@angular/router';
 
-export const DOCTORROUTES: Routes =  []
+export const DOCTORROUTES: Routes =[]
   
  ;
-/*
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('05','ANTIOQUIA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('08','ATLÁNTICO','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('11','BOGOTÁ, D. C.','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('13','BOLÍVAR','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('15','BOYACÁ','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('17','CALDAS','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('18','CAQUETÁ','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('19','CAUCA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('20','CESAR','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('23','CÓRDOBA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('25','CUNDINAMARCA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('27','CHOCÓ','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('41','HUILA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('44','LA GUAJIRA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('47','MAGDALENA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('50','META','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('52','NARIÑO','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('54','NORTE DE SANTANDER','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('63','QUINDÍO','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('66','RISARALDA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('68','SANTANDER','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('70','SUCRE','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('73','TOLIMA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('76','VALLE DEL CAUCA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('81','ARAUCA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('85','CASANARE','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('86','PUTUMAYO','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('88','ARCHIPIÉLAGO DE SAN ANDRÉS, PROVIDENCIA Y SANTA CATALINA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('91','AMAZONAS','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('94','GUAINÍA','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('95','GUAVIARE','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('97','VAUPÉS','A','lmorales@intelecto.co','2021-02-12')
-INSERT INTO  Department (  department_code , Description , State , CreatedBy , CreationDate ) VALUES ('99','VICHADA','A','lmorales@intelecto.co','2021-02-12')
-*/
