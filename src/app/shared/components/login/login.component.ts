@@ -11,7 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public title: String = 'Login';
+  // Declaraciones de la clase
+  public strTitle: String = 'Welcome!';
   //Objeto Login JWT
   public user: User;
   //Login
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
           data => {
             this.router.navigate(['/admin-principal']);
           }, err => {
+            console.error(err);
             //Método login patient
             this.patientService.loginPaciente(this.strIdentification, this.strPassword).subscribe(
               data => {

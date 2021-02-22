@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
+  // Declaraciones de la clase
   anio :number;
-  autor: string = 'DERMASOFT';
+  strAutor: string = 'DERMASOFT';
 
   constructor() {
     this.anio = new Date().getFullYear();

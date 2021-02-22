@@ -1,55 +1,49 @@
-<div class="container mt-5 ">
-    <h1 class="text-center mb-2">{{title}}</h1>
-    <hr>
-    <div class="text-center">
-        <img src="https://www.asf.com.mx/Imagenes/Login.png">
+<body>
+    <div class="container mt-5">
+        <div class="card text-center">
+            <div class="card-header">
+                <h1 class="text-center mb-2">{{strTitle}}</h1>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <label class="col-auto">Identification</label>
+                    </div>
+                    <div class="row form-group">
+                        <div class="offset-4"></div>
+                        <div class="col-12 col-lg-4 col-xl-4">
+                            <input class="form-control" type="number" placeholder="Identification" name="identification" [(ngModel)]="strIdentification">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <label class="col-auto">Password</label>
+                    </div>
+                    <div class="row form-group ">
+                        <div class="offset-4"></div>
+                        <div class="col-12 col-lg-4 col-xl-4">
+                            <input class="form-control" type="password" placeholder="Password" name="password" [(ngModel)]="strPassword">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <div class="input-group col-md-4">
+                            <button type="submit" class="btn btn-primary btn-block" (click)="ingresar()">
+                                Sign in
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+                <div class="row form-group mb-0">
+                    <div class=" offset-lg-4 offset-xl-4"></div>
+                    <div class="input-group col-md-4">
+                        <a class="btn btn-block" routerLink="/register">Forgot password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <hr>
-    <form autocomplete="off">
-        <div class="form-group row">
-            <label class="col-2 col-form-label">Identification</label>
-            <div class="col-8">
-                <input class="form-control" type="number" placeholder="Identification" name="identification" [(ngModel)]="strIdentification">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-2 col-form-label">Password</label>
-            <div class="col-8">
-                <input class="form-control" type="password" placeholder="Password" name="password" [(ngModel)]="strPassword">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-2 col-form-label">&nbsp;</label>
-            <div class="input-group col-md-8">
-                <button type="submit" class="btn btn-outline-success btn-block" (click)="ingresar()">
-                        Sign in
-                    </button>
-            </div>
-        </div>
-        <div class="form-group row mb-0">
-            <label class="col">&nbsp;</label>
-
-            <div class="input-group col-md-10">
-                <p>Sign up | <a routerLink="/register" class="badge badge-success" style="cursor: pointer;">Here</a> |
-
-                </p>
-            </div>
-
-
-        </div>
-        <div class="form-group row">
-            <label class="col">&nbsp;</label>
-
-            <div class="input-group col-md-10">
-                <p>Forgot password? | <a routerLink="/restorePassword" class="badge badge-danger">Here</a> |
-                </p>
-            </div>
-
-
-        </div>
-
-
-    </form>
-</div>
+</body>
