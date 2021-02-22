@@ -10,37 +10,50 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="tIdentificacion">Tipo de identificación</label>
-                <input type="text" name="tIdentificacion" id="tIdentificacion" #tIdentificacion placeholder="Tipo de identificación" class="form-control">
+                <select name="tIdentificacion" id="tIdentificacion" #tIdentificacion class="form-control" [(ngModel)]="patient.identificationType" required>
+                    <option *ngFor="let idT of idType" [value]="idT.id">
+                        {{idT.name}}
+                    </option>
+                 </select>
             </div>
             <div class="form-group col-md-6">
                 <label for="nIdentificacion">Número de identificación</label>
-                <input type="number" name="nIdentificacion" id="nIdentificacion" #nIdentificacion placeholder="Número de identificación" class="form-control">
+                <input type="number" name="nIdentificacion" id="nIdentificacion" #nIdentificacion placeholder="Número de identificación" class="form-control" [(ngModel)]="patient.patientIdentification" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" #email placeholder="Email" class="form-control">
+                <input type="email" name="email" id="email" #email placeholder="Email" class="form-control" [(ngModel)]="patient.email" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" #password placeholder="Password" class="form-control">
+                <input type="password" name="password" id="password" #password placeholder="Password" class="form-control" [(ngModel)]="patient.password" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="ciudad">Ciudad</label>
-                <input type="text" name="ciudad" id="ciudad" #ciudad placeholder="Ciudad" class="form-control">
+                <select name="ciudad" id="ciudad" #ciudad class="form-control" [(ngModel)]="patient.cityId_City" required>
+                    <option *ngFor="let cityName of cities" [value]="cityName.cityId">
+                        {{cityName.description}}
+                    </option>
+                 </select>
             </div>
             <div class="form-group col-md-6">
                 <label for="eps">Eps</label>
-                <input type="text" name="eps" id="eps" #eps placeholder="Eps" class="form-control">
+                <select name="eps" id="eps" #eps class="form-control" [(ngModel)]="patient.epsId_Eps" required>
+                    <option *ngFor="let epsName of epsArray" [value]="epsName.epsId">
+                        {{epsName.epsName}}
+                    </option>
+                 </select>
             </div>
+
         </div>
         <div class="form-group row">
             <label class="col-2 col-form-label">&nbsp;</label>
             <div class="input-group col-md-8">
-                <button type="submit" class="btn btn-outline-info btn-block">
+                <button type="submit" class="btn btn-outline-info btn-block" (click)="registrarPaciente()">
                         Sign up
                     </button>
             </div>

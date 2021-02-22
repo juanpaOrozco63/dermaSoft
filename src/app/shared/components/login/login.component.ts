@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { User } from 'src/app/domains/user';
+import { PatientService } from 'src/app/patient/services/patient.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   public strIdentification: string = '';
   public strPassword: string = '';
 
-  constructor(private router: Router, private authService: AuthService, private adminService: AdminService) { }
+  constructor(private router: Router, private authService: AuthService, private adminService: AdminService, private patientService: PatientService) { }
 
   ngOnInit(): void {
     //Inicializar objeto login JWT
@@ -38,7 +39,14 @@ export class LoginComponent implements OnInit {
           data => {
             this.router.navigate(['/admin-principal']);
           }, err => {
-            console.error(err.error.error);
+            //Método login patient
+            this.patientService.loginPaciente(this.strIdentification, this.strPassword).subscribe(
+              data => {
+                this.router.navigate(['/admin-principal']);
+              }, err => {
+                console.error(err);
+              }
+            );
           }
         );
       }, err => {
