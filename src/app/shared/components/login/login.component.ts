@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/admin/services/admin.service';
 import { User } from 'src/app/domains/user';
 import { PatientService } from 'src/app/patient/services/patient.service';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -40,19 +41,22 @@ export class LoginComponent implements OnInit {
           data => {
             this.router.navigate(['/admin-principal']);
           }, err => {
-            console.error(err);
+            Swal.fire({
+              title: 'Error!',
+              text: `Number identification or password incorrect`,
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            })
             //Método login patient
             this.patientService.loginPaciente(this.strIdentification, this.strPassword).subscribe(
               data => {
                 this.router.navigate(['/admin-principal']);
               }, err => {
-                console.error(err);
               }
             );
           }
         );
       }, err => {
-        console.error(err);
       }
     );
   }
