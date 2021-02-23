@@ -7,11 +7,12 @@ import { SHAREDROUTES } from './routes/shared.routes';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 
   
 
 @NgModule({
-  declarations: [FooterComponent, LoginComponent, RegisterComponent],
+  declarations: [FooterComponent, LoginComponent, RegisterComponent, RestorePasswordComponent],
   imports: [
     CommonModule,
     RouterModule.forRoot(SHAREDROUTES,{ useHash: true }),

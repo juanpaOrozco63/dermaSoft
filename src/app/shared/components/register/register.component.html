@@ -1,72 +1,110 @@
-<div class="container mt-5">
+<body>
+    <div class="container wrapper">
+        <div class="card text-center">
+            <div class="card-header">
+                <h1 class="text-center mb-2">{{title}}</h1>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <label for="tIdentificacion" class="col-auto">Identification type </label>
+                    </div>
+                    <div class="row form-group">
+                        <div class="offset-4"></div>
+                        <div class="col-12 col-lg-4 col-xl-4">
+                            <select name="tIdentificacion" id="tIdentificacion" #tIdentificacion class="form-control" [(ngModel)]="patient.identificationType" required>
+                                <option *ngFor="let idT of idType; let i = index" [value]="idT.id">
+                                    {{idT.name}}                            
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <label for="nIdentificacion" class="col-auto">Identification number</label>
+                    </div>
+                    <div class="row form-group ">
+                        <div class="offset-4"></div>
+                        <div class="col-12 col-lg-4 col-xl-4">
+                            <input type="number" name="nIdentificacion" id="nIdentificacion" #nIdentificacion placeholder="Identification number" class="form-control" [(ngModel)]="patient.patientIdentification" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <label for="nIdentificacion" class="col-auto">Email</label>
 
-    <h1 class="text-center">{{title}}</h1>
-    <hr>
-    <div class="text-center">
-        <img src="https://www.maihiro.com/_Resources/Persistent/57ff025ff9efa2dd72e614dcb79a3f711ecd9e82/aussage-studienteilnehmer-trendstudie-199x199.png">
+                    </div>
+                    <div class="row form-group ">
+                        <div class="offset-4"></div>
+                        <div class="col-12 col-lg-4 col-xl-4">
+                            <input type="email" name="email" id="email" #email placeholder="Email" class="form-control" [(ngModel)]="patient.email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <label for="nIdentificacion" class="col-auto">Password</label>
+
+                    </div>
+                    <div class="row form-group ">
+                        <div class="offset-4"></div>
+                        <div class="col-12 col-lg-4 col-xl-4">
+                            <input type="password" name="password" id="password" #password placeholder="Password" class="form-control" [(ngModel)]="patient.password" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <label for="nIdentificacion" class="col-auto">City</label>
+
+                    </div>
+                    <div class="row form-group ">
+                        <div class="offset-4"></div>
+                        <div class="col-12 col-lg-4 col-xl-4">
+                            <select name="ciudad" id="ciudad" #ciudad class="form-control" [(ngModel)]="patient.cityId_City" required>
+                                <option *ngFor="let cityName of cities" [value]="cityName.cityId">
+                                    {{cityName.description}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <label for="nIdentificacion" class="col-auto">Eps</label>
+
+                    </div>
+                    <div class="row form-group ">
+                        <div class="offset-4"></div>
+                        <div class="col-12 col-lg-4 col-xl-4">
+                            <select name="eps" id="eps" #eps class="form-control" [(ngModel)]="patient.epsId_Eps" required>
+                                <option *ngFor="let epsName of epsArray" [value]="epsName.epsId">
+                                    {{epsName.epsName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="offset-lg-4 offset-xl-4"></div>
+                        <div class="input-group col-md-4">
+                            <button type="submit" class="btn btn-primary btn-block" (click)="registrarPaciente()">
+                                Sign in
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="card-footer text-muted">
+                <div class="form-group row mb-0">
+                    <div class=" offset-lg-4 offset-xl-4"></div>
+                    <div class="input-group col-md-4">
+                        <a class="btn btn-block" routerLink="/login">Sign in</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <hr>
-    <form autocomplete="off">
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="tIdentificacion">Tipo de identificación</label>
-                <select name="tIdentificacion" id="tIdentificacion" #tIdentificacion class="form-control" [(ngModel)]="patient.identificationType" required>
-                    <option *ngFor="let idT of idType" [value]="idT.id">
-                        {{idT.name}}
-                    </option>
-                 </select>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="nIdentificacion">Número de identificación</label>
-                <input type="number" name="nIdentificacion" id="nIdentificacion" #nIdentificacion placeholder="Número de identificación" class="form-control" [(ngModel)]="patient.patientIdentification" required>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" #email placeholder="Email" class="form-control" [(ngModel)]="patient.email" required>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" #password placeholder="Password" class="form-control" [(ngModel)]="patient.password" required>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="ciudad">Ciudad</label>
-                <select name="ciudad" id="ciudad" #ciudad class="form-control" [(ngModel)]="patient.cityId_City" required>
-                    <option *ngFor="let cityName of cities" [value]="cityName.cityId">
-                        {{cityName.description}}
-                    </option>
-                 </select>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="eps">Eps</label>
-                <select name="eps" id="eps" #eps class="form-control" [(ngModel)]="patient.epsId_Eps" required>
-                    <option *ngFor="let epsName of epsArray" [value]="epsName.epsId">
-                        {{epsName.epsName}}
-                    </option>
-                 </select>
-            </div>
-
-        </div>
-        <div class="form-group row">
-            <label class="col-2 col-form-label">&nbsp;</label>
-            <div class="input-group col-md-8">
-                <button type="submit" class="btn btn-outline-info btn-block" (click)="registrarPaciente()">
-                        Sign up
-                    </button>
-            </div>
-
-        </div>
-        <div class="form-group row">
-            <label class="col">&nbsp;</label>
-            <div class="input-group col-md-10">
-                <p>Sign in | <a routerLink="/login" class="badge badge-info">Here</a> |</p>
-            </div>
-
-        </div>
 
 
-    </form>
-</div>
+</body>

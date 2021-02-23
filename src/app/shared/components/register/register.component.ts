@@ -61,7 +61,6 @@ export class RegisterComponent implements OnInit {
         //Método findAllEps
         this.findAllEps();
       }, err => {
-        console.error(err.error.error);
       }
     );
   }
