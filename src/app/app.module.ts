@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-
+import { AngularFireModule } from '@angular/fire';
 // Modulo Admin
 import { AdminModule } from './admin/admin.module';
 // Modulo Doctor
@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 // Routes
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { ROUTES } from './app.routes';
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AdminModule,
     SharedModule,
     PatientModule,

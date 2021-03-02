@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminPrincipalComponent } from './admin-principal.component';
+import { DoctorPrincipalComponent } from './doctor-principal.component';
 
-describe('AdminPrincipalComponent', () => {
-  let component: AdminPrincipalComponent;
-  let fixture: ComponentFixture<AdminPrincipalComponent>;
+describe('DoctorPrincipalComponent', () => {
+  let component: DoctorPrincipalComponent;
+  let fixture: ComponentFixture<DoctorPrincipalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminPrincipalComponent ]
+      declarations: [ DoctorPrincipalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminPrincipalComponent);
+    fixture = TestBed.createComponent(DoctorPrincipalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

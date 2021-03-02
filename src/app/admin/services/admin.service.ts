@@ -20,9 +20,4 @@ export class AdminService {
     return headers;
   }
 
-  //Método de login admin
-  public loginAdmin(adminIdentification: string, password: string): Observable<any> {
-    let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + 'loginAdmin/' + adminIdentification + '/' + password, { headers: headers });
-  }
 }

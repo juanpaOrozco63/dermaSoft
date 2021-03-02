@@ -53,15 +53,4 @@ export class PatientService {
     return this.httpClient.delete(this.url + '/' + patientIdentification, { headers: headers });
   }
 
-  //Método registro paciente
-  public saveRegistro(patient: Patient): Observable<any> {
-    let headers = this.createTokenRegister();
-    return this.httpClient.post(this.url, patient, { headers: headers });
-  }
-
-  //Método de login paciente
-  public loginPaciente(patientIdentification: string, password: string): Observable<any> {
-    let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + '/loginPatient/' + patientIdentification + '/' + password, { headers: headers });
-  }
 }

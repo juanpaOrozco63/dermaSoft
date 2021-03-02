@@ -1,21 +1,18 @@
-export class Patient {
+export class Doctor {
     constructor(
-        public approved: string,
         public birthdate: Date,
+        public description: string,
+        public doctorId: number,
         public firstName: string,
         public gender: string,
-        public height: number,
         public image: string,
         public lastName: string,
         public lastName2: string,
-        public maritalStatus: string,
-        public ocupation: string,
-        public patientId: number,
         public phone: string,
+        public price: number,
+        public reputation: number,
         public verified: string,
-        public weight: number,
         public cityId_City: number,
-        public epsId_Eps: number,
         public userId: string,
     ) { }
 }
