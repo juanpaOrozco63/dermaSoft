@@ -15,6 +15,8 @@ import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 import { environment } from 'src/environments/environment';
+// Forms
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,8 +28,10 @@ import { environment } from 'src/environments/environment';
     AdminModule,
     SharedModule,
     PatientModule,
-    DoctorModule
-  ],
+    DoctorModule,
+    FormsModule,
+    ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

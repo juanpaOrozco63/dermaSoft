@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { City } from 'src/app/domains/city';
 import { Eps } from 'src/app/domains/eps';
 import { IdType } from 'src/app/domains/idType';
@@ -18,7 +19,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  public title: string = 'Register';
+  public title: string = 'Registro';
   //Objeto Login JWT
   public user: User;
   //Objeto para registrar patient
@@ -29,14 +30,21 @@ export class RegisterComponent implements OnInit {
   public epsArray: Eps[];
   //Arreglo de tipos de identificación
   public idType: IdType[];
+  //Forms
+  formRegister:FormGroup;
+
   constructor(
     private authService: AuthService,
     private cityService: CityService,
     private epsService: EpsService,
     private idTypeService: IdTypeService,
     private authFirebaseService: AuthFirebaseService,
-    private rolService: RolService
-  ) { }
+    private rolService: RolService,
+    private fb:FormBuilder
+  ) { 
+    this.crearFormulario();
+    this.cargarDataFormulario();
+  }
 
   ngOnInit(): void {
     //Inicializar objeto login JWT
@@ -147,4 +155,56 @@ export class RegisterComponent implements OnInit {
         });
       });
   }
+  // Método para crear formulario
+  crearFormulario(){
+    this.formRegister=this.fb.group({
+      nIdentificacion:['',[Validators.required]],
+      password:['',[Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+      correo:['',[Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9,-]+\.[a-z]{2,3}$'),Validators.email]], 
+      tIdentificacion:[[Validators.required]],   
+      ciudad:[[Validators.required]] ,   
+      eps:[[Validators.required]]   
+    })
+  }
+  // Método para cargar data por defecto en el formulario
+  cargarDataFormulario(){
+    this.formRegister.reset({
+      nIdentificacion:'',
+      password:'',
+      correo:''
+    });
+    
+  }
+  // Método para obtener el valor del campo de nIdentificacion
+  public get nIdentificacionNoValido() {
+    return this.formRegister.get('nIdentificacion').invalid && this.formRegister.get('nIdentificacion').touched
+   
+   }
+   // Método para obtener el valor del campo password
+   public get passNoValido() {
+    return this.formRegister.get('password').invalid && this.formRegister.get('password').touched
+   
+   }
+   // Método para obtener el valor del campo correo
+   public get correoNoValido() {
+    return this.formRegister.get('correo').invalid && this.formRegister.get('correo').touched
+   
+   }
+    // Método para obtener el valor del campo tipo de identificación
+   public get tIdentificacionNoValido() {
+    return this.formRegister.get('tIdentificacion').invalid && this.formRegister.get('tIdentificacion').touched
+   
+   }
+    // Método para obtener el valor del campo de ciudad
+   public get ciudadNoValido() {
+    return this.formRegister.get('ciudad').invalid && this.formRegister.get('ciudad').touched
+   
+   }
+    // Método para obtener el valor del campo de eps
+   public get epsNoValido() {
+    return this.formRegister.get('eps').invalid && this.formRegister.get('eps').touched
+   
+   }
+  
+   
 }

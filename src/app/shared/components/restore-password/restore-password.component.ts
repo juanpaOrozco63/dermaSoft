@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestorePasswordComponent implements OnInit {
   
-  public title: string = 'Restore Password';
+  public title: string = '¿Olvido su contraseña?';
 
   constructor() { }
 
