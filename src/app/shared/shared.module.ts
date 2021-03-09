@@ -8,11 +8,12 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
+import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
 
   
 
 @NgModule({
-  declarations: [FooterComponent, LoginComponent, RegisterComponent, RestorePasswordComponent],
+  declarations: [FooterComponent, LoginComponent, RegisterComponent, RestorePasswordComponent, RegisterDoctorComponent],
   imports: [
     CommonModule,
     RouterModule.forRoot(SHAREDROUTES,{ useHash: true }),

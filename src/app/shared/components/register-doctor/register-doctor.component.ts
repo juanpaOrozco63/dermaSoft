@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { City } from 'src/app/domains/city';
-import { Eps } from 'src/app/domains/eps';
-import { IdType } from 'src/app/domains/idType';
-import { User } from 'src/app/domains/user';
-import { RegisterPatient } from 'src/app/patient/domains/registerPatient';
-import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { CityService } from 'src/app/services/city.service';
-import { EpsService } from 'src/app/services/eps.service';
-import { IdTypeService } from 'src/app/services/id-type.service';
-import { RolService } from 'src/app/services/rol.service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { RegisterPatient } from '../../../patient/domains/registerPatient';
 import Swal from 'sweetalert2';
+import { User } from '../../../domains/user';
+import { RolService } from '../../../services/rol.service';
+import { AuthFirebaseService } from '../../../services/auth-firebase.service';
+import { IdTypeService } from '../../../services/id-type.service';
+import { EpsService } from '../../../services/eps.service';
+import { CityService } from '../../../services/city.service';
+import { AuthService } from '../../../services/auth.service';
+import { IdType } from '../../../domains/idType';
+import { Eps } from '../../../domains/eps';
+import { City } from '../../../domains/city';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-register-doctor',
+  templateUrl: './register-doctor.component.html',
+  styleUrls: ['./register-doctor.component.css']
 })
-export class RegisterComponent implements OnInit {
-  public title: string = 'Registro Paciente';
+export class RegisterDoctorComponent implements OnInit {
+
+  public title: string = 'Registro Doctor';
   //Objeto Login JWT
   public user: User;
   //Objeto para registrar patient
@@ -108,13 +109,12 @@ export class RegisterComponent implements OnInit {
   }
 
   //Registro pacientes
-  register(idTy: string, cityI: number, epsI: number) {
+  register(idTy: string, cityI: number) {
     //Guardamos la contraseña
     let pass = this.rol.password;
     //Asignacion de valores al objeto paciente
     this.rol.identificationType = idTy;
     this.rol.cityI = cityI;
-    this.rol.epsI = epsI;
     //Registro en firebase
     this.authFirebaseService
       .registerFirebase(this.rol.email, this.rol.password)
@@ -199,11 +199,10 @@ export class RegisterComponent implements OnInit {
    public get ciudadNoValido() {
     return this.formRegister.get('ciudad').invalid && this.formRegister.get('ciudad').touched
    
-   }   
-   // Método para obtener el valor del campo de eps
+   }
+    // Método para obtener el valor del campo de eps
    public get epsNoValido() {
     return this.formRegister.get('eps').invalid && this.formRegister.get('eps').touched
    
    }
-   
 }

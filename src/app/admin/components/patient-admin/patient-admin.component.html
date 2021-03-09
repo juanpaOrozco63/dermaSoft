@@ -1,5 +1,36 @@
 <div class="container">
-    <p class="text-center">{{ strTitle }}</p>
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Fecha de nacimiento</th>
+                <th scope="col">Número de identificación</th>
+                <th scope="col">Ocupación</th>
+                <th scope="col">Aprobado</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of patients;let i = index">
+                <td>{{i+1}}</td>
+                <td>{{p.firstName +" " +p.lastName +" "+ p.lastName2}}</td>
+                <td>{{p.phone | phone}}</td>
+                <td>{{p.birthdate | date:'dd-MM-yyyy'}}</td>
+                <td>{{p.userId | number}}</td>
+                <td>{{p.ocupation}}</td>
+                <td>{{p.approved }}</td>
+                <td><button class="btn bg-main btn-editar" (click)="openCentrado(contenido, p)">
+                    <i class="fas fa-user-edit"></i>
+                  </button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <h2 class="text-center">{{ strTitle }}</h2>
     <div class="card-columns" *ngIf="patients">
         <div class="card" *ngFor="let p of patients">
             <img [src]="p.image" alt="John" style="width: 100%" />
@@ -8,8 +39,8 @@
             <p>{{ p.userId }}</p>
             <p>
                 <button class="btn bg-main btn-editar" (click)="openCentrado(contenido, p)">
-          Editar
-        </button>
+                    Editar
+                  </button>
             </p>
         </div>
     </div>

@@ -11,6 +11,7 @@ import { EntidadesAdminComponent } from './components/entidades-admin/entidades-
 import { ProductsAdminComponent } from './components/products-admin/products-admin.component';
 import { SettingsAdminComponent } from './components/settings-admin/settings-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PhonePipe } from './pipes/phone.pipe';
 @NgModule({
   declarations: [
     AdminPrincipalComponent,
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EntidadesAdminComponent,
     ProductsAdminComponent,
     SettingsAdminComponent,
+    PhonePipe,
   ],
   imports: [
     CommonModule,

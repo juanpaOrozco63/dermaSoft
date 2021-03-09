@@ -7,10 +7,12 @@ import { RegisterComponent } from '../components/register/register.component';
 import { RestorePasswordComponent } from '../components/restore-password/restore-password.component';
 import { ADMINDROUTES } from '../../admin/routes/admin.routes';
 import { PATIENTROUTES } from 'src/app/patient/routes/patient.routes';
+import { RegisterDoctorComponent } from '../components/register-doctor/register-doctor.component';
 
 export const SHAREDROUTES: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'registerPatient', component: RegisterComponent },
+  { path: 'registerDoctor', component: RegisterDoctorComponent },
   {
     path: 'admin-principal',
     component: AdminPrincipalComponent,
