@@ -4,7 +4,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Telefono</th>
+                <th scope="col">Teléfono</th>
                 <th scope="col">Fecha de nacimiento</th>
                 <th scope="col">Número de identificación</th>
                 <th scope="col">Ocupación</th>
@@ -56,25 +56,25 @@
         <form>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="inputFistName">First Name</label>
+                    <label for="inputFistName">Nombre</label>
                     <input type="text" class="form-control" id="inputFistName" name="inputFistName" [(ngModel)]="patModal.firstName" />
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="inputLastName">Last Name</label>
+                    <label for="inputLastName">Primer Apellido</label>
                     <input type="text" class="form-control" id="inputLastName" name="inputLastName" [(ngModel)]="patModal.lastName" />
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="inputLastName2">Last Name 2</label>
+                    <label for="inputLastName2">Segundo Apellido</label>
                     <input type="text" class="form-control" id="inputLastName2" name="inputLastName2" [(ngModel)]="patModal.lastName2" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-10">
-                    <label for="inputImageUrl">Url Image</label>
+                    <label for="inputImageUrl">Imagen perfil</label>
                     <input type="text" class="form-control" id="inputImageUrl" name="inputImageUrl" [(ngModel)]="patModal.image" />
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputGender">Gender</label>
+                    <label for="inputGender">Género</label>
                     <select class="form-control" id="inputGender" name="inputGender" [(ngModel)]="patModal.gender">
             <option value="M">M</option>
             <option value="F">F</option>
@@ -83,11 +83,11 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputOcupation">Ocupation</label>
+                    <label for="inputOcupation">Ocupación</label>
                     <input type="text" class="form-control" id="inputOcupation" name="inputOcupation" [(ngModel)]="patModal.ocupation" />
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputMaritalStatus">Marital Status</label>
+                    <label for="inputMaritalStatus">Estado civil</label>
                     <select class="form-control" id="inputMaritalStatus" name="inputMaritalStatus" [(ngModel)]="patModal.maritalStatus">
             <option value="Soltero">Soltero</option>
             <option value="Casado">Casado</option>
@@ -97,32 +97,32 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputPhone">Phone</label>
+                    <label for="inputPhone">Teléfono</label>
                     <input type="number" class="form-control" id="inputPhone" name="inputPhone" [(ngModel)]="patModal.phone" />
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputBirthdate">Birthdate</label>
+                    <label for="inputBirthdate">Fecha de nacimiento</label>
                     <input type="date" class="form-control" id="inputBirthdate" name="inputBirthdate" [(ngModel)]="patModal.birthdate" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="inputHeight">Height (cm)</label>
+                    <label for="inputHeight">Altura (cm)</label>
                     <input type="number" class="form-control" id="inputHeight" name="inputHeight" [(ngModel)]="patModal.height" />
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="inputWeight">Weight (kg)</label>
+                    <label for="inputWeight">Peso (kg)</label>
                     <input type="number" class="form-control" id="inputWeight" name="inputWeight" [(ngModel)]="patModal.weight" />
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputApproved">Approved</label>
+                    <label for="inputApproved">Aprobado</label>
                     <select class="form-control" id="inputApproved" name="inputApproved" [(ngModel)]="patModal.approved">
             <option value="Y">SI</option>
             <option value="N">NO</option>
           </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputVerified">Verified</label>
+                    <label for="inputVerified">Verificado   </label>
                     <select class="form-control" id="inputVerified" name="inputVerified" [(ngModel)]="patModal.verified">
             <option value="Y">SI</option>
             <option value="N">NO</option>
