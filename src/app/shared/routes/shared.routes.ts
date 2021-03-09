@@ -8,6 +8,7 @@ import { RestorePasswordComponent } from '../components/restore-password/restore
 import { ADMINDROUTES } from '../../admin/routes/admin.routes';
 import { PATIENTROUTES } from 'src/app/patient/routes/patient.routes';
 import { RegisterDoctorComponent } from '../components/register-doctor/register-doctor.component';
+import { DOCTORROUTES } from 'src/app/doctor/routes/doctor.routes';
 
 export const SHAREDROUTES: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,6 +24,10 @@ export const SHAREDROUTES: Routes = [
     component: PatientPrincipalComponent,
     children: PATIENTROUTES,
   },
-  { path: 'doctor-principal', component: DoctorPrincipalComponent },
+  {
+    path: 'doctor-principal',
+    component: DoctorPrincipalComponent,
+    children: DOCTORROUTES,
+  },
   { path: 'restorePassword', component: RestorePasswordComponent },
 ];

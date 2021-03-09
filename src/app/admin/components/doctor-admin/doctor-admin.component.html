@@ -1,1 +1,111 @@
-<p>doctor-admin works!</p>
+<div class="container">
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Fecha de nacimiento</th>
+                <th scope="col">Número de identificación</th>
+                <th scope="col">Reputación</th>
+                <th scope="col">Precio consulta</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let d of doctors; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ d.firstName + " " + d.lastName + " " + d.lastName2 }}</td>
+                <td>{{ d.phone }}</td>
+                <td>{{ d.birthday | date: "dd-MM-yyyy" }}</td>
+                <td>{{ d.userId }}</td>
+                <td>{{ d.reputation }}</td>
+                <td>{{ d.price }}</td>
+                <td>
+                    <button class="btn bg-main btn-editar" (click)="openCentrado(contenido, d)">
+            <i class="fas fa-user-edit"></i>
+          </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #contenido let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Editar paciente</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputFistName">First Name</label>
+                    <input type="text" class="form-control" id="inputFistName" name="inputFistName" [(ngModel)]="doctorModal.firstName" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputLastName">Last Name</label>
+                    <input type="text" class="form-control" id="inputLastName" name="inputLastName" [(ngModel)]="doctorModal.lastName" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputLastName2">Last Name 2</label>
+                    <input type="text" class="form-control" id="inputLastName2" name="inputLastName2" [(ngModel)]="doctorModal.lastName2" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-10">
+                    <label for="inputImageUrl">Url Image</label>
+                    <input type="text" class="form-control" id="inputImageUrl" name="inputImageUrl" [(ngModel)]="doctorModal.image" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputGender">Gender</label>
+                    <select class="form-control" id="inputGender" name="inputGender" [(ngModel)]="doctorModal.gender">
+            <option value="M">M</option>
+            <option value="F">F</option>
+          </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDescription">Description</label>
+                <input type="text" class="form-control" id="inputDescription" name="inputDescription" [(ngModel)]="doctorModal.description" />
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputPhone">Phone</label>
+                    <input type="number" class="form-control" id="inputPhone" name="inputPhone" [(ngModel)]="doctorModal.phone" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputBirthdate">Birthdate</label>
+                    <input type="date" class="form-control" id="inputBirthdate" name="inputBirthdate" [(ngModel)]="doctorModal.birthday" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="inputPrice">Price</label>
+                    <input type="number" class="form-control" id="inputPrice" name="inputPrice" [(ngModel)]="doctorModal.price" />
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="inputReputation">Reputation</label>
+                    <input type="number" class="form-control" id="inputReputation" name="inputReputation" [(ngModel)]="doctorModal.reputation" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputVerified">Verified</label>
+                    <select class="form-control" id="inputVerified" name="inputVerified" [(ngModel)]="doctorModal.verified">
+            <option value="Y">SI</option>
+            <option value="N">NO</option>
+          </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-block bg-main btn-editar" (click)="editar()">
+        Editar
+      </button>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-block" (click)="modal.close()">
+      Cancelar
+    </button>
+    </div>
+</ng-template>

@@ -12,27 +12,25 @@ import { AuthService } from '../../../services/auth.service';
 import { IdType } from '../../../domains/idType';
 import { Eps } from '../../../domains/eps';
 import { City } from '../../../domains/city';
+import { RegisterDoctor } from 'src/app/doctor/domains/registerDoctor';
 
 @Component({
   selector: 'app-register-doctor',
   templateUrl: './register-doctor.component.html',
-  styleUrls: ['./register-doctor.component.css']
+  styleUrls: ['./register-doctor.component.css'],
 })
 export class RegisterDoctorComponent implements OnInit {
-
   public title: string = 'Registro Doctor';
   //Objeto Login JWT
   public user: User;
-  //Objeto para registrar patient
-  public rol: RegisterPatient;
+  //Objeto para registrar doctor
+  public rol: RegisterDoctor;
   //Arreglo de cities
   public cities: City[];
-  //Arreglo de eps
-  public epsArray: Eps[];
   //Arreglo de tipos de identificación
   public idType: IdType[];
   //Forms
-  formRegister:FormGroup;
+  formRegister: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -41,8 +39,8 @@ export class RegisterDoctorComponent implements OnInit {
     private idTypeService: IdTypeService,
     private authFirebaseService: AuthFirebaseService,
     private rolService: RolService,
-    private fb:FormBuilder
-  ) { 
+    private fb: FormBuilder
+  ) {
     this.crearFormulario();
     this.cargarDataFormulario();
   }
@@ -51,7 +49,17 @@ export class RegisterDoctorComponent implements OnInit {
     //Inicializar objeto login JWT
     this.user = new User('', '');
     //Inicializar objeto rol
-    this.rol = new RegisterPatient(null, null, null, 'Y', 3, 'A', null, new Date(), 0, 0);
+    this.rol = new RegisterDoctor(
+      null,
+      null,
+      null,
+      'Y',
+      2,
+      'A',
+      null,
+      new Date(),
+      0
+    );
     //Método token jwt para registro
     this.tokenRegistro();
     //FindAll typeId
@@ -75,10 +83,8 @@ export class RegisterDoctorComponent implements OnInit {
         localStorage.setItem('tokenR', data.token);
         //Método findAllCities
         this.findAllCities();
-        //Método findAllEps
-        this.findAllEps();
       },
-      (err) => { }
+      (err) => {}
     );
   }
 
@@ -88,19 +94,6 @@ export class RegisterDoctorComponent implements OnInit {
       (data) => {
         this.cities = data;
         this.cities.sort((a, b) => a.description.localeCompare(b.description));
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
-  }
-
-  //Método findAllEps
-  public findAllEps(): void {
-    this.epsService.findAll().subscribe(
-      (data) => {
-        this.epsArray = data;
-        this.epsArray.sort((a, b) => a.epsName.localeCompare(b.epsName));
       },
       (err) => {
         console.error(err);
@@ -122,10 +115,20 @@ export class RegisterDoctorComponent implements OnInit {
         //Asignamos la contrasela encriptada de firebase al paciente
         this.rol.password = result.user.uid;
         //Registro en la bd del paciente
-        this.rolService.registerPatient(this.rol).subscribe(
+        this.rolService.registerDoctor(this.rol).subscribe(
           (data) => {
             //Inicializar objeto rol
-            this.rol = new RegisterPatient(null, null, null, 'Y', 3, 'A', null, new Date(), 0, 0);
+            this.rol = new RegisterDoctor(
+              null,
+              null,
+              null,
+              'Y',
+              2,
+              'A',
+              null,
+              new Date(),
+              0
+            );
             Swal.fire(
               'Registro éxitoso',
               'Te has registrado con éxito, verifica tu email',
@@ -156,53 +159,72 @@ export class RegisterDoctorComponent implements OnInit {
       });
   }
   // Método para crear formulario
-  crearFormulario(){
-    this.formRegister=this.fb.group({
-      nIdentificacion:['',[Validators.required]],
-      password:['',[Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
-      correo:['',[Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9,-]+\.[a-z]{2,3}$'),Validators.email]], 
-      tIdentificacion:[[Validators.required]],   
-      ciudad:[[Validators.required]] ,   
-      eps:[[Validators.required]]   
-    })
+  crearFormulario() {
+    this.formRegister = this.fb.group({
+      nIdentificacion: ['', [Validators.required]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
+          ),
+        ],
+      ],
+      correo: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9,-]+.[a-z]{2,3}$'),
+          Validators.email,
+        ],
+      ],
+      tIdentificacion: [[Validators.required]],
+      ciudad: [[Validators.required]],
+      eps: [[Validators.required]],
+    });
   }
   // Método para cargar data por defecto en el formulario
-  cargarDataFormulario(){
+  cargarDataFormulario() {
     this.formRegister.reset({
-      nIdentificacion:'',
-      password:'',
-      correo:''
+      nIdentificacion: '',
+      password: '',
+      correo: '',
     });
-    
   }
   // Método para obtener el valor del campo de nIdentificacion
   public get nIdentificacionNoValido() {
-    return this.formRegister.get('nIdentificacion').invalid && this.formRegister.get('nIdentificacion').touched
-   
-   }
-   // Método para obtener el valor del campo password
-   public get passNoValido() {
-    return this.formRegister.get('password').invalid && this.formRegister.get('password').touched
-   
-   }
-   // Método para obtener el valor del campo correo
-   public get correoNoValido() {
-    return this.formRegister.get('correo').invalid && this.formRegister.get('correo').touched
-   
-   }
-    // Método para obtener el valor del campo tipo de identificación
-   public get tIdentificacionNoValido() {
-    return this.formRegister.get('tIdentificacion').invalid && this.formRegister.get('tIdentificacion').touched
-   
-   }
-    // Método para obtener el valor del campo de ciudad
-   public get ciudadNoValido() {
-    return this.formRegister.get('ciudad').invalid && this.formRegister.get('ciudad').touched
-   
-   }
-    // Método para obtener el valor del campo de eps
-   public get epsNoValido() {
-    return this.formRegister.get('eps').invalid && this.formRegister.get('eps').touched
-   
-   }
+    return (
+      this.formRegister.get('nIdentificacion').invalid &&
+      this.formRegister.get('nIdentificacion').touched
+    );
+  }
+  // Método para obtener el valor del campo password
+  public get passNoValido() {
+    return (
+      this.formRegister.get('password').invalid &&
+      this.formRegister.get('password').touched
+    );
+  }
+  // Método para obtener el valor del campo correo
+  public get correoNoValido() {
+    return (
+      this.formRegister.get('correo').invalid &&
+      this.formRegister.get('correo').touched
+    );
+  }
+  // Método para obtener el valor del campo tipo de identificación
+  public get tIdentificacionNoValido() {
+    return (
+      this.formRegister.get('tIdentificacion').invalid &&
+      this.formRegister.get('tIdentificacion').touched
+    );
+  }
+  // Método para obtener el valor del campo de ciudad
+  public get ciudadNoValido() {
+    return (
+      this.formRegister.get('ciudad').invalid &&
+      this.formRegister.get('ciudad').touched
+    );
+  }
 }

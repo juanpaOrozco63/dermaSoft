@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
                       title:'Bienvenido',
                       text:`${data.email}`                    
                       })       
-                    this.router.navigate(['/doctor-principal']);
+                    this.router.navigate(['/doctor-principal/home']);
                   } else if (data.role === 3) {
                     Swal.fire({
                       allowOutsideClick:false,
