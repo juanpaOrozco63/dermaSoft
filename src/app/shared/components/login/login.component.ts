@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
                       title:'Bienvenido',
                       text:`${data.email}`                    
                       })                    
-                    this.router.navigate(['/admin-principal']);
+                    this.router.navigate(['/admin-principal/home']);
                   } else if (data.role === 2) {
                     Swal.fire({
                       allowOutsideClick:false,
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
                       title:'Bienvenido',
                       text:`${data.email}`                    
                       })       
-                    this.router.navigate(['/patient-principal']);
+                    this.router.navigate(['/patient-principal/home']);
                   }
                 },
                 (err) => {

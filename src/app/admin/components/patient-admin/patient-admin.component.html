@@ -1,0 +1,112 @@
+<div class="container">
+    <p class="text-center">{{ strTitle }}</p>
+    <div class="card-columns" *ngIf="patients">
+        <div class="card" *ngFor="let p of patients">
+            <img [src]="p.image" alt="John" style="width: 100%" />
+            <h1>{{ p.firstName }} {{ p.lastName }} {{ p.lastName2 }}</h1>
+            <p class="title">{{ p.ocupation }}</p>
+            <p>{{ p.userId }}</p>
+            <p>
+                <button class="btn bg-main btn-editar" (click)="openCentrado(contenido, p)">
+          Editar
+        </button>
+            </p>
+        </div>
+    </div>
+</div>
+<ng-template #contenido let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Editar paciente</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputFistName">First Name</label>
+                    <input type="text" class="form-control" id="inputFistName" name="inputFistName" [(ngModel)]="patModal.firstName" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputLastName">Last Name</label>
+                    <input type="text" class="form-control" id="inputLastName" name="inputLastName" [(ngModel)]="patModal.lastName" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputLastName2">Last Name 2</label>
+                    <input type="text" class="form-control" id="inputLastName2" name="inputLastName2" [(ngModel)]="patModal.lastName2" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-10">
+                    <label for="inputImageUrl">Url Image</label>
+                    <input type="text" class="form-control" id="inputImageUrl" name="inputImageUrl" [(ngModel)]="patModal.image" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputGender">Gender</label>
+                    <select class="form-control" id="inputGender" name="inputGender" [(ngModel)]="patModal.gender">
+            <option value="M">M</option>
+            <option value="F">F</option>
+          </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputOcupation">Ocupation</label>
+                    <input type="text" class="form-control" id="inputOcupation" name="inputOcupation" [(ngModel)]="patModal.ocupation" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputMaritalStatus">Marital Status</label>
+                    <select class="form-control" id="inputMaritalStatus" name="inputMaritalStatus" [(ngModel)]="patModal.maritalStatus">
+            <option value="Soltero">Soltero</option>
+            <option value="Casado">Casado</option>
+            <option value="Otro">Otro</option>
+          </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputPhone">Phone</label>
+                    <input type="number" class="form-control" id="inputPhone" name="inputPhone" [(ngModel)]="patModal.phone" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputBirthdate">Birthdate</label>
+                    <input type="date" class="form-control" id="inputBirthdate" name="inputBirthdate" [(ngModel)]="patModal.birthdate" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputHeight">Height (cm)</label>
+                    <input type="number" class="form-control" id="inputHeight" name="inputHeight" [(ngModel)]="patModal.height" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputWeight">Weight (kg)</label>
+                    <input type="number" class="form-control" id="inputWeight" name="inputWeight" [(ngModel)]="patModal.weight" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputApproved">Approved</label>
+                    <select class="form-control" id="inputApproved" name="inputApproved" [(ngModel)]="patModal.approved">
+            <option value="Y">SI</option>
+            <option value="N">NO</option>
+          </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputVerified">Verified</label>
+                    <select class="form-control" id="inputVerified" name="inputVerified" [(ngModel)]="patModal.verified">
+            <option value="Y">SI</option>
+            <option value="N">NO</option>
+          </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-block bg-main btn-editar" (click)="editar()">
+        Editar
+      </button>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-block" (click)="modal.close()">
+      Cancelar
+    </button>
+    </div>
+</ng-template>
