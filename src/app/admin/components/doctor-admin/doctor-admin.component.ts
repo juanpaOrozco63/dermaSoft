@@ -15,30 +15,43 @@ export class DoctorAdminComponent implements OnInit {
   public doctors: Doctor[];
   // Paciente edit
   public doctorModal: Doctor;
+  // Fecha parseada
+  public fechaParseada: any;
   constructor(public doctorService: DoctorService, public modal: NgbModal) {}
 
   ngOnInit(): void {
     this.findAll();
   }
 
+  //Método para traer todos los doctores
   findAll(): void {
+    //Traer doctores
     this.doctorService.findAll().subscribe(
       (data) => {
+        //Asignamos la data al arreglo de doctores
         this.doctors = data;
-        console.log(this.doctors);
       },
       (error) => {
         console.error(error);
       }
     );
   }
+
+  //Abri el modal centrado
   openCentrado(contenido, doc: Doctor) {
+    //Asignamos el doctor especifico al doctor del modal para modificar
     this.doctorModal = doc;
+    //Parseamos la fecha de nacimiento
+    this.fechaParseada = this.doctorModal.birthday.toString().slice(0, 10);
+    //Abrir modal
     this.modal.open(contenido, { centered: true });
   }
 
+  //Editar doctor
   editar() {
-    console.log(this.doctorModal);
+    //Asignamos el valor de la fecha al objeto paciente
+    this.doctorModal.birthday = this.fechaParseada;
+    //Actualizar doctor
     this.doctorService.update(this.doctorModal).subscribe(
       (data) => {
         this.modal.dismissAll();
@@ -47,5 +60,13 @@ export class DoctorAdminComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  //Formatear fecha para mostrar
+  getFormattedDate(data) {
+    let dd = new Date(data).getUTCDate().toString();
+    let mm = new Date(data).getMonth().toString();
+    let yy = new Date(data).getFullYear().toString();
+    return new Date(Number(yy), Number(mm), Number(dd));
   }
 }

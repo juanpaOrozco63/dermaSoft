@@ -17,10 +17,10 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ d.firstName + " " + d.lastName + " " + d.lastName2 }}</td>
                 <td>{{ d.phone }}</td>
-                <td>{{ d.birthday | date: "dd-MM-yyyy" }}</td>
+                <td>{{ getFormattedDate(d.birthday) | date }}</td>
                 <td>{{ d.userId }}</td>
                 <td>{{ d.reputation }}</td>
-                <td>{{ d.price }}</td>
+                <td>{{ d.price | currency: "COP" }}</td>
                 <td>
                     <button class="btn bg-main btn-editar" (click)="openCentrado(contenido, d)">
             <i class="fas fa-user-edit"></i>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputBirthdate">Fecha de nacimiento</label>
-                    <input type="date" class="form-control" id="inputBirthdate" name="inputBirthdate" [(ngModel)]="doctorModal.birthday" />
+                    <input type="date" class="form-control" id="inputBirthdate" name="inputBirthdate" [(ngModel)]="fechaParseada" />
                 </div>
             </div>
             <div class="form-row">
