@@ -16,6 +16,9 @@ export class PatientAdminComponent implements OnInit {
   public patModal: Patient;
   // Fecha parseada
   public fechaParseada: any;
+  // Variables
+  pageActual:number=1;
+
   constructor(public patientService: PatientService, public modal: NgbModal) {}
 
   ngOnInit(): void {

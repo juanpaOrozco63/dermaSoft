@@ -12,6 +12,8 @@ import { ProductsAdminComponent } from './components/products-admin/products-adm
 import { SettingsAdminComponent } from './components/settings-admin/settings-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhonePipe } from './pipes/phone.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 @NgModule({
   declarations: [
     AdminPrincipalComponent,
@@ -29,6 +31,8 @@ import { PhonePipe } from './pipes/phone.pipe';
     RouterModule.forChild(ADMINDROUTES),
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
+
   ],
   exports: [],
 })
