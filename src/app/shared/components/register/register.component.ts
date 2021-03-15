@@ -12,6 +12,7 @@ import { EpsService } from 'src/app/services/eps.service';
 import { IdTypeService } from 'src/app/services/id-type.service';
 import { RolService } from 'src/app/services/rol.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
   formRegister:FormGroup;
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private cityService: CityService,
     private epsService: EpsService,
@@ -131,6 +133,8 @@ export class RegisterComponent implements OnInit {
               'Te has registrado con éxito, verifica tu email',
               'success'
             );
+            this.router.navigate(['/login']);
+
           },
           (err) => {
             //Se elimina usuario de firebase si el registro en la bd no fue exitoso
