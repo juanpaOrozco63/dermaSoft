@@ -21,7 +21,7 @@ export class PatientAdminComponent implements OnInit {
   ngOnInit(): void {
     this.findAll();
   }
-
+  
   findAll(): void {
     // Método traer todos los pacientes
     this.patientService.findAll().subscribe(

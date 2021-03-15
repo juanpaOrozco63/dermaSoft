@@ -11,6 +11,7 @@ import { DoctorService } from 'src/app/doctor/services/doctor.service';
 export class DoctorAdminComponent implements OnInit {
   // Declaraciones de la clase
   public strTitle: String = 'Doctores';
+  public identificacion: number=null;
   // Arreglo de doctores
   public doctors: Doctor[];
   // Paciente edit
@@ -35,6 +36,15 @@ export class DoctorAdminComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+    //Método para traer un doctor por su nombre
+  findById(id:number):void{
+    this.doctorService.findById(id).subscribe(data=>{
+      this.doctors=[];
+      this.doctors.push(data);
+    },error=>{
+      console.error(error);
+    })
   }
 
   //Abri el modal centrado

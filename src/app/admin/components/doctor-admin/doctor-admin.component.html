@@ -1,4 +1,14 @@
 <div class="container">
+    <h1 class="text-center">{{strTitle}}</h1>
+    <div class="form-group row">
+        <button class="btn bg-main ml-3 text-white" (click)="findAll()"><i class="far fa-eye"></i>Mostrar todos</button>
+        <button class="btn btn-secondary ml-3 " (click)="findById(identificacion)"><i class="fas fa-search" ></i> Buscar</button>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Buscar por identificación" [(ngModel)]="identificacion" (keyup.enter)="findById(identificacion)">
+        </div>
+    </div>
+    <hr class="">
+    <button class="btn btn-secondary mb-2" routerLink="formCustomer"> <i class="far fa-file"></i>Nuevo doctor</button>
     <table class="table table-bordered text-center">
         <thead class="thead-dark">
             <tr>
@@ -10,6 +20,7 @@
                 <th scope="col">Reputación</th>
                 <th scope="col">Precio consulta</th>
                 <th scope="col">Editar</th>
+                <th scope="col">Inactivar</th>
             </tr>
         </thead>
         <tbody>
@@ -19,12 +30,17 @@
                 <td>{{ d.phone }}</td>
                 <td>{{ getFormattedDate(d.birthday) | date }}</td>
                 <td>{{ d.userId }}</td>
-                <td>{{ d.reputation }}</td>
-                <td>{{ d.price | currency: "COP" }}</td>
+                <td>{{ d.reputation }} <i class="fas fa-star"></i></td>
+                <td>{{ d.price | currency: "COP " }}</td>
                 <td>
                     <button class="btn bg-main btn-editar" (click)="openCentrado(contenido, d)">
             <i class="fas fa-user-edit"></i>
           </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-editar">
+                        <i class="fas fa-user-slash"></i>
+                    </button>
                 </td>
             </tr>
         </tbody>

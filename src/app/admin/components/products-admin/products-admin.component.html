@@ -1,1 +1,97 @@
-<p>products-admin works!</p>
+<div class="container">
+    <h1 class="text-center">{{strTitle}}</h1>
+    <div class="form-group row">
+        <button class="btn bg-main ml-3 text-white" (click)="findAll()"><i class="far fa-eye"></i>Mostrar todos</button>
+        <button class="btn btn-secondary ml-3 "><i class="fas fa-search"></i> Buscar</button>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="Buscar por producto">
+        </div>
+    </div>
+    <hr class="">
+    <button class="btn btn-secondary mb-2" routerLink="formCustomer"> <i class="far fa-file"></i>Nuevo producto</button>
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Url de compra</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Inactivar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of products; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ p.name }}</td>
+                <td>{{ p.description }}</td>
+                <td>{{ p.state }}</td>
+                <td>
+                    <a target="_blank" [href]="p.url">{{p.url}}</a>
+                </td>
+                <td>
+                    <button class="btn bg-main btn-editar text-white" (click)="openCentrado(contenido, p)">
+                        <i class="fas fa-user-edit"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-editar">
+                        <i class=" fas fa-user-slash "></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #contenido let-modal>
+    <div class="modal-header ">
+        <h4 class="modal-title ">Editar Producto</h4>
+        <button class="close " aria-label="close " type="button " (click)="modal.dismiss() ">
+      <span aria-hidden="true ">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body ">
+        <form>
+            <div class="form-row ">
+                <div class="form-group col-md-10 ">
+                    <label for="inputName ">Nombre</label>
+                    <input type="text " class="form-control " id="inputFistName " name="inputFistName " [(ngModel)]="patModal.name " />
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputState">Estado</label>
+                    <select class="form-control" id="inputGender" name="inputGender" [(ngModel)]="patModal.state">
+            <option value="A">A</option>
+            <option value="I">I</option>
+          </select>
+                </div>
+                <div class="form-group col-md-12 ">
+                    <label for="inputUrl ">Url de compra</label>
+                    <input type="text " class="form-control " id="inputLastName2 " name="inputLastName2 " [(ngModel)]="patModal.url " />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12 ">
+                    <label for="inputDescription ">Descripción</label>
+                    <input type="text " class="form-control " id="inputLastName " name="inputLastName " [(ngModel)]="patModal.description " />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12 ">
+                    <label for="inputLastName ">Imagen</label>
+                    <input type="text " class="form-control " id="inputLastName2 " name="inputLastName2 " [(ngModel)]="patModal.image " />
+                    <img [src]="patModal.image" alt="" class="img-fluid">
+
+                </div>
+            </div>
+            <button type="submit " class="btn btn-block bg-main btn-editar " (click)="editar() ">
+        Editar
+      </button>
+        </form>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-danger btn-block " (click)="modal.close() ">
+      Cancelar
+    </button>
+    </div>
+</ng-template>

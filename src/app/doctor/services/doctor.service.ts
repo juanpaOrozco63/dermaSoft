@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Doctor } from '../domains/doctor';
+import Swal from 'sweetalert2';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +14,7 @@ export class DoctorService {
   //Url del API
   private url: string = environment.apiUrl + '/api/v1/doctor';
 
-  constructor(public httpClient: HttpClient) {}
+  constructor(public httpClient: HttpClient,public router:Router) {}
 
   //Obtener token jwt
   createTokenHeader(): HttpHeaders {
@@ -29,14 +32,26 @@ export class DoctorService {
 
   public findAll(): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url, { headers: headers });
+    return this.httpClient.get(this.url, { headers: headers }).pipe(
+      catchError(e=>{
+        Swal.fire('Error',`No hay doctores registrados`,'error');
+        this.router.navigate(['/admin-principal/doctor-admin']);
+         return throwError(e);
+       })
+    );
   }
 
-  public findById(patientIdentification: string): Observable<any> {
+  public findById(doctorIdentification: number): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + '/' + patientIdentification, {
+    return this.httpClient.get(this.url + '/' + doctorIdentification, {
       headers: headers,
-    });
+    }).pipe(
+      catchError(e=>{
+        Swal.fire('Error',`El doctor con número de identificación: ${doctorIdentification} no existe`,'error');
+        this.router.navigate(['/admin-principal/doctor-admin']);
+         return throwError(e);
+       })
+    );
   }
 
   public save(doctor: Doctor): Observable<any> {
