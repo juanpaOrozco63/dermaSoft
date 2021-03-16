@@ -1,1 +1,21 @@
-<p>products-patient works!</p>
+<div class="container">
+    <h1 class="text-center">{{ strTitle }}</h1>
+
+    <div class="card-columns">
+        <div class="card animated fadeIn fast" *ngFor="let product of products">
+            <img [src]="product.image" class="card-img-top img-fluid" [alt]="product.name" />
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <a [href]="product.url" target="_blank"><button type="button" class="btn btn-primary btn-block">
+                <i class="fas fa-cart-plus" style="color: white"></i></button
+            ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

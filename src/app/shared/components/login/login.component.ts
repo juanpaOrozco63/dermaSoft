@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { User } from 'src/app/domains/user';
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   public strIdentification: string = '';
   public strPassword: string = '';
   //Form
-  formLogin:FormGroup;
+  formLogin: FormGroup;
 
   constructor(
     private router: Router,
@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
     private patientService: PatientService,
     private rolService: RolService,
     private authFirebaseService: AuthFirebaseService,
-    private fb:FormBuilder  ) {
-
+    private fb: FormBuilder
+  ) {
     this.crearFormulario();
     this.cargarDataFormulario();
   }
@@ -46,116 +46,123 @@ export class LoginComponent implements OnInit {
   //Método para ingresar
   public ingresar(): void {
     //Asigna valores al objeto login JWT
-    if (!this.formLogin.invalid) {  
+    if (!this.formLogin.invalid) {
       Swal.fire({
-        allowOutsideClick:false,
+        allowOutsideClick: false,
         icon: 'info',
         title: 'Cargando',
-        text:'por favor espere'
-        })  
-    this.user.username = 'admin';
-    this.user.password = 'password';
-    //Petición token JWT
-    this.authService.loginUser(this.user).subscribe(
-      (data) => {
-        //Asignamos el token en el localStorage
-        localStorage.setItem('token', data.token);
-        //Buscamos el usuario por el numero de documento
-        this.rolService.findById(this.strIdentification).subscribe((data) => {
-          if (data) {
-            //Login en firebase
-            this.authFirebaseService
-              .loginFirebase(data.email, this.strPassword)
-              .then(
-                
-                (result) => {   
-                  //Dirigimos a la respectiva pagina principal si el login es exitoso
-                  if (data.role === 1) {  
-                    Swal.fire({
-                      allowOutsideClick:false,
-                      icon: 'success',
-                      title:'Bienvenido',
-                      text:`${data.email}`                    
-                      })                    
-                    this.router.navigate(['/admin-principal/home']);
-                  } else if (data.role === 2) {
-                    Swal.fire({
-                      allowOutsideClick:false,
-                      icon: 'success',
-                      title:'Bienvenido',
-                      text:`${data.email}`                    
-                      })       
-                    this.router.navigate(['/doctor-principal/home']);
-                  } else if (data.role === 3) {
-                    Swal.fire({
-                      allowOutsideClick:false,
-                      icon: 'success',
-                      title:'Bienvenido',
-                      text:`${data.email}`                    
-                      })       
-                    this.router.navigate(['/patient-principal/home']);
-                  }
-                },
-                (err) => {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Inicio de sesión fallido',
-                    text: 'Revisa tus datos',
-                  });
-                }
-              )
-              .catch((error) => {
+        text: 'por favor espere',
+      });
+      this.user.username = 'admin';
+      this.user.password = 'password';
+      //Petición token JWT
+      this.authService.loginUser(this.user).subscribe(
+        (data) => {
+          //Asignamos el token en el localStorage
+          localStorage.setItem('token', data.token);
+          //Buscamos el usuario por el numero de documento
+          this.rolService.findById(this.strIdentification).subscribe((data) => {
+            if (data) {
+              if (data.state === 'I') {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Inicio de sesión fallido',
-                  text: 'Revisa tus datos',
+                  title: 'Inactivado',
+                  text: 'Inactivado',
                 });
+              } else {
+                //Login en firebase
+                this.authFirebaseService
+                  .loginFirebase(data.email, this.strPassword)
+                  .then(
+                    (result) => {
+                      //Dirigimos a la respectiva pagina principal si el login es exitoso
+                      if (data.role === 1) {
+                        Swal.fire({
+                          allowOutsideClick: false,
+                          icon: 'success',
+                          title: 'Bienvenido',
+                          text: `${data.email}`,
+                        });
+                        this.router.navigate(['/admin-principal/home']);
+                      } else if (data.role === 2) {
+                        Swal.fire({
+                          allowOutsideClick: false,
+                          icon: 'success',
+                          title: 'Bienvenido',
+                          text: `${data.email}`,
+                        });
+                        this.router.navigate(['/doctor-principal/home']);
+                      } else if (data.role === 3) {
+                        Swal.fire({
+                          allowOutsideClick: false,
+                          icon: 'success',
+                          title: 'Bienvenido',
+                          text: `${data.email}`,
+                        });
+                        this.router.navigate(['/patient-principal/home']);
+                      }
+                    },
+                    (err) => {
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Inicio de sesión fallido',
+                        text: 'Revisa tus datos',
+                      });
+                    }
+                  )
+                  .catch((error) => {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Inicio de sesión fallido',
+                      text: 'Revisa tus datos',
+                    });
+                  });
+              }
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Inicio de sesión fallido',
+                text: 'Revisa tus datos',
               });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Inicio de sesión fallido',
-              text: 'Revisa tus datos',
-            });
-          }
-        });
-      },
-      (err) => {
-      }
-    );
-  }else{
-    Swal.fire({
-      icon: 'error',
-      title: 'Campos vacios',
-      text: 'Complete los campos',
-    });
+            }
+          });
+        },
+        (err) => {}
+      );
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Campos vacios',
+        text: 'Complete los campos',
+      });
+    }
   }
-  } 
   // Método para crear formulario
-  crearFormulario(){
-    this.formLogin=this.fb.group({
-      nIdentificacion:['',[Validators.required]],
-      password:['',[Validators.required]]
-    })
+  crearFormulario() {
+    this.formLogin = this.fb.group({
+      nIdentificacion: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
   }
   // Método para cargar data por defecto en el formulario
-  cargarDataFormulario(){
+  cargarDataFormulario() {
     this.formLogin.reset({
-      nIdentificacion:'',
-      password:''
+      nIdentificacion: '',
+      password: '',
     });
-    
   }
   // Método para obtener el valor del campo de nIdentificacion
   public get nIdentificacionNoValido() {
-    return this.formLogin.get('nIdentificacion').invalid && this.formLogin.get('nIdentificacion').touched
-   
-   }
-   // Método para obtener el valor del campo password
-   public get passNoValido() {
-    return this.formLogin.get('password').invalid && this.formLogin.get('password').touched
-   
-   }
+    return (
+      this.formLogin.get('nIdentificacion').invalid &&
+      this.formLogin.get('nIdentificacion').touched
+    );
+  }
+  // Método para obtener el valor del campo password
+  public get passNoValido() {
+    return (
+      this.formLogin.get('password').invalid &&
+      this.formLogin.get('password').touched
+    );
+  }
 }
-
-

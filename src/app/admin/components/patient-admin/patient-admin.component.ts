@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/patient/domains/patient';
 import { PatientService } from 'src/app/patient/services/patient.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Rol } from 'src/app/domains/rol';
+import { RolService } from 'src/app/services/rol.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-patient-admin',
   templateUrl: './patient-admin.component.html',
@@ -10,21 +13,28 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class PatientAdminComponent implements OnInit {
   // Declaraciones de la clase
   public strTitle: String = 'Pacientes';
+  public identificacion: number = null;
   // Arreglo de pacientes
   public patients: Patient[];
   // Paciente edit
   public patModal: Patient;
+  // Rol edit
+  public rolEdit: Rol;
   // Fecha parseada
   public fechaParseada: any;
   // Variables
-  pageActual:number=1;
+  pageActual: number = 1;
 
-  constructor(public patientService: PatientService, public modal: NgbModal) {}
+  constructor(
+    public patientService: PatientService,
+    public modal: NgbModal,
+    public rolService: RolService
+  ) {}
 
   ngOnInit(): void {
     this.findAll();
   }
-  
+
   findAll(): void {
     // Método traer todos los pacientes
     this.patientService.findAll().subscribe(
@@ -37,12 +47,28 @@ export class PatientAdminComponent implements OnInit {
       }
     );
   }
-
+  //Método para traer un paciente por su id
+  findById(id: number): void {
+    if (Boolean(id)) {
+      this.patientService.findById(id).subscribe((data) => {
+        if (data) {
+          this.patients = [];
+          this.patients.push(data);
+        } else {
+          Swal.fire('Error', 'No se encontraron doctores', 'error');
+        }
+      });
+    } else {
+      this.findAll();
+    }
+  }
   openCentrado(contenido, pat: Patient) {
     //Asignamos el paciente especifico al paciente que se mostrara en el modal
     this.patModal = pat;
     //Parseamos la fecha de nacimiento
-    this.fechaParseada = this.patModal.birthdate.toString().slice(0, 10);
+    if (this.patModal.birthdate) {
+      this.fechaParseada = this.patModal.birthdate.toString().slice(0, 10);
+    }
     //Mostramos el modal
     this.modal.open(contenido, { centered: true });
   }
@@ -60,12 +86,50 @@ export class PatientAdminComponent implements OnInit {
       }
     );
   }
-  
+
   //Formatear fecha para mostrar
   getFormattedDate(data) {
     let dd = new Date(data).getUTCDate().toString();
     let mm = new Date(data).getMonth().toString();
     let yy = new Date(data).getFullYear().toString();
     return new Date(Number(yy), Number(mm), Number(dd));
+  }
+
+  //Inactivar paciente
+  inactivarP(pat: Patient): void {
+    this.rolEdit = new Rol('', '', '', '', 0, '', '', null);
+    this.rolService.findById(pat.userId).subscribe((data) => {
+      if (data) {
+        this.rolEdit = data;
+        this.rolEdit.state = 'I';
+        this.rolService.update(this.rolEdit).subscribe(
+          (data) => {
+            this.findAll();
+          },
+          (err) => {
+            console.error(err);
+          }
+        );
+      }
+    });
+  }
+
+  //Activar paciente
+  activarP(pat: Patient): void {
+    this.rolEdit = new Rol('', '', '', '', 0, '', '', null);
+    this.rolService.findById(pat.userId).subscribe((data) => {
+      if (data) {
+        this.rolEdit = data;
+        this.rolEdit.state = 'A';
+        this.rolService.update(this.rolEdit).subscribe(
+          (data) => {
+            this.findAll();
+          },
+          (err) => {
+            console.error(err);
+          }
+        );
+      }
+    });
   }
 }

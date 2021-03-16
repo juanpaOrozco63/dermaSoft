@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Doctor } from 'src/app/doctor/domains/doctor';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DoctorService } from 'src/app/doctor/services/doctor.service';
+import Swal from 'sweetalert2';
+import { RolService } from 'src/app/services/rol.service';
+import { Rol } from 'src/app/domains/rol';
 
 @Component({
   selector: 'app-doctor-admin',
@@ -11,14 +14,20 @@ import { DoctorService } from 'src/app/doctor/services/doctor.service';
 export class DoctorAdminComponent implements OnInit {
   // Declaraciones de la clase
   public strTitle: String = 'Doctores';
-  public identificacion: number=null;
+  public identificacion: number = null;
   // Arreglo de doctores
   public doctors: Doctor[];
   // Paciente edit
   public doctorModal: Doctor;
+  // Rol edit
+  public rolEdit: Rol;
   // Fecha parseada
   public fechaParseada: any;
-  constructor(public doctorService: DoctorService, public modal: NgbModal) {}
+  constructor(
+    public doctorService: DoctorService,
+    public modal: NgbModal,
+    public rolService: RolService
+  ) {}
 
   ngOnInit(): void {
     this.findAll();
@@ -37,14 +46,20 @@ export class DoctorAdminComponent implements OnInit {
       }
     );
   }
-    //Método para traer un doctor por su nombre
-  findById(id:number):void{
-    this.doctorService.findById(id).subscribe(data=>{
-      this.doctors=[];
-      this.doctors.push(data);
-    },error=>{
-      console.error(error);
-    })
+  //Método para traer un doctor por su id
+  findById(id: number): void {
+    if (Boolean(id)) {
+      this.doctorService.findById(id).subscribe((data) => {
+        if (data) {
+          this.doctors = [];
+          this.doctors.push(data);
+        } else {
+          Swal.fire('Error', 'No se encontraron doctores', 'error');
+        }
+      });
+    } else {
+      this.findAll();
+    }
   }
 
   //Abri el modal centrado
@@ -52,7 +67,10 @@ export class DoctorAdminComponent implements OnInit {
     //Asignamos el doctor especifico al doctor del modal para modificar
     this.doctorModal = doc;
     //Parseamos la fecha de nacimiento
-    this.fechaParseada = this.doctorModal.birthday.toString().slice(0, 10);
+    if (this.doctorModal.birthday) {
+      this.fechaParseada = this.doctorModal.birthday.toString().slice(0, 10);
+    }
+
     //Abrir modal
     this.modal.open(contenido, { centered: true });
   }
@@ -78,5 +96,43 @@ export class DoctorAdminComponent implements OnInit {
     let mm = new Date(data).getMonth().toString();
     let yy = new Date(data).getFullYear().toString();
     return new Date(Number(yy), Number(mm), Number(dd));
+  }
+
+  //Inactivar doctor
+  inactivarD(doc: Doctor): void {
+    this.rolEdit = new Rol('', '', '', '', 0, '', '', null);
+    this.rolService.findById(doc.userId).subscribe((data) => {
+      if (data) {
+        this.rolEdit = data;
+        this.rolEdit.state = 'I';
+        this.rolService.update(this.rolEdit).subscribe(
+          (data) => {
+            this.findAll();
+          },
+          (err) => {
+            console.error(err);
+          }
+        );
+      }
+    });
+  }
+
+  //Activar doctor
+  activarD(doc: Doctor): void {
+    this.rolEdit = new Rol('', '', '', '', 0, '', '', null);
+    this.rolService.findById(doc.userId).subscribe((data) => {
+      if (data) {
+        this.rolEdit = data;
+        this.rolEdit.state = 'A';
+        this.rolService.update(this.rolEdit).subscribe(
+          (data) => {
+            this.findAll();
+          },
+          (err) => {
+            console.error(err);
+          }
+        );
+      }
+    });
   }
 }
