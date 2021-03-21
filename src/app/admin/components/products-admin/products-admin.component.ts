@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./products-admin.component.css'],
 })
 export class ProductsAdminComponent implements OnInit {
+  public id:number=null
   // Declaraciones de la clase
   public strTitle: String = 'Productos';
   // Arreglo de pacientes
@@ -27,11 +28,27 @@ export class ProductsAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de pacientes
         this.products = data;
+        this.id=null
       },
       (err) => {
         console.error(err);
       }
     );
+  }
+  //Método para traer un product por su id
+  findById(id: number): void {
+    if (Boolean(id)) {
+      this.productService.findById(id).subscribe((data) => {
+        if (data) {
+          this.products = [];
+          this.products.push(data);
+        } else {
+          Swal.fire('Error', 'No se encontraron productos', 'error');
+        }
+      });
+    } else {
+      this.findAll();
+    }
   }
   crearP(): void {
     this.productService.save(this.patModal).subscribe(
@@ -68,13 +85,13 @@ export class ProductsAdminComponent implements OnInit {
       }
     );
   }
-
+  
   inactivarP(product: Product): void {
     //Inactivamos producto
     product.state = 'I';
     this.productService.update(product).subscribe(
       (data) => {
-        Swal.fire('Inactivado', 'Producto inactivado', 'success');
+        Swal.fire('Inactivado', 'Producto inactivado', 'warning');
         this.findAll();
       },
       (err) => {

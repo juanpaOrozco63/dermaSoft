@@ -24,11 +24,11 @@
                 <th scope="col">Precio consulta</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Editar</th>
-                <th scope="col">Activar/Inactivar</th>
+                <th scope="col">Inactivar/Activar</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let d of doctors; let i = index">
+            <tr *ngFor="let d of doctors| paginate: { itemsPerPage: 5, currentPage: pageActual} ; let i = index">
                 <td>{{ d.doctorId }}</td>
                 <td>{{ d.firstName + " " + d.lastName + " " + d.lastName2 }}</td>
                 <td>{{ d.phone }}</td>
@@ -55,6 +55,8 @@
             </tr>
         </tbody>
     </table>
+    <pagination-controls class="text-center " (pageChange)="pageActual=$event"></pagination-controls>
+
 </div>
 <ng-template #contenido let-modal>
     <div class="modal-header">

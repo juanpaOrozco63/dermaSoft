@@ -41,6 +41,7 @@ export class PatientAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de pacientes
         this.patients = data;
+        this.identificacion=null
       },
       (err) => {
         console.error(err);
@@ -104,6 +105,7 @@ export class PatientAdminComponent implements OnInit {
         this.rolEdit.state = 'I';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
+            Swal.fire('Inactivado', 'Paciente inactivado', 'warning');
             this.findAll();
           },
           (err) => {
@@ -123,6 +125,7 @@ export class PatientAdminComponent implements OnInit {
         this.rolEdit.state = 'A';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
+            Swal.fire('Activado', 'Paciente activado', 'success');
             this.findAll();
           },
           (err) => {

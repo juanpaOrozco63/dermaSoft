@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-principal',
@@ -8,7 +9,7 @@ import * as $ from 'jquery';
 })
 export class DoctorPrincipalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route:Router) { }
 
   ngOnInit(): void {
     $('#sidebarCollapse').on('click', function() {
@@ -16,5 +17,8 @@ export class DoctorPrincipalComponent implements OnInit {
       $(this).toggleClass('active');
   });
   }
-
+  closeSession(){
+    localStorage.setItem("Role","")
+    this.route.navigate(['/login'])
+  }
 }

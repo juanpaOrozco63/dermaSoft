@@ -12,12 +12,14 @@ import { Rol } from 'src/app/domains/rol';
   styleUrls: ['./doctor-admin.component.css'],
 })
 export class DoctorAdminComponent implements OnInit {
+  pageActual:number=1;
+
   // Declaraciones de la clase
   public strTitle: String = 'Doctores';
   public identificacion: number = null;
   // Arreglo de doctores
   public doctors: Doctor[];
-  // Paciente edit
+  // Doctor edit
   public doctorModal: Doctor;
   // Rol edit
   public rolEdit: Rol;
@@ -40,6 +42,7 @@ export class DoctorAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de doctores
         this.doctors = data;
+       this.identificacion=null;
       },
       (error) => {
         console.error(error);
@@ -107,7 +110,9 @@ export class DoctorAdminComponent implements OnInit {
         this.rolEdit.state = 'I';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
+            Swal.fire('Inactivado', 'Doctor inactivado', 'warning');
             this.findAll();
+            
           },
           (err) => {
             console.error(err);
@@ -126,6 +131,7 @@ export class DoctorAdminComponent implements OnInit {
         this.rolEdit.state = 'A';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
+            Swal.fire('Activado', 'Doctor Activado', 'success');
             this.findAll();
           },
           (err) => {
