@@ -55,4 +55,11 @@ export class PatientService {
       headers: headers,
     });
   }
+
+  public findByEmail(email: string): Observable<any> {
+    let headers = this.createTokenHeader();
+    return this.httpClient.get(this.url + '/buscarPorEmail/' + email, {
+      headers: headers,
+    });
+  }
 }
