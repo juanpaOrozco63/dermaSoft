@@ -8,14 +8,14 @@
       <i class="fas fa-search"></i> Buscar
     </button>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Buscar por entidad" [(ngModel)]="id" (keyup.enter)="findById(id)" />
+            <input class="form-control" type="text" placeholder="Buscar por id" [(ngModel)]="id" (keyup.enter)="findById(id)" />
         </div>
     </div>
     <hr class="" />
     <table class="table table-bordered text-center">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Id</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Editar</th>

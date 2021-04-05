@@ -106,7 +106,12 @@ export class ServiciosMedicosPatientComponent implements OnInit {
         this.modal.dismissAll();
       },
       (error) => {
-        console.error(error);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'error',
+          title: `No hemos podido generar su cita`,
+          text: 'Error',
+        });
       }
     );
   }

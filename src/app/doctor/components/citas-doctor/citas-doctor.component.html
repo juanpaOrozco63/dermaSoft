@@ -1,11 +1,18 @@
-<div class="col-md-4 mb-3" *ngFor="let p of patientAppointments; let i = index">
-    <div class="card">
-        <img [src]="p.image" alt="John" style="width: 100%" />
-        <h1>
-            {{ p.firstName + " " + p.lastName }}
-        </h1>
-        <p class="title">{{ p.description }}</p>
-        <p>{{ p.price | currency: "COP " }}</p>
-        <p>{{ p.date | date }}</p>
+<div class="container">
+    <h2 class="text-center mb-5">Citas</h2>
+    <div class="row">
+
+        <div class="col-md-6 mb-3" *ngFor="let p of patientAppointments; let i = index">
+            <div class="card">
+                <!-- <img [src]="p.image" alt="John" style="width: 100%" /> -->
+
+                <h3>{{ p.description }}</h3>
+                <h2 class="title">
+                    {{ p.firstName + " " + p.lastName }}
+                </h2>
+                <p>Precio: {{ p.price | currency: "COP " }}</p>
+                <p>Fecha: {{ p.date | date }}</p>
+            </div>
+        </div>
     </div>
 </div>

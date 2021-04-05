@@ -8,16 +8,15 @@
       <i class="fas fa-search"></i> Buscar
     </button>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Buscar por identificación" [(ngModel)]="identificacion" (keyup.enter)="findById(identificacion)" />
+            <input class="form-control" type="text" placeholder="Buscar por id" [(ngModel)]="identificacion" (keyup.enter)="findById(identificacion)" />
         </div>
     </div>
     <hr class="" />
     <table class="table table-bordered text-center">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Id</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Teléfono</th>
                 <th scope="col">Fecha de nacimiento</th>
                 <th scope="col">Número de identificación</th>
                 <th scope="col">Reputación</th>
@@ -31,7 +30,6 @@
             <tr *ngFor="let d of doctors| paginate: { itemsPerPage: 5, currentPage: pageActual} ; let i = index">
                 <td>{{ d.doctorId }}</td>
                 <td>{{ d.firstName + " " + d.lastName + " " + d.lastName2 }}</td>
-                <td>{{ d.phone }}</td>
                 <td>{{ getFormattedDate(d.birthday) | date }}</td>
                 <td>{{ d.userId }}</td>
                 <td>{{ d.reputation }} <i class="fas fa-star"></i></td>

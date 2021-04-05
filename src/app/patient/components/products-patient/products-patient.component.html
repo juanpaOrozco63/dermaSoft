@@ -1,9 +1,9 @@
 <div class="container">
-    <h1 class="text-center">{{ strTitle }}</h1>
+    <h2 class="text-center mb-5">{{ strTitle }}</h2>
 
     <div class="card-columns">
         <div class="card animated fadeIn fast" *ngFor="let product of products">
-            <img [src]="product.image" class="card-img-top img-fluid" [alt]="product.name" />
+            <img [src]="product.image" class="card-img-top img-fluid" [alt]="product.name" style="height: 300px;" />
             <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">{{ product.description }}</p>

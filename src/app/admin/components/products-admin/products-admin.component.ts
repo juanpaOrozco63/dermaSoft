@@ -58,7 +58,7 @@ export class ProductsAdminComponent implements OnInit {
         this.modal.dismissAll();
       },
       (err) => {
-        Swal.fire('Error', err, 'error');
+        Swal.fire('Error', 'Error al crear un nuevo registro', 'error');
       }
     );
   }
