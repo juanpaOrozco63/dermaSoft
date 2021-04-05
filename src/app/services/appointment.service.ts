@@ -22,4 +22,11 @@ export class AppointmentService {
     let headers = this.createTokenHeader();
     return this.httpClient.post(this.url, appointment, { headers: headers });
   }
+
+  public findByDoctorId(doctorId: number): Observable<any> {
+    let headers = this.createTokenHeader();
+    return this.httpClient.get(this.url + '/findByDoctor/' + doctorId, {
+      headers: headers,
+    });
+  }
 }

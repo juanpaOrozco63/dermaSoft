@@ -14,7 +14,7 @@ export class DoctorService {
   //Url del API
   private url: string = environment.apiUrl + '/api/v1/doctor';
 
-  constructor(public httpClient: HttpClient,public router:Router) {}
+  constructor(public httpClient: HttpClient, public router: Router) {}
 
   //Obtener token jwt
   createTokenHeader(): HttpHeaders {
@@ -33,25 +33,31 @@ export class DoctorService {
   public findAll(): Observable<any> {
     let headers = this.createTokenHeader();
     return this.httpClient.get(this.url, { headers: headers }).pipe(
-      catchError(e=>{
-        Swal.fire('Error',`No hay doctores registrados`,'error');
+      catchError((e) => {
+        Swal.fire('Error', `No hay doctores registrados`, 'error');
         this.router.navigate(['/admin-principal/doctor-admin']);
-         return throwError(e);
-       })
+        return throwError(e);
+      })
     );
   }
 
   public findById(doctorIdentification: number): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + '/' + doctorIdentification, {
-      headers: headers,
-    }).pipe(
-      catchError(e=>{
-        Swal.fire('Error',`El doctor con número de identificación: ${doctorIdentification} no existe`,'error');
-        this.router.navigate(['/admin-principal/doctor-admin']);
-         return throwError(e);
-       })
-    );
+    return this.httpClient
+      .get(this.url + '/' + doctorIdentification, {
+        headers: headers,
+      })
+      .pipe(
+        catchError((e) => {
+          Swal.fire(
+            'Error',
+            `El doctor con número de identificación: ${doctorIdentification} no existe`,
+            'error'
+          );
+          this.router.navigate(['/admin-principal/doctor-admin']);
+          return throwError(e);
+        })
+      );
   }
 
   public save(doctor: Doctor): Observable<any> {
@@ -67,6 +73,12 @@ export class DoctorService {
   public delete(patientIdentification: string): Observable<any> {
     let headers = this.createTokenHeader();
     return this.httpClient.delete(this.url + '/' + patientIdentification, {
+      headers: headers,
+    });
+  }
+  public findByEmail(email: string): Observable<any> {
+    let headers = this.createTokenHeader();
+    return this.httpClient.get(this.url + '/findByEmail/' + email, {
       headers: headers,
     });
   }

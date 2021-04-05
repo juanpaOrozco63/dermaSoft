@@ -1,1 +1,11 @@
-<p>citas-doctor works!</p>
+<div class="col-md-4 mb-3" *ngFor="let p of patientAppointments; let i = index">
+    <div class="card">
+        <img [src]="p.image" alt="John" style="width: 100%" />
+        <h1>
+            {{ p.firstName + " " + p.lastName }}
+        </h1>
+        <p class="title">{{ p.description }}</p>
+        <p>{{ p.price | currency: "COP " }}</p>
+        <p>{{ p.date | date }}</p>
+    </div>
+</div>
