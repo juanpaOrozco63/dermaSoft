@@ -1,5 +1,5 @@
 // Core
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 // Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,8 +15,15 @@ import { ROUTES } from './app.routes';
 import { DoctorModule } from './doctor/doctor.module';
 // Modulo Patient
 import { PatientModule } from './patient/patient.module';
-// MOdulo Shared
+// Modulo Shared
 import { SharedModule } from './shared/shared.module';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
+import localeEs from '@angular/common/locales/es';
+import{registerLocaleData} from '@angular/common';
+registerLocaleData(localeEs,'es');
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -29,8 +36,9 @@ import { SharedModule } from './shared/shared.module';
     DoctorModule,
     FormsModule,
     ReactiveFormsModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
-  providers: [],
+  providers: [{provide:LOCALE_ID,useValue:'es'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
