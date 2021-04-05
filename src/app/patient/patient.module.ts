@@ -16,6 +16,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { PatientProfileComponent } from './components/patient-profile/patient-pr
     ServiciosMedicosPatientComponent,
     ChatPatientComponent,
     ProductsPatientComponent,
-    PatientProfileComponent,
+    PatientProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +40,7 @@ import { PatientProfileComponent } from './components/patient-profile/patient-pr
       useFactory: adapterFactory,
     }),
     FlatpickrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   exports: [],
 })

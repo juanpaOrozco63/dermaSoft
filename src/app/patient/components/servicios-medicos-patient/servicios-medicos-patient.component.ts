@@ -9,6 +9,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-servicios-medicos-patient',
@@ -95,6 +96,12 @@ export class ServiciosMedicosPatientComponent implements OnInit {
     this.appointmentService.save(this.citaModal).subscribe(
       (data) => {
         console.log(data);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          title: `Se ha generado su cita satisfactoriamente`,
+          text: `${data.reason}`,
+        });
 
         this.modal.dismissAll();
       },

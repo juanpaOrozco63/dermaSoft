@@ -10,22 +10,22 @@
                 <a routerLink="/doctor-principal/home">Home</a>
             </li>
             <li>
-                <a routerLink="/doctor-principal/patient-doctor">Pacientes</a>
-            </li>
-            <li>
                 <a routerLink="/doctor-principal/agenda-doctor">Agenda</a>
             </li>
             <li>
                 <a routerLink="/doctor-principal/citas-doctor">Citas</a>
             </li>
             <li>
-                <a routerLink="/doctor-principal/reportes-doctor">Reportes</a>
-            </li>
-            <li>
                 <a routerLink="/doctor-principal/facturacion-doctor">Facturación</a>
             </li>
             <li>
-                <a routerLink="/doctor-principal/settings-doctor">Configuración</a>
+                <a routerLink="/doctor-principal/patient-doctor">Pacientes</a>
+            </li>
+            <li>
+                <a routerLink="/doctor-principal/settings-doctor">Perfil</a>
+            </li>
+            <li>
+                <a routerLink="/doctor-principal/reportes-doctor">Reportes</a>
             </li>
             <li>
                 <a (click)=closeSession()>Salir</a>
@@ -49,16 +49,28 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" routerLink="/doctor-principal/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" routerLink="/doctor-principal/agenda-doctor">Agenda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" routerLink="/doctor-principal/citas-doctor">Citas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" routerLink="/doctor-principal/facturacion-doctor">Facturación</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/doctor-principal/patient-doctor">Pacientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/doctor-principal/settings-doctor">Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/doctor-principal/reportes-doctor">Reportes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)=closeSession()>Salir</a>
                         </li>
                     </ul>
                 </div>
