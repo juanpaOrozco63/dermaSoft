@@ -35,8 +35,10 @@ export class CitasDoctorComponent implements OnInit {
     this.userF$.subscribe((data) => {
       if (data) {
         this.doctorService.findByEmail(data.email).subscribe((data) => {
-          this.usuario = data;
-          this.findAll();
+          if (data) {
+            this.usuario = data;
+            this.findAll();
+          }
         });
       }
     });
