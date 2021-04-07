@@ -29,6 +29,16 @@ export class AgendaPatientComponent implements OnInit {
   CalendarView = CalendarView;
   viewDate: Date = new Date();
 
+  pruebaJson:CalendarEvent=  {
+    title: 'Prueba Json push',
+    start: startOfDay(new Date()),
+    end: endOfDay(new Date())
+  }
+  ngOnInit(): void {
+    this.events.push(this.pruebaJson)
+    
+    // this.addEvent()
+  }
   
   modalData: {
     action: string;
@@ -55,14 +65,12 @@ export class AgendaPatientComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [   
-  ];
+  events: CalendarEvent[] = [ ];
 
   activeDayIsOpen: boolean = true;
   constructor(private modal: NgbModal) { }
 
-  ngOnInit(): void {
-  }
+  
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -97,24 +105,24 @@ export class AgendaPatientComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    this.modal.open(this.modalContent, { size: 'md' });
   }
 
   addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'Nuevo evento',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
+    // this.events = [
+    //   ...this.events,
+    //   {
+    //     title: '',
+    //     start: startOfDay(new Date()),
+    //     end: endOfDay(new Date()),
+    //     color: colors.red,
+    //     draggable: true,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true,
+    //     },
+    //   },
+    // ];
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
