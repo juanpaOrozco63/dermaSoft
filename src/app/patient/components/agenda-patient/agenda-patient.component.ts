@@ -1,8 +1,25 @@
-import { Component, OnInit,ViewChild,TemplateRef } from '@angular/core';
-import { CalendarEvent, CalendarView,CalendarEventAction,CalendarEventTimesChangedEvent } from 'angular-calendar';
-import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,  addHours} from 'date-fns';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import {
+  CalendarEvent,
+  CalendarView,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+} from 'angular-calendar';
+import {
+  startOfDay,
+  endOfDay,
+  subDays,
+  addDays,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  addHours,
+} from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { PatientAppointment } from 'src/app/domains/patientAppointment';
+import { CalendarEventActionsComponent } from 'angular-calendar/modules/common/calendar-event-actions.component';
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -20,7 +37,7 @@ const colors: any = {
 @Component({
   selector: 'app-agenda-patient',
   templateUrl: './agenda-patient.component.html',
-  styleUrls: ['./agenda-patient.component.css']
+  styleUrls: ['./agenda-patient.component.css'],
 })
 export class AgendaPatientComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
@@ -28,18 +45,43 @@ export class AgendaPatientComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-
-  pruebaJson:CalendarEvent=  {
-    title: 'Prueba Json push',
-    start: startOfDay(new Date()),
-    end: endOfDay(new Date())
-  }
-  ngOnInit(): void {
-    this.events.push(this.pruebaJson)
-    
+  // Objeto citas
+  citas: any[];
+  ngOnInit() {
+    this.traerDataCitas();
+    setTimeout(() => {
+      this.llenarAgenda();
+    }, 2000);
     // this.addEvent()
   }
-  
+
+  // Traer data desde spring
+  traerDataCitas() {
+    this.appointmentService.findByPatientId(6).subscribe(
+      (data) => {
+        this.citas = data;
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  // Llenar agenda
+  llenarAgenda() {
+    this.citas.forEach((cita) => {
+      this.events = [
+        ...this.events,
+        {
+          title: cita.description,
+          start: new Date(cita.date),
+          end: new Date(cita.date),
+        },
+      ];
+      console.log(new Date(cita.date));
+    });
+    console.log(this.citas);
+  }
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -65,12 +107,15 @@ export class AgendaPatientComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [ ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
-  constructor(private modal: NgbModal) { }
 
-  
+  constructor(
+    private modal: NgbModal,
+    private appointmentService: AppointmentService
+  ) {}
+
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -136,5 +181,4 @@ export class AgendaPatientComponent implements OnInit {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
- 
 }
