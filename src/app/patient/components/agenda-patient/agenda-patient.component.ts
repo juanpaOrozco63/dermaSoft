@@ -15,11 +15,15 @@ import {
   isSameMonth,
   addHours,
 } from 'date-fns';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { PatientAppointment } from 'src/app/domains/patientAppointment';
 import { CalendarEventActionsComponent } from 'angular-calendar/modules/common/calendar-event-actions.component';
+import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
+import { PatientService } from '../../services/patient.service';
+import { Patient } from '../../domains/patient';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -45,19 +49,36 @@ export class AgendaPatientComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
+  // Usuario fire
+  public userF$: Observable<any> = this.authFirebaseService.afAuth.user;
+  // Crear paciente
+  public usuario: Patient;
   // Objeto citas
   citas: any[];
   ngOnInit() {
-    this.traerDataCitas();
+    this.findUserFire();
     setTimeout(() => {
       this.llenarAgenda();
     }, 2000);
     // this.addEvent()
   }
 
+  //Traer usuario firebase
+  findUserFire(): void {
+    this.userF$.subscribe((data) => {
+      if (data) {
+        this.patientService.findByEmail(data.email).subscribe((data) => {
+          if (data) {
+            this.usuario = data;
+            this.traerDataCitas(this.usuario.patientId);
+          }
+        });
+      }
+    });
+  }
   // Traer data desde spring
-  traerDataCitas() {
-    this.appointmentService.findByPatientId(6).subscribe(
+  traerDataCitas(patientId: number) {
+    this.appointmentService.findByPatientId(patientId).subscribe(
       (data) => {
         this.citas = data;
       },
@@ -113,7 +134,9 @@ export class AgendaPatientComponent implements OnInit {
 
   constructor(
     private modal: NgbModal,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private authFirebaseService: AuthFirebaseService,
+    private patientService: PatientService
   ) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
