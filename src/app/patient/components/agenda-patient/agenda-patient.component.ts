@@ -55,53 +55,55 @@ export class AgendaPatientComponent implements OnInit {
   public usuario: Patient;
   // Objeto citas
   citas: any[];
-  ngOnInit() {
-    this.findUserFire();
-    setTimeout(() => {
-      this.llenarAgenda();
-    }, 2000);
-    // this.addEvent()
+
+    ngOnInit() {
+      this.findUserFire();
+      
   }
 
   //Traer usuario firebase
-  findUserFire(): void {
-    this.userF$.subscribe((data) => {
-      if (data) {
-        this.patientService.findByEmail(data.email).subscribe((data) => {
+     findUserFire() {
+      this.userF$.subscribe((data) => {
+      if ( data) {
+         this.patientService.findByEmail(data.email).subscribe((data) => {
           if (data) {
             this.usuario = data;
-            this.traerDataCitas(this.usuario.patientId);
+              this.traerDataCitas(this.usuario.patientId);
           }
         });
       }
     });
   }
   // Traer data desde spring
-  traerDataCitas(patientId: number) {
-    this.appointmentService.findByPatientId(patientId).subscribe(
+    traerDataCitas(patientId: number) {
+     this.appointmentService.findByPatientId(patientId).subscribe(
       (data) => {
         this.citas = data;
+        this.llenarAgenda();
       },
       (err) => {
         console.error(err);
       }
     );
   }
+  
 
   // Llenar agenda
   llenarAgenda() {
     this.citas.forEach((cita) => {
+      let x = new Date(cita.date)
+      x.setHours(x.getHours()+1)
       this.events = [
         ...this.events,
         {
-          title: cita.description,
+          title:cita.description,
+          id: cita.description,
           start: new Date(cita.date),
-          end: new Date(cita.date),
+          end:x,
         },
       ];
-      console.log(new Date(cita.date));
+   
     });
-    console.log(this.citas);
   }
   modalData: {
     action: string;
@@ -161,6 +163,7 @@ export class AgendaPatientComponent implements OnInit {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
+          
           ...event,
           start: newStart,
           end: newEnd,
