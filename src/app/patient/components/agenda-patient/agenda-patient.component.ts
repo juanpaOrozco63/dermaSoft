@@ -91,18 +91,20 @@ export class AgendaPatientComponent implements OnInit {
   // Llenar agenda
   llenarAgenda() {
     this.citas.forEach((cita) => {
+
+      let y = new Date(cita.date)
+      y.setHours(y.getHours()+5)
       let x = new Date(cita.date)
-      x.setHours(x.getHours()+1)
+      x.setHours(x.getHours()+6)
       this.events = [
         ...this.events,
         {
           title:cita.description,
           id: cita.description,
-          start: new Date(cita.date),
+          start: y,
           end:x,
         },
       ];
-   
     });
   }
   modalData: {
