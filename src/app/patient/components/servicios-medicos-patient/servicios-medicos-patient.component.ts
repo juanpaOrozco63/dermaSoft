@@ -90,7 +90,11 @@ export class ServiciosMedicosPatientComponent implements OnInit {
   }
 
   //Guardar la cita
-  guardarCita() {
+  guardarCita(hora: number) {
+    let fecha = new Date(this.citaModal.date);
+    let horas = +hora + +5;
+    let parseFecha = fecha.setHours(fecha.getHours() + horas);
+    this.citaModal.date = fecha;
     this.citaModal.doctorI = this.doctorModal.doctorId;
     this.citaModal.patientI = this.usuario.patientId;
     this.appointmentService.save(this.citaModal).subscribe(
@@ -110,7 +114,7 @@ export class ServiciosMedicosPatientComponent implements OnInit {
           allowOutsideClick: false,
           icon: 'error',
           title: `No hemos podido generar su cita`,
-          text: 'Error',
+          text: error.error.error,
         });
       }
     );

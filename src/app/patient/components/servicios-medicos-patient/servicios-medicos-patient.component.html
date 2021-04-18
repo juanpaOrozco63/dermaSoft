@@ -79,9 +79,25 @@
             </div>
             <div class="form-group">
                 <label for="inputFecha">Fecha</label>
-                <input type="datetime-local" class="form-control" id="inputFecha" name="inputFecha" [(ngModel)]="citaModal.date" />
+                <input type="date" class="form-control" id="inputFecha" name="inputFecha" [(ngModel)]="citaModal.date" />
             </div>
-            <button class="btn bg-main text-color-main btn-block" (click)="guardarCita()">
+            <div class="form-group">
+                <label for="inputHora">Hora</label>
+                <select class="form-control" id="inputHora" #inputHora name="inputHora">
+          <option value="7">7 a.m</option>
+          <option value="8">8 a.m</option>
+          <option value="9">9 a.m</option>
+          <option value="10">10 a.m</option>
+          <option value="11">11 a.m</option>
+          <option value="12">12 p.m</option>
+          <option value="13">1 p.m</option>
+          <option value="14">2 p.m</option>
+          <option value="15">3 p.m</option>
+          <option value="16">4 p.m</option>
+          <option value="17">5 p.m</option>
+        </select>
+            </div>
+            <button class="btn bg-main text-color-main btn-block" (click)="guardarCita(inputHora.value)">
         Pedir cita
       </button>
         </form>
