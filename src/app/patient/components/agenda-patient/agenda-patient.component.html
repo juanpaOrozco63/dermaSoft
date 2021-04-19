@@ -47,9 +47,9 @@
     </div>
     <div class="modal-body">
         <div>
+            <pre>Doctor: {{ modalData?.event.id }}</pre>
             <pre>Fecha Inicio: {{ modalData?.event.start | date:'medium' }}</pre>
             <pre>Fecha Fin: {{ modalData?.event.end | date:'medium' }}</pre>
-            <pre>Id: {{ modalData?.event.id }}</pre>
         </div>
     </div>
     <div class="modal-footer">

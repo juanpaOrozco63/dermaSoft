@@ -24,20 +24,7 @@ import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
 import { PatientService } from '../../services/patient.service';
 import { Patient } from '../../domains/patient';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
+
 @Component({
   selector: 'app-agenda-patient',
   templateUrl: './agenda-patient.component.html',
@@ -100,9 +87,9 @@ export class AgendaPatientComponent implements OnInit {
         ...this.events,
         {
           title:cita.description,
-          id: cita.description,
+          id: cita.firstName+" "+cita.lastName,
           start: y,
-          end:x,
+          end:x,        
         },
       ];
     });
@@ -179,24 +166,7 @@ export class AgendaPatientComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'md' });
-  }
-
-  addEvent(): void {
-    // this.events = [
-    //   ...this.events,
-    //   {
-    //     title: '',
-    //     start: startOfDay(new Date()),
-    //     end: endOfDay(new Date()),
-    //     color: colors.red,
-    //     draggable: true,
-    //     resizable: {
-    //       beforeStart: true,
-    //       afterEnd: true,
-    //     },
-    //   },
-    // ];
-  }
+  } 
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);

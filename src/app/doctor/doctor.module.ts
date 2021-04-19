@@ -10,6 +10,12 @@ import { CitasDoctorComponent } from './components/citas-doctor/citas-doctor.com
 import { ReportesDoctorComponent } from './components/reportes-doctor/reportes-doctor.component';
 import { FacturacionDoctorComponent } from './components/facturacion-doctor/facturacion-doctor.component';
 import { SettingsDoctorComponent } from './components/settings-doctor/settings-doctor.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -17,11 +23,18 @@ import { SettingsDoctorComponent } from './components/settings-doctor/settings-d
   declarations: [DoctorPrincipalComponent, HomeComponent, PatientDoctorComponent, AgendaDoctorComponent, CitasDoctorComponent, ReportesDoctorComponent, FacturacionDoctorComponent, SettingsDoctorComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(DOCTORROUTES)
-
+    FormsModule,
+    NgbModalModule,
+    RouterModule.forChild(DOCTORROUTES),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    FlatpickrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   exports:[
-    
+
   ]
 })
 export class DoctorModule { }
