@@ -84,7 +84,6 @@ export class ServiciosMedicosPatientComponent implements OnInit {
   openCentrado(contenido, doc: Doctor) {
     //Asignamos el doctor especifico al doctor del modal para que el paciente pueda pedir una cita
     this.doctorModal = doc;
-
     //Abrir modal
     this.modal.open(contenido, { centered: true });
   }
