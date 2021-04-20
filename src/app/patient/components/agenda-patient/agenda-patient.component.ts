@@ -1,29 +1,17 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
-  CalendarView,
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
+  CalendarView,
 } from 'angular-calendar';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
-} from 'date-fns';
+import { isSameDay, isSameMonth } from 'date-fns';
 import { Observable, Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentService } from 'src/app/services/appointment.service';
-import { PatientAppointment } from 'src/app/domains/patientAppointment';
-import { CalendarEventActionsComponent } from 'angular-calendar/modules/common/calendar-event-actions.component';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
-import { PatientService } from '../../services/patient.service';
 import { Patient } from '../../domains/patient';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { PatientService } from '../../services/patient.service';
 
 @Component({
   selector: 'app-agenda-patient',
@@ -43,27 +31,26 @@ export class AgendaPatientComponent implements OnInit {
   // Objeto citas
   citas: any[];
 
-    ngOnInit() {
-      this.findUserFire();
-      
+  ngOnInit() {
+    this.findUserFire();
   }
 
   //Traer usuario firebase
-     findUserFire() {
-      this.userF$.subscribe((data) => {
-      if ( data) {
-         this.patientService.findByEmail(data.email).subscribe((data) => {
+  findUserFire() {
+    this.userF$.subscribe((data) => {
+      if (data) {
+        this.patientService.findByEmail(data.email).subscribe((data) => {
           if (data) {
             this.usuario = data;
-              this.traerDataCitas(this.usuario.patientId);
+            this.traerDataCitas(this.usuario.patientId);
           }
         });
       }
     });
   }
   // Traer data desde spring
-    traerDataCitas(patientId: number) {
-     this.appointmentService.findByPatientId(patientId).subscribe(
+  traerDataCitas(patientId: number) {
+    this.appointmentService.findByPatientId(patientId).subscribe(
       (data) => {
         this.citas = data;
         this.llenarAgenda();
@@ -73,23 +60,21 @@ export class AgendaPatientComponent implements OnInit {
       }
     );
   }
-  
 
   // Llenar agenda
   llenarAgenda() {
     this.citas.forEach((cita) => {
-
-      let y = new Date(cita.date)
-      y.setHours(y.getHours()+5)
-      let x = new Date(cita.date)
-      x.setHours(x.getHours()+6)
+      let y = new Date(cita.date);
+      y.setHours(y.getHours() + 5);
+      let x = new Date(cita.date);
+      x.setHours(x.getHours() + 6);
       this.events = [
         ...this.events,
         {
-          title:cita.description,
-          id: cita.firstName+" "+cita.lastName,
+          title: cita.description,
+          id: cita.firstName + ' ' + cita.lastName,
           start: y,
-          end:x,        
+          end: x,
         },
       ];
     });
@@ -152,7 +137,6 @@ export class AgendaPatientComponent implements OnInit {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
-          
           ...event,
           start: newStart,
           end: newEnd,
@@ -166,7 +150,7 @@ export class AgendaPatientComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'md' });
-  } 
+  }
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);

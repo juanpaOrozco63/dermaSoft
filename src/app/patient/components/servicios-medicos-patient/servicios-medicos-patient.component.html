@@ -26,6 +26,10 @@
                                         <p class="title">{{ d.description }}</p>
                                         <p>{{ d.price | currency: "COP " }}</p>
                                         <p>
+                                            <i class="fas fa-star" *ngFor="let dd of [].constructor(d.reputation)"></i>
+                                            <i class="fas fa-star" style="color: rgb(182, 169, 169)" *ngFor="let dd of [].constructor(5 - d.reputation)"></i>
+                                        </p>
+                                        <p>
                                             <button class="card_button bg-main" (click)="openCentrado(contenido, d)">
                         Pedir cita
                       </button>
@@ -44,6 +48,10 @@
                                         </h1>
                                         <p class="title">{{ d.description }}</p>
                                         <p>{{ d.price | currency: "COP " }}</p>
+                                        <p>
+                                            <i class="fas fa-star" *ngFor="let dd of [].constructor(d.reputation)"></i>
+                                            <i class="fas fa-star" style="color: rgb(182, 169, 169)" *ngFor="let dd of [].constructor(5 - d.reputation)"></i>
+                                        </p>
                                         <p>
                                             <button class="card_button bg-main" (click)="openCentrado(contenido, d)">
                         Pedir cita

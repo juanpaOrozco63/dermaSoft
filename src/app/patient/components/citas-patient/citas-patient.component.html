@@ -1,0 +1,15 @@
+<div class="container">
+    <h2 class="text-center mb-5">{{ strTitle }}</h2>
+    <div class="card-columns">
+        <div class="card animated fadeIn fast" *ngFor="let c of citas">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Nombre del doctor: {{ c.firstName + " " + c.lastName }}
+                </h5>
+                <p class="card-text">Descripción de la cita: {{ c.description }}</p>
+                <p class="card-text">Fecha de la cita: {{ c.date | date }}</p>
+                <button class="btn btn-primary">Detalles de la cita</button>
+            </div>
+        </div>
+    </div>
+</div>
