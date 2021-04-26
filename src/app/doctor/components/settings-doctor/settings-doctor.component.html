@@ -1,1 +1,46 @@
-<p>settings-doctor works!</p>
+<div class="container">
+    <h1 class="text-center">Mi perfil</h1>
+    <div class="text-center">
+        <img src="https://www.asf.com.mx/Imagenes/Login.png" alt="" class="img-fluid">
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xl-2 form-group">
+            <label class="col-form-label" for="">Correo :</label>
+        </div>
+        <div class="col-xl-10 form-group">
+            <input type="text" class="form-control" disabled [value]="email">
+        </div>
+        <div class="col-xl-2 form-group">
+            <label class="col-form-label" for="">Nombre :</label>
+        </div>
+        <div class="col-xl-10 form-group">
+            <input type="text" class="form-control" [value]="doctor.firstName">
+        </div>
+        <div class="col-xl-2 form-group">
+            <label class="col-form-label" for="">Apellidos :</label>
+        </div>
+        <div class="col-xl-10 form-group">
+            <input type="text" class="form-control" [value]="doctor.lastName+' '+doctor.lastName2">
+        </div>
+        <div class="col-xl-2 form-group">
+            <label class="col-form-label" for="">Fecha nacimiento :</label>
+        </div>
+        <div class="col-xl-10 form-group">
+            <input type="text" class="form-control" [value]="doctor.birthday | date">
+        </div>
+        <div class="col-xl-2 form-group">
+            <label class="col-form-label" for="">Telefono :</label>
+        </div>
+        <div class="col-xl-10 form-group">
+            <input type="text" class="form-control" [value]="doctor.phone">
+        </div>
+        <div class="col-xl-2 form-group">
+            <label class="col-form-label" for="">Precio :</label>
+        </div>
+        <div class="col-xl-10 form-group">
+            <input type="text" class="form-control" [value]="doctor.price| currency:'COP'">
+        </div>
+    </div>
+    <hr>
+</div>

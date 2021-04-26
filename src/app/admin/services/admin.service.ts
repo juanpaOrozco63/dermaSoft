@@ -19,5 +19,11 @@ export class AdminService {
     let headers = new HttpHeaders({ 'Authorization': token });
     return headers;
   }
-
+ //Obtener usuario por email
+ public findByEmail(email: string): Observable<any> {
+  let headers = this.createTokenHeader();
+  return this.httpClient.get(this.url + 'findByEmail/' + email, {
+    headers: headers,
+  });
+}
 }

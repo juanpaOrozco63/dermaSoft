@@ -6,6 +6,7 @@ import { IndexComponent } from '../components/index/index.component';
 import { PatientAdminComponent } from '../components/patient-admin/patient-admin.component';
 import { ProductsAdminComponent } from '../components/products-admin/products-admin.component';
 import { SettingsAdminComponent } from '../components/settings-admin/settings-admin.component';
+import { ProfileComponent } from '../components/profile/profile.component';
 
 export const ADMINDROUTES: Routes = [
   { path: 'home', component: HomeComponent },
@@ -15,4 +16,5 @@ export const ADMINDROUTES: Routes = [
   { path: 'entidades-admin', component: EntidadesAdminComponent },
   { path: 'products-admin', component: ProductsAdminComponent },
   { path: 'settings-admin', component: SettingsAdminComponent },
+  { path: 'profile', component: ProfileComponent },
 ];

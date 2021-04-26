@@ -19,6 +19,7 @@ export class DoctorPrincipalComponent implements OnInit {
   }
   closeSession(){
     localStorage.setItem("Role","")
+    localStorage.setItem("Email","")
     this.route.navigate(['/login'])
   }
 }

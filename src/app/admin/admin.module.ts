@@ -13,6 +13,7 @@ import { SettingsAdminComponent } from './components/settings-admin/settings-adm
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhonePipe } from './pipes/phone.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ProductsAdminComponent,
     SettingsAdminComponent,
     PhonePipe,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

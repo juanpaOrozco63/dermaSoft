@@ -84,6 +84,7 @@ export class LoginComponent implements OnInit {
                           text: `${data.email}`,
                         });
                         localStorage.setItem("Role","1")
+                        localStorage.setItem("Email",data.email)
                         this.router.navigate(['/admin-principal/home']);
                       } else if (data.role === 2) {
                         Swal.fire({
@@ -93,7 +94,7 @@ export class LoginComponent implements OnInit {
                           text: `${data.email}`,
                         });
                         localStorage.setItem("Role","2")
-                        
+                        localStorage.setItem("Email",data.email)                        
                         this.router.navigate(['/doctor-principal/home']);
                       } else if (data.role === 3) {
                         Swal.fire({
@@ -103,6 +104,7 @@ export class LoginComponent implements OnInit {
                           text: `${data.email}`,
                         });
                         localStorage.setItem("Role","3")
+                        localStorage.setItem("Email",data.email)
                         this.router.navigate(['/patient-principal/home']);
                       }
                     },
