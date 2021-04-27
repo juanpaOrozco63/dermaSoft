@@ -1,0 +1,49 @@
+<div class="container" *ngIf="finalizarCitaDTO">
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputNombre">Nombre del paciente</label>
+                <input type="text" class="form-control" id="inputNombre" name="inputNombre" #inputNombre [(ngModel)]="finalizarCitaDTO.firstNamePatient" disabled />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputApellido">Apellido del paciente</label>
+                <input type="text" class="form-control" id="inputApellido" name="inputApellido" #inputApellido [(ngModel)]="finalizarCitaDTO.lastNamePatient" disabled />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEps">EPS</label>
+                <input type="text" class="form-control" id="inputEps" name="inputEps" #inputEps [(ngModel)]="finalizarCitaDTO.eps" disabled />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputGenero">Género</label>
+                <input type="text" class="form-control" id="inputGenero" name="inputGenero" #inputGenero [(ngModel)]="finalizarCitaDTO.gender" disabled />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputDescription">Descripcion de la cita</label>
+            <input type="text" class="form-control" id="inputDescription" name="inputDescription" #inputDescription [(ngModel)]="finalizarCitaDTO.description" disabled />
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputProducto">Producto</label>
+                <select name="inputProducto" id="inputProducto" #inputProducto class="form-control" [(ngModel)]="treatment.productI" required>
+          <option *ngFor="let p of productos" [value]="p.productId">
+            {{ p.name }}
+          </option>
+        </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCantidad">Cantidad</label>
+                <input type="number" class="form-control" id="inputCantidad" name="inputCantidad" #inputCantidad [(ngModel)]="treatment.quantity" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputRecomendaciones">Recomendaciones</label>
+            <textarea class="form-control" id="inputRecomendaciones" #inputRecomendaciones name="inputRecomendaciones" [(ngModel)]="treatment.description" rows="3"></textarea>
+        </div>
+        <button class="btn bg-main btn-block text-color-main" (click)="finalizar()">
+      Finalizar cita
+    </button>
+    </form>
+</div>

@@ -1,7 +1,6 @@
 <div class="container">
     <h2 class="text-center mb-5">Citas</h2>
     <div class="row">
-
         <div class="col-md-6 mb-3" *ngFor="let p of patientAppointments; let i = index">
             <div class="card">
                 <!-- <img [src]="p.image" alt="John" style="width: 100%" /> -->
@@ -12,6 +11,10 @@
                 </h2>
                 <p>Precio: {{ p.price | currency: "COP " }}</p>
                 <p>Fecha: {{ p.date | date }}</p>
+                <a [routerLink]="['/doctor-principal/finalizar-cita', p.appointmentId]">
+                    <button class="btn bg-main btn-block text-color-main">
+            Iniciar cita
+          </button></a>
             </div>
         </div>
     </div>

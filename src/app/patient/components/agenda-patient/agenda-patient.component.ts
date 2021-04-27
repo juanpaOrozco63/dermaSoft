@@ -65,9 +65,8 @@ export class AgendaPatientComponent implements OnInit {
   llenarAgenda() {
     this.citas.forEach((cita) => {
       let y = new Date(cita.date);
-      y.setHours(y.getHours() + 5);
       let x = new Date(cita.date);
-      x.setHours(x.getHours() + 6);
+      x.setHours(x.getHours() + 1);
       this.events = [
         ...this.events,
         {

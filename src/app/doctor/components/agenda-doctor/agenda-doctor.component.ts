@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarView,
+} from 'angular-calendar';
 import { AuthFirebaseService } from '../../../services/auth-firebase.service';
 import { Observable, Subject } from 'rxjs';
 import { Patient } from '../../../patient/domains/patient';
@@ -10,11 +15,10 @@ import { isSameDay, isSameMonth } from 'date-fns';
 import { DoctorService } from '../../services/doctor.service';
 import { Doctor } from '../../domains/doctor';
 
-
 @Component({
   selector: 'app-agenda-doctor',
   templateUrl: './agenda-doctor.component.html',
-  styleUrls: ['./agenda-doctor.component.css']
+  styleUrls: ['./agenda-doctor.component.css'],
 })
 export class AgendaDoctorComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
@@ -31,86 +35,81 @@ export class AgendaDoctorComponent implements OnInit {
   //Traer usuario firebase
   findUserFire() {
     this.userF$.subscribe((data) => {
-    if ( data) {
-       this.doctorService.findByEmail(data.email).subscribe((data) => {
-        if (data) {
-          this.usuario = data;
+      if (data) {
+        this.doctorService.findByEmail(data.email).subscribe((data) => {
+          if (data) {
+            this.usuario = data;
             this.traerDataCitas(this.usuario.doctorId);
-        }
-      });
-    }
-  });
-} 
-// Traer data desde spring
+          }
+        });
+      }
+    });
+  }
+  // Traer data desde spring
   traerDataCitas(doctorId: number) {
-   this.appointmentService.findByDoctorId(doctorId).subscribe(
-    (data) => {
-      this.citas = data;
-      this.llenarAgenda();
-    },
-    (err) => {
-      console.error(err);
-    }
-  );
-}
-
-
-// Llenar agenda
-llenarAgenda() {
-  this.citas.forEach((cita) => {
-
-    let y = new Date(cita.date)
-    y.setHours(y.getHours()+5)
-    let x = new Date(cita.date)
-    x.setHours(x.getHours()+6)
-    this.events = [
-      ...this.events,
-      {
-        title:cita.description,
-        id: cita.firstName+" "+cita.lastName,
-        start: y,
-        end:x,        
+    this.appointmentService.findByDoctorId(doctorId).subscribe(
+      (data) => {
+        this.citas = data;
+        this.llenarAgenda();
       },
-    ];
-  });
-}
-modalData: {
-  action: string;
-  event: CalendarEvent;
-};
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
 
-actions: CalendarEventAction[] = [
-  {
-    label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-    a11yLabel: 'Editar',
-    onClick: ({ event }: { event: CalendarEvent }): void => {
-      this.handleEvent('Edited', event);
+  // Llenar agenda
+  llenarAgenda() {
+    this.citas.forEach((cita) => {
+      let y = new Date(cita.date);
+      let x = new Date(cita.date);
+      x.setHours(x.getHours() + 1);
+      this.events = [
+        ...this.events,
+        {
+          title: cita.description,
+          id: cita.firstName + ' ' + cita.lastName,
+          start: y,
+          end: x,
+        },
+      ];
+    });
+  }
+  modalData: {
+    action: string;
+    event: CalendarEvent;
+  };
+
+  actions: CalendarEventAction[] = [
+    {
+      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
+      a11yLabel: 'Editar',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.handleEvent('Edited', event);
+      },
     },
-  },
-  {
-    label: '<i class="fas fa-fw fa-trash-alt"></i>',
-    a11yLabel: 'Eliminar',
-    onClick: ({ event }: { event: CalendarEvent }): void => {
-      this.events = this.events.filter((iEvent) => iEvent !== event);
-      this.handleEvent('Deleted', event);
+    {
+      label: '<i class="fas fa-fw fa-trash-alt"></i>',
+      a11yLabel: 'Eliminar',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.events = this.events.filter((iEvent) => iEvent !== event);
+        this.handleEvent('Deleted', event);
+      },
     },
-  },
-];
+  ];
 
-refresh: Subject<any> = new Subject();
+  refresh: Subject<any> = new Subject();
 
-events: CalendarEvent[] = [];
+  events: CalendarEvent[] = [];
 
-activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = true;
   constructor(
     private modal: NgbModal,
     private appointmentService: AppointmentService,
     private authFirebaseService: AuthFirebaseService,
     private patientService: PatientService,
-    private doctorService:DoctorService
-  ) { 
-    
-  }
+    private doctorService: DoctorService
+  ) {}
 
   ngOnInit(): void {
     this.findUserFire();
@@ -137,7 +136,6 @@ activeDayIsOpen: boolean = true;
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
-          
           ...event,
           start: newStart,
           end: newEnd,
@@ -152,7 +150,6 @@ activeDayIsOpen: boolean = true;
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'md' });
   }
-  
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
