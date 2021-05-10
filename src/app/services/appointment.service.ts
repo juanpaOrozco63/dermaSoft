@@ -43,4 +43,11 @@ export class AppointmentService {
       headers: headers,
     });
   }
+
+  public cerrarCita(appointmentId: number): Observable<any> {
+    let headers = this.createTokenHeader();
+    return this.httpClient.get(this.url + '/cerrarCita/' + appointmentId, {
+      headers: headers,
+    });
+  }
 }

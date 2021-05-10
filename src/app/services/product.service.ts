@@ -26,8 +26,10 @@ private url: string = environment.apiUrl + '/api/v1/product';
   }
 
   public findAll(): Observable<any> {
-    let headers = this.createTokenHeaderR();
-    return this.httpClient.get(this.url, { headers: headers });
+    let headers = this.createTokenHeader();
+    return this.httpClient.get(this.url, {
+      headers: headers,
+    });
   }
   public findById(productID: number): Observable<any> {
     let headers = this.createTokenHeader();

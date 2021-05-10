@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { TreatmentService } from 'src/app/services/treatment.service';
 import { FinalizarCitaDTO } from '../../domains/finalizarCita';
 import Swal from 'sweetalert2';
+import { createHostListener } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-finalizar-cita',
@@ -51,7 +52,6 @@ export class FinalizarCitaComponent implements OnInit {
     this.appointmentService.finalizarCita(appointmentId).subscribe(
       (data) => {
         this.finalizarCitaDTO = data;
-        console.log(this.finalizarCitaDTO);
       },
       (err) => {
         console.error(err);
@@ -62,7 +62,9 @@ export class FinalizarCitaComponent implements OnInit {
   findAllProducts() {
     this.productService.findAll().subscribe(
       (data) => {
-        this.productos = data;
+        if (data) {
+          this.productos = data;
+        }
       },
       (err) => {
         console.error(err);
@@ -70,10 +72,31 @@ export class FinalizarCitaComponent implements OnInit {
     );
   }
 
-  finalizar() {
+  agregarTratamiento() {
     this.treatmentService.save(this.treatment).subscribe(
       (data) => {
-        this.router.navigate(['/doctor-principal/home']);
+        Swal.fire({
+          title: '¿Desea agregar más productos al tratamiento?',
+          showDenyButton: true,
+          allowOutsideClick: false,
+          confirmButtonText: `SI`,
+          denyButtonText: `NO`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire('Tratamiento agregado', '', 'success');
+            this.treatment.productI = null;
+            this.treatment.quantity = 0;
+            this.treatment.description = null;
+          } else if (result.isDenied) {
+            console.log('Finalizar pdf');
+            this.appointmentService
+              .cerrarCita(this.idCita)
+              .subscribe((data) => {
+                this.router.navigate(['/doctor-principal/home']);
+              });
+          }
+        });
       },
       (err) => {
         Swal.fire({
