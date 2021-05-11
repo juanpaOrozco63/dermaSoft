@@ -49,9 +49,14 @@ export class LoginComponent implements OnInit {
     if (!this.formLogin.invalid) {
       Swal.fire({
         allowOutsideClick: false,
+        allowEscapeKey: false,
         icon: 'info',
         title: 'Cargando',
         text: 'por favor espere',
+        timer: 3000,
+        onOpen: () => {
+          Swal.showLoading();
+        }
       });
       this.user.username = 'admin';
       this.user.password = 'password';

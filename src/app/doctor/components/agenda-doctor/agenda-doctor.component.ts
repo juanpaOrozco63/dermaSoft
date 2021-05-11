@@ -71,6 +71,8 @@ export class AgendaDoctorComponent implements OnInit {
           id: cita.firstName + ' ' + cita.lastName,
           start: y,
           end: x,
+          price:cita.price
+
         },
       ];
     });

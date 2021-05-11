@@ -40,6 +40,7 @@ export class ServiciosMedicosPatientComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.citaModal = new Appointment(
       0,
       null,
@@ -54,7 +55,6 @@ export class ServiciosMedicosPatientComponent implements OnInit {
     this.findAll();
     this.findUserFire();
   }
-
   //Método para traer todos los doctores
   findAll(): void {
     //Traer doctores
@@ -90,32 +90,40 @@ export class ServiciosMedicosPatientComponent implements OnInit {
 
   //Guardar la cita
   guardarCita(hora: number) {
-    let fecha = new Date(this.citaModal.date);
-    let horas = +hora + +5;
-    let parseFecha = fecha.setHours(fecha.getHours() + horas);
-    this.citaModal.date = fecha;
-    this.citaModal.doctorI = this.doctorModal.doctorId;
-    this.citaModal.patientI = this.usuario.patientId;
-    this.appointmentService.save(this.citaModal).subscribe(
-      (data) => {
-        console.log(data);
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'success',
-          title: `Se ha generado su cita satisfactoriamente`,
-          text: `${data.reason}`,
-        });
-
-        this.modal.dismissAll();
+    Swal.fire({
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      icon: 'info',
+      title: 'Cargando',
+      text: 'por favor espere',
+      onOpen: () => {
+        Swal.showLoading();
+        let fecha = new Date(this.citaModal.date);
+        let horas = +hora + +5;
+        this.citaModal.date = fecha;
+        this.citaModal.doctorI = this.doctorModal.doctorId;
+        this.citaModal.patientI = this.usuario.patientId;
+        this.appointmentService.save(this.citaModal).subscribe(
+          (data) => {
+            Swal.fire({
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              icon: 'success',
+              title: 'Se ha generado su cita satisfactoriamente',
+              text: `Motivo ${data.reason}`,
+            });
+            this.modal.dismissAll();
+          },
+          (error) => {
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: 'error',
+              title: `No hemos podido generar su cita`,
+              text: `Complete los datos`,
+            });
+          }
+        );
       },
-      (error) => {
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'error',
-          title: `No hemos podido generar su cita`,
-          text: error.error.error,
-        });
-      }
-    );
+    });
   }
 }

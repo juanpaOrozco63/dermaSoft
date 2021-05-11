@@ -41,7 +41,7 @@ export class PatientAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de pacientes
         this.patients = data;
-        this.identificacion=null
+        this.identificacion = null;
       },
       (err) => {
         console.error(err);
@@ -78,14 +78,31 @@ export class PatientAdminComponent implements OnInit {
     //Asignamos el valor de la fecha al objeto paciente
     this.patModal.birthdate = this.fechaParseada;
     //Actualizamos el paciente
-    this.patientService.update(this.patModal).subscribe(
-      (data) => {
-        this.modal.dismissAll();
+    Swal.fire({
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      icon: 'info',
+      title: 'Cargando',
+      text: 'por favor espere',
+      onOpen: () => {
+        Swal.showLoading();
+        this.patientService.update(this.patModal).subscribe(
+          (data) => {
+            this.modal.dismissAll();
+            Swal.fire({
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              icon: 'success',
+              title: 'Paciente',
+              text: `${data.firstName+' '+data.lastName+' '+data.lastName2} se edito satisfactoriamente`,
+            })
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
       },
-      (error) => {
-        console.error(error);
-      }
-    );
+    });
   }
 
   //Formatear fecha para mostrar
@@ -105,7 +122,7 @@ export class PatientAdminComponent implements OnInit {
         this.rolEdit.state = 'I';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
-            Swal.fire('Inactivado', 'Paciente inactivado', 'warning');
+            Swal.fire('Paciente', `${data.email} ahora esta inactivo `, 'warning');
             this.findAll();
           },
           (err) => {
@@ -125,7 +142,7 @@ export class PatientAdminComponent implements OnInit {
         this.rolEdit.state = 'A';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
-            Swal.fire('Activado', 'Paciente activado', 'success');
+            Swal.fire('Paciente', `${data.email} ahora esta activado `, 'success');
             this.findAll();
           },
           (err) => {

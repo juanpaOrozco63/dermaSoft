@@ -1,65 +1,44 @@
-<body class="d-flex justify-content-center ">
-    <div class="container align-self-center">
-        <div class="card text-center">
-            <div class="card-header">
-                <h1 class="text-center mb-2">{{strTitle}}</h1>
-            </div>
-            <div class="card-body">
-                <form autocomplete="off" [formGroup]="formLogin" (ngSubmit)="ingresar()">
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-6 d-none d-md-flex bg-image"></div>
+        <div class="col-md-6 bg-light">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
                     <div class="row">
-                        <div class="offset-lg-4 offset-xl-4"></div>
-                        <label class="col-auto">Número de identificación</label>
-                    </div>
-                    <div class="row form-group">
-                        <div class="offset-4"></div>
-                        <div class="col-12 col-lg-4 col-xl-4">
-                            <input class="form-control" type="text" placeholder="Número de identificación" [(ngModel)]="strIdentification" [class.is-invalid]="nIdentificacionNoValido" formControlName="nIdentificacion">
-                            <div class="text-left">
-                                <small *ngIf="nIdentificacionNoValido" class="text-danger ">Ingrese un número de identificación</small>
-                            </div>
-                        </div>
+                        <div class="col-lg-10 col-xl-7 mx-auto">
+                            <h3 class="display-4">{{strTitle}}</h3>
+                            <form autocomplete="off" [formGroup]="formLogin" (ngSubmit)="ingresar()">
+                                <div class="form-group mb-3">
+                                    <input id="inputEmail" type="email" placeholder="Número de identificación" required="" class="form-control rounded-pill border-0 shadow-sm px-4" [(ngModel)]="strIdentification" [class.is-invalid]="nIdentificacionNoValido" formControlName="nIdentificacion">
+                                    <div class="text-left">
+                                        <small *ngIf="nIdentificacionNoValido" class="text-danger ">Ingrese un número de identificación</small>
+                                    </div>
+                                </div>
 
+                                <div class="form-group mb-3">
+                                    <input id="inputPassword" type="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 " name="password" [(ngModel)]="strPassword" formControlName="password" [class.is-invalid]="passNoValido">
+                                    <div class="text-left">
+                                        <small *ngIf="passNoValido" class="text-danger ">Ingrese una contraseña</small>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                                    <label for="customCheck1" class="custom-control-label">Recordar contraseña</label>
+                                </div>
+                                <button type="submit" class="btn bg-main text-white btn-block text-uppercase mb-2 rounded-pill shadow-sm">Ingresar</button>
+                                <div class="text-center d-flex justify-content-between mt-4">
+                                    <p routerLink="/registerDoctor">
+                                        <a class="font-italic text-muted link">Registrarse como doctor</a>
+                                    </p>
+                                    <p routerLink="/registerPatient"> <a class="font-italic text-muted link">Registrarse como paciente</a>
 
-                    </div>
-                    <div class="row">
-                        <div class="offset-lg-4 offset-xl-4"></div>
-                        <label class="col-auto">Contraseña</label>
-                    </div>
-                    <div class="row form-group ">
-                        <div class="offset-4"></div>
-                        <div class="col-12 col-lg-4 col-xl-4">
-                            <input class="form-control" type="password" placeholder="Contraseña" name="password" [(ngModel)]="strPassword" formControlName="password" [class.is-invalid]="passNoValido">
-                            <div class="text-left">
-                                <small *ngIf="passNoValido" class="text-danger ">Ingrese una contraseña</small>
-                            </div>
+                                    </p>
+                                </div>
+                            </form>
                         </div>
-
-                    </div>
-                    <div class="row form-group">
-                        <div class="offset-lg-4 offset-xl-4"></div>
-                        <div class="input-group col-md-4">
-                            <button type="submit" class="btn bg-main btn-block text-white">
-                                Ingresar
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer text-muted">
-                <div class="row form-group mb-0">
-                    <div class=" offset-lg-4 offset-xl-4"></div>
-                    <div class="input-group col-md-4">
-                        <a class="btn btn-block color-main" routerLink="/registerDoctor">Registrarse como doctor</a>
-                        <a class="btn btn-block color-main" routerLink="/registerPatient">Registrarse como paciente</a>
-                    </div>
-                </div>
-                <div class="row form-group mb-0">
-                    <div class=" offset-lg-4 offset-xl-4"></div>
-                    <div class="input-group col-md-4">
-                        <a class="btn btn-block color-main" routerLink="/restorePassword">¿Olvido su contraseña?</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>`
+</div>

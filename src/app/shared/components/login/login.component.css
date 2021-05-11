@@ -1,3 +1,17 @@
-.wrapper {
-    margin-top: 11rem !important;
-}
+    .wrapper {
+        margin-top: 11rem !important;
+    }
+    
+    .login,
+    .image {
+        min-height: 100vh;
+    }
+    
+    .bg-image {
+        background-image: url('https://image.freepik.com/foto-gratis/medico-presentar-algo-sobre-fondo-blanco-aislado_1368-5834.jpg');
+        background-size: cover;
+    }
+    
+    .link {
+        cursor: pointer;
+    }

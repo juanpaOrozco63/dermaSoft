@@ -2,7 +2,7 @@
     <h1 class="text-center">{{ strTitle }}</h1>
     <div class="form-group row">
         <button class="btn bg-main ml-3 text-white" (click)="findAll()">
-      <i class="far fa-eye"></i>Mostrar todos
+            <i class="fas fa-capsules"></i> Mostrar todos
     </button>
         <button class="btn btn-secondary ml-3" (click)="findById(id)">
       <i class="fas fa-search"></i> Buscar
@@ -32,7 +32,7 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ p.name }}</td>
                 <td>{{ p.description }}</td>
-                <td>{{ p.state }}</td>
+                <td>{{ p.state | state}}</td>
                 <td>
                     <a target="_blank" [href]="p.url">{{ p.url }}</a>
                 </td>

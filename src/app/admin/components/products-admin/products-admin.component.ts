@@ -76,14 +76,32 @@ export class ProductsAdminComponent implements OnInit {
   }
   editar(): void {
     //Actualizamos el paciente
-    this.productService.update(this.patModal).subscribe(
-      (data) => {
-        this.modal.dismissAll();
+    Swal.fire({
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      icon: 'info',
+      title: 'Cargando',
+      text: 'por favor espere',
+      onOpen: () => {
+        Swal.showLoading();
+        this.productService.update(this.patModal).subscribe(
+          (data) => {
+            this.modal.dismissAll();
+            Swal.fire({
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              icon: 'success',
+              title: 'Producto',
+              text: `${data.description} se edito satisfactoriamente`,
+            });
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
       },
-      (error) => {
-        console.error(error);
-      }
-    );
+    });
+  
   }
   
   inactivarP(product: Product): void {
@@ -91,7 +109,7 @@ export class ProductsAdminComponent implements OnInit {
     product.state = 'I';
     this.productService.update(product).subscribe(
       (data) => {
-        Swal.fire('Inactivado', 'Producto inactivado', 'warning');
+        Swal.fire('Producto', `${data.description} ahora esta inactivo`, 'warning');
         this.findAll();
       },
       (err) => {
@@ -104,7 +122,7 @@ export class ProductsAdminComponent implements OnInit {
     product.state = 'A';
     this.productService.update(product).subscribe(
       (data) => {
-        Swal.fire('Activado', 'Producto activado', 'success');
+        Swal.fire('Producto', `${data.description} ahora esta activo`, 'success');
         this.findAll();
       },
       (err) => {

@@ -12,7 +12,7 @@ import { Rol } from 'src/app/domains/rol';
   styleUrls: ['./doctor-admin.component.css'],
 })
 export class DoctorAdminComponent implements OnInit {
-  pageActual:number=1;
+  pageActual: number = 1;
 
   // Declaraciones de la clase
   public strTitle: String = 'Doctores';
@@ -42,7 +42,7 @@ export class DoctorAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de doctores
         this.doctors = data;
-       this.identificacion=null;
+        this.identificacion = null;
       },
       (error) => {
         console.error(error);
@@ -83,14 +83,33 @@ export class DoctorAdminComponent implements OnInit {
     //Asignamos el valor de la fecha al objeto paciente
     this.doctorModal.birthday = this.fechaParseada;
     //Actualizar doctor
-    this.doctorService.update(this.doctorModal).subscribe(
-      (data) => {
-        this.modal.dismissAll();
+    Swal.fire({
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      icon: 'info',
+      title: 'Cargando',
+      text: 'por favor espere',
+      onOpen: () => {
+        Swal.showLoading();
+        this.doctorService.update(this.doctorModal).subscribe(
+          (data) => {
+            this.modal.dismissAll();
+            Swal.fire({
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              icon: 'success',
+              title: 'Doctor',
+              text: `${
+                data.firstName + ' ' + data.lastName + ' ' + data.lastName2
+              } se edito satisfactoriamente`,
+            });
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
       },
-      (error) => {
-        console.error(error);
-      }
-    );
+    });
   }
 
   //Formatear fecha para mostrar
@@ -110,9 +129,8 @@ export class DoctorAdminComponent implements OnInit {
         this.rolEdit.state = 'I';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
-            Swal.fire('Inactivado', 'Doctor inactivado', 'warning');
+            Swal.fire('Doctor', `${data.email} ahora esta inactivo `, 'warning');
             this.findAll();
-            
           },
           (err) => {
             console.error(err);
@@ -131,7 +149,7 @@ export class DoctorAdminComponent implements OnInit {
         this.rolEdit.state = 'A';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
-            Swal.fire('Activado', 'Doctor Activado', 'success');
+            Swal.fire('Doctor', `${data.email} ahora esta activo `, 'success');
             this.findAll();
           },
           (err) => {

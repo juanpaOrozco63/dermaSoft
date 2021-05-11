@@ -30,7 +30,8 @@ export class AgendaPatientComponent implements OnInit {
   public usuario: Patient;
   // Objeto citas
   citas: any[];
-
+  startHour:any;
+  endHour:any;
   ngOnInit() {
     this.findUserFire();
   }
@@ -74,9 +75,11 @@ export class AgendaPatientComponent implements OnInit {
           id: cita.firstName + ' ' + cita.lastName,
           start: y,
           end: x,
+          price:cita.price
         },
       ];
     });
+    
   }
   modalData: {
     action: string;

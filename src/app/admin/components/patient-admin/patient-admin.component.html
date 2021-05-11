@@ -2,7 +2,7 @@
     <h1 class="text-center">{{ strTitle }}</h1>
     <div class="form-group row">
         <button class="btn bg-main ml-3 text-white" (click)="findAll()">
-      <i class="far fa-eye"></i>Mostrar todos
+            <i class="fas fa-users"></i> Mostrar todos
     </button>
         <button class="btn btn-secondary ml-3" (click)="findById(identificacion)">
       <i class="fas fa-search"></i> Buscar
@@ -32,7 +32,7 @@
                 <td>{{ p.phone }}</td>
                 <td>{{ getFormattedDate(p.birthdate) | date }}</td>
                 <td>{{ p.userId }}</td>
-                <td>{{ p.state }}</td>
+                <td>{{ p.state | state}}</td>
                 <td>
                     <button class="btn bg-main btn-editar" (click)="openCentrado(contenido, p)">
             <i class="fas fa-user-edit"></i>

@@ -2,7 +2,7 @@
     <h1 class="text-center">{{ strTitle }}</h1>
     <div class="form-group row">
         <button class="btn bg-main ml-3 text-white" (click)="findAll()">
-      <i class="far fa-eye"></i>Mostrar todos
+            <i class="fas fa-users"></i> Mostrar todos
     </button>
         <button class="btn btn-secondary ml-3" (click)="findById(identificacion)">
       <i class="fas fa-search"></i> Buscar
@@ -34,7 +34,7 @@
                 <td>{{ d.userId }}</td>
                 <td>{{ d.reputation }} <i class="fas fa-star"></i></td>
                 <td>{{ d.price | currency: "COP " }}</td>
-                <td>{{ d.state }}</td>
+                <td>{{ d.state | state }}</td>
                 <td>
                     <button class="btn bg-main btn-editar" (click)="openCentrado(contenido, d)">
             <i class="fas fa-user-edit"></i>

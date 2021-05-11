@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhonePipe } from './pipes/phone.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ProfileComponent } from './components/profile/profile.component';
+import { StatePipe } from './pipes/state.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     SettingsAdminComponent,
     PhonePipe,
     ProfileComponent,
+    StatePipe
   ],
   imports: [
     CommonModule,
