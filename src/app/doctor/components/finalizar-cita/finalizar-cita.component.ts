@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { saveAs } from 'file-saver';
 import { Product } from 'src/app/domains/product';
 import { Treatment } from 'src/app/domains/treatment';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { JasperService } from 'src/app/services/jasper.service';
 import { ProductService } from 'src/app/services/product.service';
 import { TreatmentService } from 'src/app/services/treatment.service';
-import { FinalizarCitaDTO } from '../../domains/finalizarCita';
 import Swal from 'sweetalert2';
-import { createHostListener } from '@angular/compiler/src/core';
+import { FinalizarCitaDTO } from '../../domains/finalizarCita';
 
 @Component({
   selector: 'app-finalizar-cita',
@@ -29,7 +30,8 @@ export class FinalizarCitaComponent implements OnInit {
     private router: Router,
     private appointmentService: AppointmentService,
     private productService: ProductService,
-    private treatmentService: TreatmentService
+    private treatmentService: TreatmentService,
+    private jasperService: JasperService
   ) {}
 
   ngOnInit(): void {
@@ -89,12 +91,7 @@ export class FinalizarCitaComponent implements OnInit {
             this.treatment.quantity = 0;
             this.treatment.description = null;
           } else if (result.isDenied) {
-            console.log('Finalizar pdf');
-            this.appointmentService
-              .cerrarCita(this.idCita)
-              .subscribe((data) => {
-                this.router.navigate(['/doctor-principal/home']);
-              });
+            this.generarPdfCita(this.treatment.appointmentI);
           }
         });
       },
@@ -105,6 +102,39 @@ export class FinalizarCitaComponent implements OnInit {
           title: `No se han diligenciado bien los campos`,
           text: err.error.error,
         });
+      }
+    );
+  }
+
+  //
+  generarPdfCita(idCita: number) {
+    Swal.fire({
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      icon: 'info',
+      title: 'Generando reporte',
+      text: 'por favor espere',
+      timer: 5000,
+      onOpen: () => {
+        Swal.showLoading();
+      }
+    });
+    this.jasperService.generarReporteCita(idCita).subscribe(
+      (x) => {
+        console.log(x);
+        const blob = new Blob([x], { type: 'application/pdf' });
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(blob);
+          return;
+        }
+        const nombreArchivo = idCita;
+        saveAs(blob, nombreArchivo);
+        this.appointmentService.cerrarCita(idCita).subscribe((data) => {
+          this.router.navigate(['/doctor-principal/home']);
+        });
+      },
+      (err) => {
+        console.error(err);
       }
     );
   }
