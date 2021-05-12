@@ -1,0 +1,17 @@
+.wrapper {
+    margin-top: 11rem !important;
+}
+
+.login,
+.image {
+    min-height: 100vh;
+}
+
+.bg-image {
+    background-image: url('https://image.freepik.com/vector-gratis/fondo-personaje-doctor_1270-84.jpg');
+    background-size: cover;
+}
+
+.link {
+    cursor: pointer;
+}

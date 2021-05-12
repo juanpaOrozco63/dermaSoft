@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid animate__animated animate__fadeInRight">
     <div class="row no-gutter">
         <div class="col-md-6 d-none d-md-flex bg-image"></div>
         <div class="col-md-6 bg-light">
@@ -9,14 +9,14 @@
                             <h3 class="display-4">{{strTitle}}</h3>
                             <form autocomplete="off" [formGroup]="formLogin" (ngSubmit)="ingresar()">
                                 <div class="form-group mb-3">
-                                    <input id="inputEmail" type="email" placeholder="Número de identificación" required="" class="form-control rounded-pill border-0 shadow-sm px-4" [(ngModel)]="strIdentification" [class.is-invalid]="nIdentificacionNoValido" formControlName="nIdentificacion">
+                                    <input id="inputEmail" type="email" placeholder="Número de identificación" required="" class="form-control rounded-pill border-0 shadow-sm px-4" [class.is-invalid]="nIdentificacionNoValido" formControlName="nIdentificacion">
                                     <div class="text-left">
                                         <small *ngIf="nIdentificacionNoValido" class="text-danger ">Ingrese un número de identificación</small>
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <input id="inputPassword" type="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 " name="password" [(ngModel)]="strPassword" formControlName="password" [class.is-invalid]="passNoValido">
+                                    <input id="inputPassword" type="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 " name="password" formControlName="password" [class.is-invalid]="passNoValido">
                                     <div class="text-left">
                                         <small *ngIf="passNoValido" class="text-danger ">Ingrese una contraseña</small>
                                     </div>

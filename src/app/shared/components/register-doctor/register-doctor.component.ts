@@ -45,6 +45,7 @@ export class RegisterDoctorComponent implements OnInit {
   ) {
     this.crearFormulario();
     this.cargarDataFormulario();
+    this.crearEscuchadores();
   }
 
   ngOnInit(): void {
@@ -110,6 +111,7 @@ export class RegisterDoctorComponent implements OnInit {
     //Asignacion de valores al objeto paciente
     this.rol.identificationType = idTy;
     this.rol.cityI = cityI;
+    console.log(this.rol);
     //Registro en firebase
     this.authFirebaseService
       .registerFirebase(this.rol.email, this.rol.password)
@@ -194,6 +196,15 @@ export class RegisterDoctorComponent implements OnInit {
       password: '',
       correo: '',
     });
+  }
+  crearEscuchadores(){
+    this.formRegister.valueChanges.subscribe(valor=>{
+      this.rol.userIdentification=valor.nIdentificacion
+      this.rol.email=valor.correo
+      this.rol.password=valor.password
+      this.rol.identificationType=valor.tIdentificacion
+      this.rol.cityI=valor.ciudad
+    })
   }
   // Método para obtener el valor del campo de nIdentificacion
   public get nIdentificacionNoValido() {

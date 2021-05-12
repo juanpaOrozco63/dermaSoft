@@ -6,6 +6,7 @@
 
 * {
     font-family: "Kanit", sans-serif;
+    color: #808080;
     /* background-image: url(assets/fondo.jpg); */
 }
 
@@ -25,11 +26,11 @@ footer {
 }
 
 .bg-main {
-    background-color: #7386d5;
+    background-color: #61A7DA;
 }
 
 .color-main {
-    color: #6d7fcc;
+    color: #61A7DA;
 }
 
 .text-color-main {

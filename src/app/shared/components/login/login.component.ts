@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.crearFormulario();
     this.cargarDataFormulario();
+    this.crearEscuchadores();
   }
 
   ngOnInit(): void {
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit {
         title: 'Cargando',
         text: 'por favor espere',
         timer: 3000,
-        onOpen: () => {
+        didOpen: () => {
           Swal.showLoading();
         }
       });
@@ -161,6 +162,12 @@ export class LoginComponent implements OnInit {
       nIdentificacion: '',
       password: '',
     });
+  }
+  crearEscuchadores(){
+    this.formLogin.valueChanges.subscribe(valor=>{
+    this.strIdentification= valor.nIdentificacion;
+    this.strPassword =valor.password
+    })
   }
   // Método para obtener el valor del campo de nIdentificacion
   public get nIdentificacionNoValido() {

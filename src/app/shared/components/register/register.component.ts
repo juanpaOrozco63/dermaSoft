@@ -46,6 +46,7 @@ export class RegisterComponent implements OnInit {
   ) { 
     this.crearFormulario();
     this.cargarDataFormulario();
+    this.crearEscuchadores();
   }
 
   ngOnInit(): void {
@@ -114,9 +115,7 @@ export class RegisterComponent implements OnInit {
     //Guardamos la contraseña
     let pass = this.rol.password;
     //Asignacion de valores al objeto paciente
-    this.rol.identificationType = idTy;
-    this.rol.cityI = cityI;
-    this.rol.epsI = epsI;
+
     //Registro en firebase
     this.authFirebaseService
       .registerFirebase(this.rol.email, this.rol.password)
@@ -179,33 +178,43 @@ export class RegisterComponent implements OnInit {
     });
     
   }
+  crearEscuchadores(){
+    this.formRegister.valueChanges.subscribe(valor=>{
+      this.rol.userIdentification=valor.nIdentificacion
+      this.rol.email=valor.correo
+      this.rol.password=valor.password
+      this.rol.identificationType=valor.tIdentificacion
+      this.rol.epsI=valor.eps
+      this.rol.cityI=valor.ciudad
+    })
+  }
   // Método para obtener el valor del campo de nIdentificacion
-  public get nIdentificacionNoValido() {
+   get nIdentificacionNoValido() {
     return this.formRegister.get('nIdentificacion').invalid && this.formRegister.get('nIdentificacion').touched
    
    }
    // Método para obtener el valor del campo password
-   public get passNoValido() {
+    get passNoValido() {
     return this.formRegister.get('password').invalid && this.formRegister.get('password').touched
    
    }
    // Método para obtener el valor del campo correo
-   public get correoNoValido() {
+    get correoNoValido() {
     return this.formRegister.get('correo').invalid && this.formRegister.get('correo').touched
    
    }
     // Método para obtener el valor del campo tipo de identificación
-   public get tIdentificacionNoValido() {
+    get tIdentificacionNoValido() {
     return this.formRegister.get('tIdentificacion').invalid && this.formRegister.get('tIdentificacion').touched
    
    }
     // Método para obtener el valor del campo de ciudad
-   public get ciudadNoValido() {
+    get ciudadNoValido() {
     return this.formRegister.get('ciudad').invalid && this.formRegister.get('ciudad').touched
    
    }   
    // Método para obtener el valor del campo de eps
-   public get epsNoValido() {
+    get epsNoValido() {
     return this.formRegister.get('eps').invalid && this.formRegister.get('eps').touched
    
    }
