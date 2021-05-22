@@ -24,7 +24,7 @@ export class SettingsDoctorComponent implements OnInit {
       await this.doctorData()
     })
    
-    
+      
   }
     async doctorData(){
     this.doctors.forEach((data)=>{

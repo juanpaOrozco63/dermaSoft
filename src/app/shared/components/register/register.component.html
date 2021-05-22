@@ -5,7 +5,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
-                            <h3 class="display-4  ">{{title}}</h3>
+                            <h3 class="display-4 color-titles">{{title}}</h3>
                             <form autocomplete="off" [formGroup]="formRegister" (ngSubmit)="register(tIdentificacion.value,ciudad.value,eps.value)">
                                 <div class="form-group mb-3">
                                     <select name="tIdentificacion" id="tIdentificacion" #tIdentificacion class="form-control rounded-pill border-0 shadow-sm px-4" required="" [class.is-invalid]="tIdentificacionNoValido" formControlName="tIdentificacion">

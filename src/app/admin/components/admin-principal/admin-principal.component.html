@@ -24,11 +24,11 @@
             <li>
                 <a routerLink="/admin-principal/profile">Perfil</a>
             </li>
-            <li>
+            <!-- <li>
                 <a routerLink="/admin-principal/settings-admin">Configuración</a>
-            </li>
+            </li> -->
             <li>
-                <a (click)=closeSession()>Salir</a>
+                <a (click)=closeSession() style="cursor: pointer;">Salir</a>
             </li>
         </ul>
     </nav>
@@ -66,11 +66,11 @@
                         <li class="nav-item">
                             <a class="nav-link" routerLink="/admin-principal/profile">Perfil</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" routerLink="/admin-principal/settings-admin">Configuración</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
-                            <a class="nav-link" (click)=closeSession()>Salir</a>
+                            <a class="nav-link" (click)=closeSession() style="cursor: pointer;">Salir</a>
                         </li>
                     </ul>
                 </div>

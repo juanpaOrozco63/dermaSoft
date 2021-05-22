@@ -112,10 +112,18 @@ export class RegisterComponent implements OnInit {
 
   //Registro pacientes
   register(idTy: string, cityI: number, epsI: number) {
+    if(this.formRegister.invalid){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Complete todos los datos',
+      });
+      return Object.values(this.formRegister.controls).forEach(control =>{
+        control.markAsTouched();
+      })
+    }else{
     //Guardamos la contraseña
     let pass = this.rol.password;
-    //Asignacion de valores al objeto paciente
-
     //Registro en firebase
     this.authFirebaseService
       .registerFirebase(this.rol.email, this.rol.password)
@@ -129,7 +137,7 @@ export class RegisterComponent implements OnInit {
             this.rol = new RegisterPatient(null, null, null, 'Y', 3, 'A', null, new Date(), 0, 0);
             Swal.fire(
               'Registro éxitoso',
-              'Te has registrado con éxito, verifica tu email',
+              'Te has registrado con éxito, verifica tu correo',
               'success'
             );
             this.router.navigate(['/login']);
@@ -142,8 +150,8 @@ export class RegisterComponent implements OnInit {
             this.rol.password = pass;
             Swal.fire({
               icon: 'error',
-              title: 'Registro fallido',
-              text: 'Documento ya registrado',
+              title: 'Error',
+              text: 'Ya existe un perfil registrado con este número de documento',
             });
           }
         );
@@ -153,10 +161,12 @@ export class RegisterComponent implements OnInit {
         this.rol.password = pass;
         Swal.fire({
           icon: 'error',
-          title: 'Registro fallido',
-          text: error.message,
+          title: 'Error',
+          text: 'Ya existe un perfil registrado con este correo',
         });
       });
+    }
+
   }
   // Método para crear formulario
   crearFormulario(){
@@ -178,6 +188,7 @@ export class RegisterComponent implements OnInit {
     });
     
   }
+  // Metódo que permite estar escuchando todo los cambios del HTML es como un ngModel
   crearEscuchadores(){
     this.formRegister.valueChanges.subscribe(valor=>{
       this.rol.userIdentification=valor.nIdentificacion

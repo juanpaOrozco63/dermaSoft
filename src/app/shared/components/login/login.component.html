@@ -6,7 +6,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
-                            <h3 class="display-4">{{strTitle}}</h3>
+                            <h3 class="display-4 color-titles">{{strTitle}}</h3>
                             <form autocomplete="off" [formGroup]="formLogin" (ngSubmit)="ingresar()">
                                 <div class="form-group mb-3">
                                     <input id="inputEmail" type="email" placeholder="Número de identificación" required="" class="form-control rounded-pill border-0 shadow-sm px-4" [class.is-invalid]="nIdentificacionNoValido" formControlName="nIdentificacion">

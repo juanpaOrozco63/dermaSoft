@@ -106,6 +106,17 @@ export class RegisterDoctorComponent implements OnInit {
 
   //Registro pacientes
   register(idTy: string, cityI: number) {
+    // Validar formulario
+    if(this.formRegister.invalid){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Complete todos los datos',
+      });
+      return Object.values(this.formRegister.controls).forEach(control =>{
+        control.markAsTouched();
+      })
+    }else{
     //Guardamos la contraseña
     let pass = this.rol.password;
     //Asignacion de valores al objeto paciente
@@ -135,7 +146,7 @@ export class RegisterDoctorComponent implements OnInit {
             );
             Swal.fire(
               'Registro éxitoso',
-              'Te has registrado con éxito, verifica tu email',
+              'Te has registrado con éxito, verifica tu correo',
               'success'
             );
             this.router.navigate(['/login']);
@@ -147,8 +158,8 @@ export class RegisterDoctorComponent implements OnInit {
             this.rol.password = pass;
             Swal.fire({
               icon: 'error',
-              title: 'Registro fallido',
-              text: 'Documento ya registrado',
+              title: 'Error',
+              text: 'Ya existe un perfil registrado con este número de documento',
             });
           }
         );
@@ -158,10 +169,12 @@ export class RegisterDoctorComponent implements OnInit {
         this.rol.password = pass;
         Swal.fire({
           icon: 'error',
-          title: 'Registro fallido',
-          text: error.message,
+          title: 'Error',
+          text: 'Ya existe un perfil registrado con este correo',
         });
       });
+    }
+
   }
   // Método para crear formulario
   crearFormulario() {
@@ -197,6 +210,7 @@ export class RegisterDoctorComponent implements OnInit {
       correo: '',
     });
   }
+  // Método para estar pendiente de los cambios en el HTMl es como un ngModel
   crearEscuchadores(){
     this.formRegister.valueChanges.subscribe(valor=>{
       this.rol.userIdentification=valor.nIdentificacion
@@ -207,35 +221,35 @@ export class RegisterDoctorComponent implements OnInit {
     })
   }
   // Método para obtener el valor del campo de nIdentificacion
-  public get nIdentificacionNoValido() {
+   get nIdentificacionNoValido() {
     return (
       this.formRegister.get('nIdentificacion').invalid &&
       this.formRegister.get('nIdentificacion').touched
     );
   }
   // Método para obtener el valor del campo password
-  public get passNoValido() {
+   get passNoValido() {
     return (
       this.formRegister.get('password').invalid &&
       this.formRegister.get('password').touched
     );
   }
   // Método para obtener el valor del campo correo
-  public get correoNoValido() {
+   get correoNoValido() {
     return (
       this.formRegister.get('correo').invalid &&
       this.formRegister.get('correo').touched
     );
   }
   // Método para obtener el valor del campo tipo de identificación
-  public get tIdentificacionNoValido() {
+   get tIdentificacionNoValido() {
     return (
       this.formRegister.get('tIdentificacion').invalid &&
       this.formRegister.get('tIdentificacion').touched
     );
   }
   // Método para obtener el valor del campo de ciudad
-  public get ciudadNoValido() {
+   get ciudadNoValido() {
     return (
       this.formRegister.get('ciudad').invalid &&
       this.formRegister.get('ciudad').touched
