@@ -50,4 +50,11 @@ export class AppointmentService {
       headers: headers,
     });
   }
+
+  public reporteDoctor(doctorId: number): Observable<any> {
+    let headers = this.createTokenHeader();
+    return this.httpClient.get(this.url + '/reporteDoctor/' + doctorId, {
+      headers: headers,
+    });
+  }
 }

@@ -14,7 +14,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FinalizarCitaComponent } from './components/finalizar-cita/finalizar-cita.component';
 
@@ -32,7 +32,8 @@ import { FinalizarCitaComponent } from './components/finalizar-cita/finalizar-ci
       useFactory: adapterFactory,
     }),
     FlatpickrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   exports:[
 

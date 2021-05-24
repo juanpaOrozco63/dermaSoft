@@ -1,48 +1,101 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
 
 @Component({
   selector: 'app-patient-profile',
   templateUrl: './patient-profile.component.html',
-  styleUrls: ['./patient-profile.component.css']
+  styleUrls: ['./patient-profile.component.css'],
 })
 export class PatientProfileComponent implements OnInit {
-  email:String;
-  public patients:Patient[]=[]
-  patient:Patient = new Patient(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-  constructor(private patientService:PatientService) { }
+  email: String;
+  patient: Patient = new Patient(
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  );
+  //Forms
+  formActualizar: FormGroup;
+  constructor(
+    private patientService: PatientService,
+    private fb: FormBuilder,
+    public datepipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
-    this.email= localStorage.getItem("Email");
+    this.email = localStorage.getItem('Email');
     this.findPatient(this.email);
-    this.patientData();
+    this.crearFormulario();
   }
-  findPatient(email){
-    this.patientService.findByEmail(email).subscribe(async (patient)=>{
-      this.patients.push(patient)
-      await this.patientData()
-    })
+
+  crearFormulario() {
+    this.formActualizar = this.fb.group({
+      correo: [this.email, [Validators.required]],
+      nombre: ['', [Validators.required]],
+      primerApellido: ['', [Validators.required]],
+      segundoApellido: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      alto: ['', [Validators.required]],
+      peso: ['', [Validators.required]],
+    });
   }
-  async patientData(){
-    this.patients.forEach((data)=>{
-      this.patient.birthdate= this.getFormattedDate(data.birthdate)
-      this.patient.firstName =data.firstName
-      this.patient.lastName =data.lastName
-      this.patient.lastName2 =data.lastName2
-      this.patient.approved =data.approved
-      this.patient.phone =data.phone
-      this.patient.ocupation =data.ocupation
-      this.patient.height =data.height
-      this.patient.gender =data.gender
-      this.patient.maritalStatus =data.maritalStatus
-      this.patient.weight =data.weight
-    })
+  findPatient(email) {
+    this.patientService.findByEmail(email).subscribe(async (data) => {
+      this.patient = data;
+      //
+      this.formActualizar.get('nombre')?.setValue(this.patient.firstName);
+      this.formActualizar
+        .get('primerApellido')
+        ?.setValue(this.patient.lastName);
+      this.formActualizar
+        .get('segundoApellido')
+        ?.setValue(this.patient.lastName2);
+      this.formActualizar
+        .get('fechaNacimiento')
+        ?.setValue(
+          this.datepipe.transform(this.patient.birthdate, 'yyyy-MM-dd')
+        );
+      this.formActualizar.get('telefono')?.setValue(this.patient.phone);
+      this.formActualizar.get('alto')?.setValue(this.patient.height);
+      this.formActualizar.get('peso')?.setValue(this.patient.weight);
+    });
   }
-  getFormattedDate(data) {
-    let dd = new Date(data).getUTCDate().toString();
-    let mm = new Date(data).getMonth().toString();
-    let yy = new Date(data).getFullYear().toString();
-    return new Date(Number(yy), Number(mm), Number(dd));
+
+  actualizarPaciente() {
+    this.patient.firstName = this.formActualizar.get('nombre')?.value;
+    this.patient.lastName = this.formActualizar.get('primerApellido')?.value;
+    this.patient.lastName2 = this.formActualizar.get('segundoApellido')?.value;
+    let fechita = new Date(this.formActualizar.get('fechaNacimiento')?.value);
+    let horas = fechita.setHours(fechita.getHours() + 5);
+    this.patient.birthdate = fechita;
+    this.patient.phone = this.formActualizar.get('telefono')?.value;
+    this.patient.height = this.formActualizar.get('alto')?.value;
+    this.patient.weight = this.formActualizar.get('peso')?.value;
+    this.patientService.update(this.patient).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 }

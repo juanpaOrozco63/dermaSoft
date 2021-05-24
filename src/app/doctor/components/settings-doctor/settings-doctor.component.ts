@@ -1,47 +1,93 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-settings-doctor',
   templateUrl: './settings-doctor.component.html',
-  styleUrls: ['./settings-doctor.component.css']
+  styleUrls: ['./settings-doctor.component.css'],
 })
 export class SettingsDoctorComponent implements OnInit {
-  email:String;
-  public doctors: Doctor[]=[];
-  doctor:Doctor= new Doctor(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-  constructor(private doctorService:DoctorService) { }
+  email: String;
+  doctor: Doctor = new Doctor(
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  );
 
-   ngOnInit() {
-    this.email= localStorage.getItem("Email");
-     this.findDoctor(this.email);
-    this.doctorData();
+  //Forms
+  formActualizar: FormGroup;
+  constructor(
+    private doctorService: DoctorService,
+    private fb: FormBuilder,
+    public datepipe: DatePipe
+  ) {}
+
+  ngOnInit() {
+    this.email = localStorage.getItem('Email');
+    this.findDoctor(this.email);
+    this.crearFormulario();
   }
-     findDoctor(email){
-    this.doctorService.findByEmail(email).subscribe(async (doctor)=>{
-      this.doctors.push(doctor);
-      await this.doctorData()
-    })
-   
-      
+
+  crearFormulario() {
+    this.formActualizar = this.fb.group({
+      correo: [this.email, [Validators.required]],
+      nombre: ['', [Validators.required]],
+      primerApellido: ['', [Validators.required]],
+      segundoApellido: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      precio: ['', [Validators.required]],
+    });
   }
-    async doctorData(){
-    this.doctors.forEach((data)=>{
-      this.doctor.birthday = this.getFormattedDate(data.birthday)
-      this.doctor.firstName = data.firstName
-      this.doctor.lastName = data.lastName
-      this.doctor.lastName2 = data.lastName2
-      this.doctor.phone = data.phone
-      this.doctor.gender=data.gender
-      this.doctor.price= data.price
-     
-    })
+
+  findDoctor(email) {
+    this.doctorService.findByEmail(email).subscribe(async (data) => {
+      this.doctor = data;
+      //
+      this.formActualizar.get('nombre')?.setValue(this.doctor.firstName);
+      this.formActualizar.get('primerApellido')?.setValue(this.doctor.lastName);
+      this.formActualizar
+        .get('segundoApellido')
+        ?.setValue(this.doctor.lastName2);
+      this.formActualizar
+        .get('fechaNacimiento')
+        ?.setValue(this.datepipe.transform(this.doctor.birthday, 'yyyy-MM-dd'));
+      this.formActualizar.get('telefono')?.setValue(this.doctor.phone);
+      this.formActualizar.get('precio')?.setValue(this.doctor.price);
+    });
   }
-  getFormattedDate(data) {
-    let dd = new Date(data).getUTCDate().toString();
-    let mm = new Date(data).getMonth().toString();
-    let yy = new Date(data).getFullYear().toString();
-    return new Date(Number(yy), Number(mm), Number(dd));
+
+  actualizarDoctor() {
+    this.doctor.firstName = this.formActualizar.get('nombre')?.value;
+    this.doctor.lastName = this.formActualizar.get('primerApellido')?.value;
+    this.doctor.lastName2 = this.formActualizar.get('segundoApellido')?.value;
+    let fechita = new Date(this.formActualizar.get('fechaNacimiento')?.value);
+    let horas = fechita.setHours(fechita.getHours() + 5);
+    this.doctor.birthday = fechita;
+    this.doctor.phone = this.formActualizar.get('telefono')?.value;
+    this.doctor.price = this.formActualizar.get('precio')?.value;
+    this.doctorService.update(this.doctor).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 }

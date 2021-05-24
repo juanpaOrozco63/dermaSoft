@@ -1,53 +1,62 @@
 <div class="container">
     <h1 class="text-center">Mi perfil</h1>
     <div class="text-center">
-        <img src="https://www.asf.com.mx/Imagenes/Login.png" alt="" class="img-fluid">
+        <img src="https://www.asf.com.mx/Imagenes/Login.png" alt="" class="img-fluid" />
     </div>
-    <hr>
-    <div class="row">
-        <div class="col-xl-2 form-group">
-            <label class="col-form-label" for="">Correo :</label>
+    <hr />
+    <form [formGroup]="formActualizar" (ngSubmit)="actualizarDoctor()">
+        <div class="row">
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Correo :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" disabled formControlName="{{ 'correo' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Nombre :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" #nombre formControlName="{{ 'nombre' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Primer apellido :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" #apellidos formControlName="{{ 'primerApellido' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Segundo apellido :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" #apellidos formControlName="{{ 'segundoApellido' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Fecha nacimiento :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="date" class="form-control" #fechaNacimiento formControlName="{{ 'fechaNacimiento' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Telefono :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" #telefono formControlName="{{ 'telefono' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Precio :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" #precio formControlName="{{ 'precio' }}" />
+            </div>
         </div>
-        <div class="col-xl-10 form-group">
-            <input type="text" class="form-control" disabled [value]="email">
+        <hr />
+        <div class="row">
+            <div class="offset-xl-2"></div>
+            <div class="col-xl-10 form-group">
+                <button class="btn bg-main text-white btn-block" type="submit">
+          Editar
+        </button>
+            </div>
         </div>
-        <div class="col-xl-2 form-group">
-            <label class="col-form-label" for="">Nombre :</label>
-        </div>
-        <div class="col-xl-10 form-group">
-            <input type="text" class="form-control" [value]="doctor.firstName">
-        </div>
-        <div class="col-xl-2 form-group">
-            <label class="col-form-label" for="">Apellidos :</label>
-        </div>
-        <div class="col-xl-10 form-group">
-            <input type="text" class="form-control" [value]="doctor.lastName+' '+doctor.lastName2">
-        </div>
-        <div class="col-xl-2 form-group">
-            <label class="col-form-label" for="">Fecha nacimiento :</label>
-        </div>
-        <div class="col-xl-10 form-group">
-            <input type="text" class="form-control" [value]="doctor.birthday | date">
-        </div>
-        <div class="col-xl-2 form-group">
-            <label class="col-form-label" for="">Telefono :</label>
-        </div>
-        <div class="col-xl-10 form-group">
-            <input type="text" class="form-control" [value]="doctor.phone">
-        </div>
-        <div class="col-xl-2 form-group">
-            <label class="col-form-label" for="">Precio :</label>
-        </div>
-        <div class="col-xl-10 form-group">
-            <input type="text" class="form-control" [value]="doctor.price| currency:'COP'">
-        </div>
-
-    </div>
-    <hr>
-    <div class="row">
-        <div class="offset-xl-2"></div>
-        <div class="col-xl-10 form-group">
-            <button class="btn bg-main text-white btn-block">Editar</button>
-        </div>
-    </div>
+    </form>
 </div>

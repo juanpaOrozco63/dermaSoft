@@ -27,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ServiciosMedicosPatientComponent,
     ChatPatientComponent,
     ProductsPatientComponent,
-    PatientProfileComponent
+    PatientProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +40,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       useFactory: adapterFactory,
     }),
     FlatpickrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   exports: [],
 })
