@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-settings-doctor',
@@ -83,9 +84,12 @@ export class SettingsDoctorComponent implements OnInit {
     this.doctor.price = this.formActualizar.get('precio')?.value;
     this.doctorService.update(this.doctor).subscribe(
       (data) => {
-        console.log(data);
+        Swal.fire('Doctor', `${data.firstName+' '+data.lastName+' '+data.lastName2} fue actualizado`, 'success');
+
       },
       (err) => {
+        Swal.fire('Doctor', `No se logro actualizar`, 'error');
+
         console.error(err);
       }
     );

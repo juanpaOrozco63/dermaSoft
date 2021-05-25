@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patient-profile',
@@ -91,9 +92,12 @@ export class PatientProfileComponent implements OnInit {
     this.patient.weight = this.formActualizar.get('peso')?.value;
     this.patientService.update(this.patient).subscribe(
       (data) => {
-        console.log(data);
+        Swal.fire('Paciente', `${data.firstName+' '+data.lastName+' '+data.lastName2} fue actualizado`, 'success');
+
       },
       (err) => {
+        Swal.fire('Paciente', `No se logro actualizar`, 'error');
+
         console.error(err);
       }
     );
