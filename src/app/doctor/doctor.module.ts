@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FinalizarCitaComponent } from './components/finalizar-cita/finalizar-cita.component';
-
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { FinalizarCitaComponent } from './components/finalizar-cita/finalizar-ci
     }),
     FlatpickrModule.forRoot(),
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   exports:[
 

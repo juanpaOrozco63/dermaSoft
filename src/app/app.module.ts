@@ -22,6 +22,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { DatePipe } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { ChartsModule } from 'ng2-charts';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -40,6 +41,7 @@ registerLocaleData(localeEs, 'es');
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    ChartsModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }, DatePipe],
   bootstrap: [AppComponent],
