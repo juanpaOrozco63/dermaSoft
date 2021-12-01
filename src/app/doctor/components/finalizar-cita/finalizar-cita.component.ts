@@ -117,14 +117,15 @@ export class FinalizarCitaComponent implements OnInit {
       timer: 5000,
       onOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
     this.jasperService.generarReporteCita(idCita).subscribe(
       (x) => {
-        console.log(x);
+        let w: any;
+        w = window.navigator;
         const blob = new Blob([x], { type: 'application/pdf' });
-        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-          window.navigator.msSaveOrOpenBlob(blob);
+        if (w && w.msSaveOrOpenBlob) {
+          w.msSaveOrOpenBlob(blob);
           return;
         }
         const nombreArchivo = idCita;

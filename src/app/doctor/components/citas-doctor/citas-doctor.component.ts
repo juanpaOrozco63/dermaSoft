@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { PatientAppointment } from 'src/app/domains/patientAppointment';
 import { AppointmentService } from 'src/app/services/appointment.service';
@@ -13,14 +14,27 @@ import { DoctorService } from '../../services/doctor.service';
 })
 export class CitasDoctorComponent implements OnInit {
   // Declaraciones de la clase
-  public strTitle: String = 'Mis pacientes';
+  public strTitle: String = 'Mis citas';
   // Arreglo de patientAppointment
   public patientAppointments: PatientAppointment[];
   // Usuario
   public usuario: Doctor;
   // Usuario firebase
   public userF$: Observable<any> = this.authFirebaseService.afAuth.user;
+  // Objeto cita modal
+  citaModal: PatientAppointment = new PatientAppointment(
+    new Date(),
+    '',
+    '',
+    '',
+    '',
+    0,
+    0,
+    '',
+    ''
+  );
   constructor(
+    private modal: NgbModal,
     public doctorService: DoctorService,
     private authFirebaseService: AuthFirebaseService,
     public appointmentService: AppointmentService
@@ -56,5 +70,11 @@ export class CitasDoctorComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+  //Abri el modal centrado
+  openCentrado(contenido, patientAppointment: PatientAppointment) {
+    this.citaModal = patientAppointment;
+    //Abrir modal
+    this.modal.open(contenido, { size: 'lg', centered: true });
   }
 }

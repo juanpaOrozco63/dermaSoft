@@ -6,6 +6,8 @@ export class PatientAppointment {
     public image: string,
     public description: string,
     public price: number,
-    public appointmentId: number
+    public appointmentId: number,
+    public reason:string,
+    public state:string
   ) {}
 }

@@ -1,4 +1,3 @@
-import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -7,9 +6,9 @@ import { DoctorService } from 'src/app/doctor/services/doctor.service';
 import { Appointment } from 'src/app/domains/appointment';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
+import Swal from 'sweetalert2';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-servicios-medicos-patient',
@@ -27,6 +26,7 @@ export class ServiciosMedicosPatientComponent implements OnInit {
   public citaModal: Appointment;
   // Divison de arreglo entre 3
   public division: number;
+  public arrayDiv: number[] = [];
   // Usuario firebase
   public userF$: Observable<any> = this.authFirebaseService.afAuth.user;
   // Usuario
@@ -40,7 +40,6 @@ export class ServiciosMedicosPatientComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.citaModal = new Appointment(
       0,
       null,
@@ -63,6 +62,14 @@ export class ServiciosMedicosPatientComponent implements OnInit {
         //Asignamos la data al arreglo de doctores
         this.doctors = data;
         this.division = this.doctors.length / 3;
+        let numeroSlides = Math.ceil(this.division);
+        let inicio = -1;
+        //this.arrayDiv = this.crearArrayConNumerosHasta();
+        for (let index = 0; index < numeroSlides; index++) {
+          this.arrayDiv.push(inicio);
+
+          inicio += 3;
+        }
       },
       (error) => {
         console.error(error);
@@ -100,6 +107,7 @@ export class ServiciosMedicosPatientComponent implements OnInit {
         Swal.showLoading();
         let fecha = new Date(this.citaModal.date);
         let horas = +hora + +5;
+        fecha.setTime(fecha.getTime() + horas * 60 * 60 * 1000);
         this.citaModal.date = fecha;
         this.citaModal.doctorI = this.doctorModal.doctorId;
         this.citaModal.patientI = this.usuario.patientId;
@@ -125,5 +133,12 @@ export class ServiciosMedicosPatientComponent implements OnInit {
         );
       },
     });
+  }
+  prueba(p: any) {
+    console.log(p);
+  }
+
+  crearArrayConNumerosHasta(tope: number) {
+    return Array.from({ length: tope }, (v, k) => k + 1);
   }
 }

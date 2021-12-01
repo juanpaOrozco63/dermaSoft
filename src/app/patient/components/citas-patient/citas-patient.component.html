@@ -1,15 +1,61 @@
 <div class="container">
     <h2 class="text-center mb-5">{{ strTitle }}</h2>
-    <div class="card-columns">
-        <div class="card animated fadeIn fast" *ngFor="let c of citas">
-            <div class="card-body">
-                <h5 class="card-title">
+    <div class="row">
+        <div class="col-md-4 mb-3" *ngFor="let c of citas">
+            <div class="card">
+                <h2 class="title">
                     {{ c.firstName + " " + c.lastName }}
-                </h5>
-                <p class="card-text">Descripción: {{ c.description }}</p>
-                <p class="card-text">Fecha de la cita: {{ c.date | date }}</p>
-                <button class="btn btn-primary btn-block">Detalles de la cita</button>
+                </h2>
+                <p>Descripción: {{ c.description }}</p>
+                <p>Fecha de la cita: {{ c.date | date }}</p>
+                <button class="btn bg-main btn-block text-white" (click)="openCentrado(contenido, c)">
+          Detalles de la cita
+        </button>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #contenido let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Detalles de la cita</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="descripcion">Descripción</label>
+                <textarea class="form-control" id="descripcion" readonly [ngModel]="citaModal.description"></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="motivo">Motivo</label>
+                <input type="text" class="form-control" id="motivo" readonly [ngModel]="citaModal.reason" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="fecha">Fecha</label>
+                <input type="text" class="form-control" id="fecha" readonly [ngModel]="citaModal.date | date" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="doctor">Doctor</label>
+                <input type="text" class="form-control" id="doctor" readonly [ngModel]="citaModal.firstName + ' ' + citaModal.lastName" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="costo">Costo</label>
+                <input type="text" class="form-control" id="costo" readonly [ngModel]="citaModal.price | currency: 'COP '" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <button class="btn bg-main text-white btn-block" type="button" [disabled]="citaModal.state === 'A'" (click)="generarPdfCita(citaModal.appointmentId)">
+          Descargar reporte
+        </button>
+            </div>
+        </div>
+    </div>
+</ng-template>

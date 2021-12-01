@@ -30,3 +30,8 @@ footer {
 .color-titles {
     color: #808080;
 }
+
+#sidebar ul li a.is-active {
+    color: #3E84B8;
+    background: #C2E6FE;
+}

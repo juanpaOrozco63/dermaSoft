@@ -30,8 +30,8 @@ export class AgendaPatientComponent implements OnInit {
   public usuario: Patient;
   // Objeto citas
   citas: any[];
-  startHour:any;
-  endHour:any;
+  startHour: any;
+  endHour: any;
   ngOnInit() {
     this.findUserFire();
   }
@@ -54,6 +54,8 @@ export class AgendaPatientComponent implements OnInit {
     this.appointmentService.findByPatientId(patientId).subscribe(
       (data) => {
         this.citas = data;
+        console.log(data);
+        
         this.llenarAgenda();
       },
       (err) => {
@@ -67,18 +69,17 @@ export class AgendaPatientComponent implements OnInit {
     this.citas.forEach((cita) => {
       let y = new Date(cita.date);
       let x = new Date(cita.date);
-      x.setHours(x.getHours() + 1);
+      x.setHours(y.getHours() + 1);
       this.events = [
         ...this.events,
         {
           title: cita.description,
           id: cita.firstName + ' ' + cita.lastName,
           start: y,
-          end: x
+          end: x,
         },
       ];
     });
-    
   }
   modalData: {
     action: string;

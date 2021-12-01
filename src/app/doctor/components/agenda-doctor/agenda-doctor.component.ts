@@ -8,7 +8,7 @@ import {
 import { AuthFirebaseService } from '../../../services/auth-firebase.service';
 import { Observable, Subject } from 'rxjs';
 import { Patient } from '../../../patient/domains/patient';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbPaginationNumber } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentService } from '../../../services/appointment.service';
 import { PatientService } from '../../../patient/services/patient.service';
 import { isSameDay, isSameMonth } from 'date-fns';
@@ -63,15 +63,14 @@ export class AgendaDoctorComponent implements OnInit {
     this.citas.forEach((cita) => {
       let y = new Date(cita.date);
       let x = new Date(cita.date);
-      x.setHours(x.getHours() + 1);
+      x.setHours(y.getHours() + 1);
       this.events = [
         ...this.events,
         {
           title: cita.description,
           id: cita.firstName + ' ' + cita.lastName,
           start: y,
-          end: x
-
+          end: x,
         },
       ];
     });

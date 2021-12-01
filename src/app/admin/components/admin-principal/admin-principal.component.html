@@ -7,28 +7,49 @@
 
         <ul class="list-unstyled components">
             <li>
-                <a routerLink="/admin-principal/home">Home</a>
-            </li>
-            <li>
-                <a routerLink="/admin-principal/patient-admin">Pacientes</a>
-            </li>
-            <li>
-                <a routerLink="/admin-principal/doctor-admin">Doctores</a>
-            </li>
-            <li>
-                <a routerLink="/admin-principal/entidades-admin">Entidades</a>
-            </li>
-            <li>
-                <a routerLink="/admin-principal/products-admin">Productos</a>
-            </li>
-            <li>
-                <a routerLink="/admin-principal/profile">Perfil</a>
-            </li>
-            <!-- <li>
+                <a routerLink="/admin-principal/home" [routerLinkActive]="['is-active']">Home</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/admin-principal/patient-admin"
+          [routerLinkActive]="['is-active']"
+          >Pacientes</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/admin-principal/doctor-admin"
+          [routerLinkActive]="['is-active']"
+          >Doctores</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/admin-principal/entidades-admin"
+          [routerLinkActive]="['is-active']"
+          >Entidades</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/admin-principal/products-admin"
+          [routerLinkActive]="['is-active']"
+          >Productos</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/admin-principal/profile"
+          [routerLinkActive]="['is-active']"
+          >Perfil</a
+        >
+      </li>
+      <!-- <li>
                 <a routerLink="/admin-principal/settings-admin">Configuración</a>
             </li> -->
             <li>
-                <a (click)=closeSession() style="cursor: pointer;">Salir</a>
+                <a (click)="closeSession()" style="cursor: pointer">Salir</a>
             </li>
         </ul>
     </nav>
@@ -52,34 +73,44 @@
                             <a class="nav-link" routerLink="/admin-principal/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/admin-principal/doctor-admin">Doctores</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/admin-principal/patient-admin">Pacientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/admin-principal/products-admin">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/admin-principal/entidades-admin">Entidades</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/admin-principal/profile">Perfil</a>
-                        </li>
-                        <!-- <li class="nav-item">
+                            <a class="nav-link" routerLink="/admin-principal/doctor-admin">Doctores</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin-principal/patient-admin"
+                >Pacientes</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin-principal/products-admin"
+                >Productos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin-principal/entidades-admin"
+                >Entidades</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin-principal/profile"
+                >Perfil</a
+              >
+            </li>
+            <!-- <li class="nav-item">
                             <a class="nav-link" routerLink="/admin-principal/settings-admin">Configuración</a>
                         </li> -->
                         <li class="nav-item">
-                            <a class="nav-link" (click)=closeSession() style="cursor: pointer;">Salir</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <!-- <h2>Collapsible </h2> -->
-        <div class="cotainer">
-            <router-outlet></router-outlet>
+                            <a class="nav-link" (click)="closeSession()" style="cursor: pointer">Salir</a
+              >
+            </li>
+          </ul>
         </div>
+      </div>
+    </nav>
+
+    <!-- <h2>Collapsible </h2> -->
+    <div class="cotainer">
+      <router-outlet></router-outlet>
     </div>
+  </div>
 </div>
