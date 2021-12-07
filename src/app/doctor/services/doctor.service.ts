@@ -1,19 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Doctor } from '../domains/doctor';
-import Swal from 'sweetalert2';
-import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
+import { Doctor } from '../domains/doctor';
+// API
+const API_NAME_CONTROLLER = '/doctor';
+const API_ENDPOINT =
+  environment.apiUrl + environment.contextPath + API_NAME_CONTROLLER;
 @Injectable({
   providedIn: 'root',
 })
 export class DoctorService {
-  //Url del API
-  private url: string = environment.apiUrl + '/api/v1/doctor';
-
   constructor(public httpClient: HttpClient, public router: Router) {}
 
   //Obtener token jwt
@@ -32,7 +32,7 @@ export class DoctorService {
 
   public findAll(): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url, { headers: headers }).pipe(
+    return this.httpClient.get(API_ENDPOINT, { headers: headers }).pipe(
       catchError((e) => {
         Swal.fire('Error', `No hay doctores registrados`, 'error');
         this.router.navigate(['/admin-principal/doctor-admin']);
@@ -44,7 +44,7 @@ export class DoctorService {
   public findById(doctorIdentification: number): Observable<any> {
     let headers = this.createTokenHeader();
     return this.httpClient
-      .get(this.url + '/' + doctorIdentification, {
+      .get(API_ENDPOINT + '/' + doctorIdentification, {
         headers: headers,
       })
       .pipe(
@@ -62,23 +62,23 @@ export class DoctorService {
 
   public save(doctor: Doctor): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.post(this.url, doctor, { headers: headers });
+    return this.httpClient.post(API_ENDPOINT, doctor, { headers: headers });
   }
 
   public update(doctor: Doctor): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.put(this.url, doctor, { headers: headers });
+    return this.httpClient.put(API_ENDPOINT, doctor, { headers: headers });
   }
 
   public delete(patientIdentification: string): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.delete(this.url + '/' + patientIdentification, {
+    return this.httpClient.delete(API_ENDPOINT + '/' + patientIdentification, {
       headers: headers,
     });
   }
   public findByEmail(email: string): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + '/findByEmail/' + email, {
+    return this.httpClient.get(API_ENDPOINT + '/email/' + email, {
       headers: headers,
     });
   }

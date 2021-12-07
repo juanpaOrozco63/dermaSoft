@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Treatment } from '../domains/treatment';
-
+// API
+const API_NAME_CONTROLLER = '/treatment';
+const API_ENDPOINT =
+  environment.apiUrl + environment.contextPath + API_NAME_CONTROLLER;
 @Injectable({
   providedIn: 'root',
 })
 export class TreatmentService {
-  //Url del API
-  private url: string = environment.apiUrl + '/api/v1/treatment';
-
   constructor(public httpClient: HttpClient) {}
 
   //Obtener token jwt
@@ -29,27 +29,27 @@ export class TreatmentService {
 
   public findAll(): Observable<any> {
     let headers = this.createTokenHeaderR();
-    return this.httpClient.get(this.url, { headers: headers });
+    return this.httpClient.get(API_ENDPOINT, { headers: headers });
   }
   public findById(treatmentId: number): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + '/' + treatmentId, {
+    return this.httpClient.get(API_ENDPOINT + '/' + treatmentId, {
       headers: headers,
     });
   }
   public save(treatment: Treatment): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.post(this.url, treatment, { headers: headers });
+    return this.httpClient.post(API_ENDPOINT, treatment, { headers: headers });
   }
 
   public update(treatment: Treatment): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.put(this.url, treatment, { headers: headers });
+    return this.httpClient.put(API_ENDPOINT, treatment, { headers: headers });
   }
 
   public delete(treatmentId: number): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.delete(this.url + '/' + treatmentId, {
+    return this.httpClient.delete(API_ENDPOINT + '/' + treatmentId, {
       headers: headers,
     });
   }

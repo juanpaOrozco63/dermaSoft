@@ -1,55 +1,56 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Product } from '../domains/product';
-
+// API
+const API_NAME_CONTROLLER = '/product';
+const API_ENDPOINT =
+  environment.apiUrl + environment.contextPath + API_NAME_CONTROLLER;
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
-//Url del API
-private url: string = environment.apiUrl + '/api/v1/product';
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient) {}
   //Obtener token jwt
   createTokenHeader(): HttpHeaders {
     let token = localStorage.getItem('token');
-    let headers = new HttpHeaders({ 'Authorization': token });
+    let headers = new HttpHeaders({ Authorization: token });
     return headers;
   }
 
   //Obtener token jwt para registro
   createTokenHeaderR(): HttpHeaders {
     let token = localStorage.getItem('tokenR');
-    let headers = new HttpHeaders({ 'Authorization': token });
+    let headers = new HttpHeaders({ Authorization: token });
     return headers;
   }
 
   public findAll(): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url, {
+    return this.httpClient.get(API_ENDPOINT, {
       headers: headers,
     });
   }
   public findById(productID: number): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + '/' + productID, {
+    return this.httpClient.get(API_ENDPOINT + '/' + productID, {
       headers: headers,
     });
   }
   public save(product: Product): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.post(this.url, product, { headers: headers });
+    return this.httpClient.post(API_ENDPOINT, product, { headers: headers });
   }
 
   public update(product: Product): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.put(this.url, product, { headers: headers });
+    return this.httpClient.put(API_ENDPOINT, product, { headers: headers });
   }
 
   public delete(productID: number): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.delete(this.url + '/' + productID, {
+    return this.httpClient.delete(API_ENDPOINT + '/' + productID, {
       headers: headers,
     });
   }

@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://backend-dermasoft.herokuapp.com',
-  //apiUrl: ' http://localhost:9090',
+  //apiUrl: 'https://backend-dermasoft.herokuapp.com',
+  apiUrl: 'http://localhost:9090',
+  contextPath: '/dermasoft',
   firebaseConfig: {
     apiKey: 'AIzaSyCXoQzON0YSCtJ1ufhGOrR--tBEn0ok5Do',
     authDomain: 'dermasoft-522b2.firebaseapp.com',

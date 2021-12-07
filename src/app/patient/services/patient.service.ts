@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Patient } from '../domains/patient';
-
+// API
+const API_NAME_CONTROLLER = '/patient';
+const API_ENDPOINT =
+  environment.apiUrl + environment.contextPath + API_NAME_CONTROLLER;
 @Injectable({
   providedIn: 'root',
 })
 export class PatientService {
-  //Url del API
-  private url: string = environment.apiUrl + '/api/v1/patient';
-
   constructor(public httpClient: HttpClient) {}
 
   //Obtener token jwt
@@ -29,36 +29,36 @@ export class PatientService {
 
   public findAll(): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url, { headers: headers });
+    return this.httpClient.get(API_ENDPOINT, { headers: headers });
   }
 
   public findById(patientIdentification: number): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + '/' + patientIdentification, {
+    return this.httpClient.get(API_ENDPOINT + '/' + patientIdentification, {
       headers: headers,
     });
   }
 
   public save(patient: Patient): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.post(this.url, patient, { headers: headers });
+    return this.httpClient.post(API_ENDPOINT, patient, { headers: headers });
   }
 
   public update(patient: Patient): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.put(this.url, patient, { headers: headers });
+    return this.httpClient.put(API_ENDPOINT, patient, { headers: headers });
   }
 
   public delete(patientIdentification: number): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.delete(this.url + '/' + patientIdentification, {
+    return this.httpClient.delete(API_ENDPOINT + '/' + patientIdentification, {
       headers: headers,
     });
   }
 
   public findByEmail(email: string): Observable<any> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get(this.url + '/buscarPorEmail/' + email, {
+    return this.httpClient.get(API_ENDPOINT + '/email/' + email, {
       headers: headers,
     });
   }

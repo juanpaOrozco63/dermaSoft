@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../domains/user';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { User } from '../domains/user';
+// API
+const API_NAME_CONTROLLER = '/login';
+const API_ENDPOINT =
+  environment.apiUrl + environment.contextPath + API_NAME_CONTROLLER;
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  //Url del API
-  private url: string = environment.apiUrl + '/login';
-
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient) {}
 
   //Método Login
   public loginUser(user: User): Observable<any> {
-    return this.httpClient.post(this.url, user);
+    return this.httpClient.post(API_ENDPOINT, user);
   }
 
   //Logueado?

@@ -4,9 +4,11 @@ import { Observable } from 'rxjs';
 import { PatientAppointment } from 'src/app/domains/patientAppointment';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
+import { JasperService } from 'src/app/services/jasper.service';
 import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
-
+import Swal from 'sweetalert2';
+declare var saveAs: any;
 @Component({
   selector: 'app-citas-doctor',
   templateUrl: './citas-doctor.component.html',
@@ -37,7 +39,8 @@ export class CitasDoctorComponent implements OnInit {
     private modal: NgbModal,
     public doctorService: DoctorService,
     private authFirebaseService: AuthFirebaseService,
-    public appointmentService: AppointmentService
+    public appointmentService: AppointmentService,
+    private jasperService: JasperService
   ) {}
 
   ngOnInit(): void {
@@ -76,5 +79,35 @@ export class CitasDoctorComponent implements OnInit {
     this.citaModal = patientAppointment;
     //Abrir modal
     this.modal.open(contenido, { size: 'lg', centered: true });
+  }
+  //Generar pdf
+  generarPdfCita(idCita: number) {
+    Swal.fire({
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      icon: 'info',
+      title: 'Generando reporte',
+      text: 'por favor espere',
+      timer: 5000,
+      onOpen: () => {
+        Swal.showLoading();
+      },
+    });
+    this.jasperService.generarReporteCita(idCita).subscribe(
+      (x) => {
+        let w: any;
+        w = window.navigator;
+        const blob = new Blob([x], { type: 'application/pdf' });
+        if (w && w.msSaveOrOpenBlob) {
+          w.msSaveOrOpenBlob(blob);
+          return;
+        }
+        const nombreArchivo = idCita;
+        saveAs(blob, nombreArchivo);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 }
