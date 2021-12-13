@@ -13,8 +13,6 @@ const API_ENDPOINT =
   providedIn: 'root',
 })
 export class FacturacionService {
-  //Prueba objeto
-  public pruebita: string = '';
   // Metodos de pago
   private payments: PaymentMethod[];
   constructor(private httpClient: HttpClient) {

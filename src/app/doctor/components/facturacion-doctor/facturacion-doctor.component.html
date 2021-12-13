@@ -1,98 +1,98 @@
 <h2 class="text-center mb-4">{{ strTitle }}</h2>
-<div class="row mb-4">
-    <div class="col-1"></div>
-    <div class="card col-3 mx-3" style="width: 16rem" *ngFor="let member of subscriptions | async">
-        <div class="card-body text-center">
-            <h5 class="card-title">{{ member.name }}</h5>
-            <p class="card-text">{{ member.description }}</p>
-            <p class="card-text">Precio: {{ member.price | currency: "COP" }}</p>
+<div *ngIf="!membActiva">
+    <div class="row mb-4">
+        <div class="col-1"></div>
+        <div class="card col-3 mx-3" style="width: 16rem" *ngFor="let member of subscriptions">
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ member.name }}</h5>
+                <p class="card-text">{{ member.description }}</p>
+                <p class="card-text">Precio: {{ member.price | currency: "COP" }}</p>
+            </div>
         </div>
     </div>
-</div>
 
-<form>
-    <div class="form-group row">
-        <div class="col-1"></div>
-        <label class="col-2 col-form-label">Tipo de membresía</label>
-        <div class="col-8">
-            <select class="custom-select" name="subscription" [(ngModel)]="purchase.subscription" #subscription="ngModel" required>
-        <option
-          *ngFor="let subs of subscriptions | async"
-          value="{{ subs.subscriptionId }}"
-        >
-          {{ subs.name }}
-        </option>
-      </select>
-            <div class="alert alert-danger p-0" *ngIf="
-          subscription.invalid && (subscription.dirty || subscription.touched)
-        ">
-                <div *ngIf="subscription.errors.required">
+    <form [formGroup]="doctorSubForm" (ngSubmit)="guardarMembresia()">
+        <div class="form-group row">
+            <div class="col-1"></div>
+            <label class="col-2 col-form-label">Tipo de membresía</label>
+            <div class="col-8">
+                <select class="custom-select" name="subscription" formControlName="membresiaId" required>
+          <option
+            *ngFor="let subs of subscriptions"
+            value="{{ subs.subscriptionId }}"
+          >
+            {{ subs.name }}
+          </option>
+        </select>
+                <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('membresiaId')">
                     El tipo de membresía es requerido
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-1"></div>
-        <label class="col-2 col-form-label">Número de tarjeta</label>
-        <div class="col-8">
-            <input class="form-control" type="text" placeholder="Número de tarjeta" name="cardNumber" [(ngModel)]="purchase.cardNumber" required minlength="16" maxlength="19" #cardNumber="ngModel" />
-            <div class="alert alert-danger p-0" *ngIf="cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)">
-                <div *ngIf="cardNumber.errors.required">
-                    El número de la tarjeta es requerido
-                </div>
-                <div *ngIf="cardNumber.errors.minlength">
-                    El número de la tarjeta debe tener 16 digitos
+        <div class="form-group row">
+            <div class="col-1"></div>
+            <label class="col-2 col-form-label">Número de tarjeta</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Número de tarjeta" name="cardNumber" formControlName="numeroTarjeta" required minlength="15" maxlength="16" />
+                <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('numeroTarjeta')">
+                    El número de la tarjeta debe tener 15 o 16 digitos
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-1"></div>
-        <label class="col-2 col-form-label">Tipo de tarjeta</label>
-        <div class="col-8">
-            <select class="custom-select" name="cardType" [(ngModel)]="purchase.cardType" #cardType="ngModel" required>
-        <option *ngFor="let payment of payments" value="{{ payment.payId }}">
-          {{ payment.name }}
-        </option>
-      </select>
-            <div class="alert alert-danger p-0" *ngIf="cardType.invalid && (cardType.dirty || cardType.touched)">
-                <div *ngIf="cardType.errors.required">
+        <div class="form-group row">
+            <div class="col-1"></div>
+            <label class="col-2 col-form-label">Tipo de tarjeta</label>
+            <div class="col-8">
+                <select class="custom-select" name="cardType" formControlName="tipoTarjeta" required>
+          <option *ngFor="let payment of payments" value="{{ payment.payId }}">
+            {{ payment.name }}
+          </option>
+        </select>
+                <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('tipoTarjeta')">
                     El tipo de tarjeta es requerido
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-1"></div>
-        <label class="col-2 col-form-label">Fecha de expiración</label>
-        <div class="col-8">
-            <input class="form-control" type="date" name="expirationDate" [(ngModel)]="purchase.expirationDate" required #expirationDate="ngModel" />
-            <div class="alert alert-danger p-0" *ngIf="
-          expirationDate.invalid &&
-          (expirationDate.dirty || expirationDate.touched)
-        ">
-                <div *ngIf="expirationDate.errors.required">
+        <div class="form-group row">
+            <div class="col-1"></div>
+            <label class="col-2 col-form-label">Fecha de expiración</label>
+            <div class="col-8">
+                <input class="form-control" type="date" name="expirationDate" formControlName="fechaTarjeta" required />
+                <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('fechaTarjeta')">
                     La fecha de expiración es requerida
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-1"></div>
-        <label class="col-2 col-form-label">CVV</label>
-        <div class="col-8">
-            <input class="form-control" type="password" placeholder="CVV" name="cvv" [(ngModel)]="purchase.password" required minlength="4" maxlength="4" #cvv="ngModel" />
-            <div class="alert alert-danger p-0" *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)">
-                <div *ngIf="cvv.errors.required">El CVV es requerido</div>
-                <div *ngIf="cvv.errors.minlength">El CVV debe tener 4 caracteres</div>
+        <div class="form-group row">
+            <div class="col-1"></div>
+            <label class="col-2 col-form-label">CVV</label>
+            <div class="col-8">
+                <input class="form-control" type="password" placeholder="CVV" name="cvv" formControlName="cvvTarjeta" required minlength="3" maxlength="4" />
+                <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('cvvTarjeta')">
+                    El CVV debe tener 3 o 4 digitos
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-3 col-form-label">&nbsp;</label>
+            <div class="input-group col-md-8">
+                <button class="btn btn-block bg-main text-white" [disabled]="!doctorSubForm.valid">
+          Pagar
+        </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div *ngIf="membActiva">
+    <div class="row mb-4">
+        <div class="col-12"></div>
+        <div class="card col-12 mx-12" style="width: 16rem">
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ membActual.name }}</h5>
+                <h5 class="card-title">{{ membActual.description }}</h5>
+                <h5 class="card-title">Finalización membresia:</h5>
+                <h5 class="card-title">{{ fechaSubFin | date }}</h5>
             </div>
         </div>
     </div>
-    <div class="form-group row">
-        <label class="col-3 col-form-label">&nbsp;</label>
-        <div class="input-group col-md-8">
-            <button class="btn btn-block bg-main text-white">Pagar</button>
-        </div>
-    </div>
-</form>
+</div>
