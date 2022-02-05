@@ -57,11 +57,16 @@ export class DoctorPrincipalComponent implements OnInit {
       .subscribe((data) => {
         if (data.length > 0) {
           const arraySubs: DoctorSubscription[] = data;
+          let isActive: boolean = false;
           arraySubs.forEach((sub) => {
             if (sub.state === 'A') {
               localStorage.setItem('subActual', JSON.stringify(sub));
+              isActive = true;
             }
           });
+          if (!isActive) {
+            localStorage.removeItem('subActual');
+          }
         } else {
           localStorage.removeItem('subActual');
         }
