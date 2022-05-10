@@ -102,7 +102,7 @@ export class CitasDoctorComponent implements OnInit {
           w.msSaveOrOpenBlob(blob);
           return;
         }
-        const nombreArchivo = idCita;
+        const nombreArchivo = 'Reporte cita ' + this.citaModal.firstName + ' '+ this.citaModal.lastName;
         saveAs(blob, nombreArchivo);
       },
       (err) => {
