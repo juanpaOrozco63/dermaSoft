@@ -1,9 +1,9 @@
 <div class="wrapper">
-    <!-- Sidebar Holder -->
-    <nav id="sidebar">
-        <div class="sidebar-header text-center">
-            <h3>Dermasoft</h3>
-        </div>
+  <!-- Sidebar Holder -->
+  <nav id="sidebar">
+    <div class="sidebar-header text-center">
+      <h3>Dermasoft</h3>
+    </div>
 
         <ul class="list-unstyled components">
             <li>
@@ -20,32 +20,49 @@
             </li>
             <li>
                 <a routerLink="/doctor-principal/patient-doctor" [routerLinkActive]="['is-active']">Pacientes</a>
-            </li>
-            <li>
-                <a routerLink="/doctor-principal/settings-doctor" [routerLinkActive]="['is-active']">Perfil</a>
-            </li>
-            <li>
-                <a routerLink="/doctor-principal/reportes-doctor" [routerLinkActive]="['is-active']">Reportes</a>
-            </li>
-            <li>
-                <a (click)=closeSession()>Salir</a>
-            </li>
-        </ul>
-    </nav>
+            </li>-->
+      <li>
+        <a
+          routerLink="/doctor-principal/settings-doctor"
+          [routerLinkActive]="['is-active']"
+          >Perfil</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/doctor-principal/reportes-doctor"
+          [routerLinkActive]="['is-active']"
+          >Reportes</a
+        >
+      </li>
+      <li>
+        <a (click)="closeSession()">Salir</a>
+      </li>
+    </ul>
+  </nav>
 
-    <!-- Page Content Holder -->
-    <div id="content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="navbar-btn">
+  <!-- Page Content Holder -->
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="navbar-btn">
           <span></span>
           <span></span>
           <span></span>
         </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="btn btn-dark d-inline-block d-lg-none ml-auto"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <i class="fas fa-align-justify"></i>
         </button>
 
+<<<<<<< HEAD
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
@@ -80,6 +97,57 @@
         <!-- <h2>Collapsible </h2> -->
         <div class="cotainer">
             <router-outlet></router-outlet>
+=======
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" routerLink="/doctor-principal/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/doctor-principal/agenda-doctor"
+                >Agenda</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/doctor-principal/citas-doctor"
+                >Citas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLink="/doctor-principal/facturacion-doctor"
+                >Facturación</a
+              >
+            </li>
+            <!--
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/doctor-principal/patient-doctor"
+                >Pacientes</a
+              >
+            </li>-->
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/doctor-principal/settings-doctor"
+                >Perfil</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/doctor-principal/reportes-doctor"
+                >Reportes</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="closeSession()">Salir</a>
+            </li>
+          </ul>
+>>>>>>> 7aa6743e66188aad688dab3676194ceac22fb48e
         </div>
+      </div>
+    </nav>
+
+    <!-- <h2>Collapsible </h2> -->
+    <div class="cotainer">
+      <router-outlet></router-outlet>
     </div>
+  </div>
 </div>
