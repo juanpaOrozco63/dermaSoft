@@ -172,7 +172,7 @@ export class RegisterComponent implements OnInit {
   crearFormulario(){
     this.formRegister=this.fb.group({
       nIdentificacion:['',[Validators.required]],
-      password:['',[Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+      password:['',[Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*-._?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       correo:['',[Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9,-]+\.[a-z]{2,3}$'),Validators.email]], 
       tIdentificacion:[[Validators.required]],   
       ciudad:[[Validators.required]] ,   

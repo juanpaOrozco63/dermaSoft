@@ -15,6 +15,7 @@ export class PatientDoctorComponent implements OnInit {
   public strTitle: String = 'Mis pacientes';
   // Usuario
   public usuario: Doctor;
+  public patients:any
   // Usuario firebase
   public userF$: Observable<any> = this.authFirebaseService.afAuth.user;
   constructor(
@@ -47,7 +48,9 @@ export class PatientDoctorComponent implements OnInit {
       .subscribe(
         (data) => {
           //Asignamos la data al arreglo de pacientes
-          console.log(data);
+          this.patients = data
+          console.log(this.patients);
+          
         },
         (error) => {
           console.error(error);
