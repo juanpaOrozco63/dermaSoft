@@ -1,0 +1,7 @@
+<aside class="bg-light">
+    <ul>
+        <li *ngFor="let user of obtenerListado()" (click)="actualizarChat(user)">
+            <img [src]="obtenerImagen(user.imageUrl)" alt="" /> {{ user.nombre }}
+        </li>
+    </ul>
+</aside>

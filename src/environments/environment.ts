@@ -7,6 +7,8 @@ export const environment = {
   apiUrl: 'https://backend-dermasoft.herokuapp.com',
   //apiUrl: 'http://localhost:9090',
   contextPath: '/dermasoft',
+  chatApiUrl:'https://dermasoft-chat.herokuapp.com',
+  //chatApiUrl: 'http://localhost:8080',
   firebaseConfig: {
     apiKey: 'AIzaSyCXoQzON0YSCtJ1ufhGOrR--tBEn0ok5Do',
     authDomain: 'dermasoft-522b2.firebaseapp.com',
