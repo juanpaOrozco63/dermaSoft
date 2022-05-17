@@ -1,1 +1,10 @@
-<p>chat-patient works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <app-chat-aside [usuarios]="mapDoctorsToGeneric()" (actualizarChatUsuario)="actualizarChat($event)"></app-chat-aside>
+        </div>
+        <div class="col-9">
+            <app-chat-content [isDoctorUsuarioPrincipal]="false" [usuarioPrincipal]="mapPatientToGeneric()" [usuarioSecundario]="usuarioActivoChat"></app-chat-content>
+        </div>
+    </div>
+</div>

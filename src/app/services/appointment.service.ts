@@ -40,6 +40,13 @@ export class AppointmentService {
     });
   }
 
+  public findDoctorsByPatientId(patientId: number): Observable<any> {
+    let headers = this.createTokenHeader();
+    return this.httpClient.get(API_ENDPOINT + '/doctor/patient/' + patientId, {
+      headers: headers,
+    });
+  }
+
   public findByPatientId(patientId: number): Observable<any> {
     let headers = this.createTokenHeader();
     return this.httpClient.get(API_ENDPOINT + '/patient/' + patientId, {

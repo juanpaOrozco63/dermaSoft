@@ -1,103 +1,83 @@
 <div class="wrapper">
-  <!-- Sidebar Holder -->
-  <nav id="sidebar">
-    <div class="sidebar-header text-center">
-      <h3>Dermasoft</h3>
-    </div>
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+        <div class="sidebar-header text-center">
+            <h3>Dermasoft</h3>
+        </div>
 
         <ul class="list-unstyled components">
             <li>
-                <a routerLink="/patient-principal/home" [routerLinkActive]="['is-active']">Inicio</a>
-            </li>
-            <li>
-                <a routerLink="/patient-principal/agenda" [routerLinkActive]="['is-active']">Agenda</a>
-            </li>
-            <li>
-                <a routerLink="/patient-principal/citas" [routerLinkActive]="['is-active']">Citas</a>
-            </li>
-            <!-- <li>
-                <a routerLink="/patient-principal/chat" [routerLinkActive]="['is-active']">Chat</a>
-            </li> -->
-            <li>
-                <a routerLink="/patient-principal/products" [routerLinkActive]="['is-active']">Productos</a>
-            </li>
-            <li>
-                <a routerLink="/patient-principal/perfil" [routerLinkActive]="['is-active']">Perfil</a>
-            </li>
-            <li>
-                <a routerLink="/patient-principal/servicios-medicos" [routerLinkActive]="['is-active']">Servicios Médicos</a>
-            </li>
-            <li>
-                <a (click)=closeSession()>Salir</a>
+                <a routerLink="/patient-principal/home" [routerLinkActive]="['is-active']">Inicio</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/patient-principal/agenda"
+          [routerLinkActive]="['is-active']"
+          >Agenda</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/patient-principal/citas"
+          [routerLinkActive]="['is-active']"
+          >Citas</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/patient-principal/chat"
+          [routerLinkActive]="['is-active']"
+          >Chat</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/patient-principal/products"
+          [routerLinkActive]="['is-active']"
+          >Productos</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/patient-principal/perfil"
+          [routerLinkActive]="['is-active']"
+          >Perfil</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/patient-principal/servicios-medicos"
+          [routerLinkActive]="['is-active']"
+          >Servicios Médicos</a
+        >
+      </li>
+      <li>
+        <a (click)="closeSession()">Salir</a>
             </li>
         </ul>
     </nav>
 
-  <!-- Page Content Holder -->
-  <div id="content">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <button type="button" id="sidebarCollapse" class="navbar-btn">
+    <!-- Page Content Holder -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="navbar-btn">
           <span></span>
           <span></span>
           <span></span>
         </button>
-        <button
-          class="btn btn-dark d-inline-block d-lg-none ml-auto"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-align-justify"></i>
         </button>
 
-<<<<<<< HEAD
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" routerLink="/patient-principal/home">Inicio</a>
+                            <a class="nav-link" routerLink="/patient-principal/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/patient-principal/agenda">Agenda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/patient-principal/citas">Citas</a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" routerLink="/patient-principal/chat">Chat</a>
-                        </li> -->
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/patient-principal/products">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/patient-principal/perfil">Perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/patient-principal/servicios-medicos">Servicios Médicos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" (click)=closeSession()>Salir</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <!-- <h2>Collapsible </h2> -->
-        <div class="cotainer">
-            <router-outlet></router-outlet>
-=======
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" routerLink="/patient-principal/home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/patient-principal/agenda"
-                >Agenda</a
+                            <a class="nav-link" routerLink="/patient-principal/agenda">Agenda</a
               >
             </li>
             <li class="nav-item">
@@ -105,13 +85,11 @@
                 >Citas</a
               >
             </li>
-            <!--
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/patient-principal/chat">Chat</a>
-                        </li>-->
             <li class="nav-item">
-              <a class="nav-link" routerLink="/patient-principal/products"
-                >Productos</a
+              <a class="nav-link" routerLink="/patient-principal/chat">Chat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/patient-principal/products">Productos</a
               >
             </li>
             <li class="nav-item">
@@ -128,16 +106,15 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" (click)="closeSession()">Salir</a>
-            </li>
-          </ul>
->>>>>>> 7aa6743e66188aad688dab3676194ceac22fb48e
-        </div>
-      </div>
-    </nav>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-    <!-- <h2>Collapsible </h2> -->
-    <div class="cotainer">
-      <router-outlet></router-outlet>
+        <!-- <h2>Collapsible </h2> -->
+        <div class="cotainer">
+            <router-outlet></router-outlet>
+        </div>
     </div>
-  </div>
 </div>
