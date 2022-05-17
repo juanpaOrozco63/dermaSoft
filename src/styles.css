@@ -24,7 +24,7 @@ footer {
 }
 
 .bg-main {
-    background-color: #61A7DA;
+    background-color: #61a7da;
 }
 
 .color-titles {
@@ -32,6 +32,15 @@ footer {
 }
 
 #sidebar ul li a.is-active {
-    color: #3E84B8;
-    background: #C2E6FE;
+    color: #3e84b8;
+    background: #c2e6fe;
+}
+
+.img-perfil {
+    border-radius: 100%;
+    border: 2px solid #444;
+    height: 150px;
+    width: 150px;
+    margin-left: 20px;
+    margin-right: 8px;
 }

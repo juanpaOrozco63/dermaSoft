@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AgendaDoctorComponent } from '../components/agenda-doctor/agenda-doctor.component';
+import { ChatDoctorComponent } from '../components/chat-doctor/chat-doctor.component';
 import { CitasDoctorComponent } from '../components/citas-doctor/citas-doctor.component';
 import { FacturacionDoctorComponent } from '../components/facturacion-doctor/facturacion-doctor.component';
 import { FinalizarCitaComponent } from '../components/finalizar-cita/finalizar-cita.component';
@@ -29,6 +30,11 @@ export const DOCTORROUTES: Routes = [
   {
     path: 'reportes-doctor',
     component: ReportesDoctorComponent,
+    canActivate: [SubscriptionGuard],
+  },
+  {
+    path: 'chat-doctor',
+    component: ChatDoctorComponent,
     canActivate: [SubscriptionGuard],
   },
   { path: 'facturacion-doctor', component: FacturacionDoctorComponent },

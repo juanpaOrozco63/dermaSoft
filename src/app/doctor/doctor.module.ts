@@ -18,10 +18,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FinalizarCitaComponent } from './components/finalizar-cita/finalizar-cita.component';
 import { ChartsModule } from 'ng2-charts';
+import { ChatDoctorComponent } from './components/chat-doctor/chat-doctor.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [DoctorPrincipalComponent, HomeComponent, PatientDoctorComponent, AgendaDoctorComponent, CitasDoctorComponent, ReportesDoctorComponent, FacturacionDoctorComponent, SettingsDoctorComponent, FinalizarCitaComponent],
+  declarations: [DoctorPrincipalComponent, HomeComponent, PatientDoctorComponent, AgendaDoctorComponent, CitasDoctorComponent, ReportesDoctorComponent, FacturacionDoctorComponent, SettingsDoctorComponent, FinalizarCitaComponent, ChatDoctorComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -34,7 +36,8 @@ import { ChartsModule } from 'ng2-charts';
     FlatpickrModule.forRoot(),
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
   exports:[
 
