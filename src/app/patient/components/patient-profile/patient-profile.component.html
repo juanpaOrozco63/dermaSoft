@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="text-center">Mi perfil</h1>
     <div class="text-center">
-        <img src="https://www.asf.com.mx/Imagenes/Login.png" alt="" class="img-fluid" />
+        <img [src]="obtenerImagen(patient.image)" alt="" class="img-fluid img-perfil" />
     </div>
     <hr />
     <form [formGroup]="formActualizar" (ngSubmit)="actualizarPaciente()">

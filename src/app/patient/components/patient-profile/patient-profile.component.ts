@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
 import Swal from 'sweetalert2';
-
+const GENERIC_IMAGE = 'https://www.asf.com.mx/Imagenes/Login.png';
+const URL_PATTERN = /^(ftp|http|https):\/\/[^ "]+$/;
 @Component({
   selector: 'app-patient-profile',
   templateUrl: './patient-profile.component.html',
@@ -101,5 +102,11 @@ export class PatientProfileComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+
+  obtenerImagen(imgUser: string): string {
+    return imgUser !== null && URL_PATTERN.test(imgUser)
+      ? imgUser
+      : GENERIC_IMAGE;
   }
 }

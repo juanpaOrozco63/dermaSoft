@@ -4,7 +4,8 @@ import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
-
+const GENERIC_IMAGE = 'https://www.asf.com.mx/Imagenes/Login.png';
+const URL_PATTERN = /^(ftp|http|https):\/\/[^ "]+$/;
 @Component({
   selector: 'app-settings-doctor',
   templateUrl: './settings-doctor.component.html',
@@ -93,5 +94,10 @@ export class SettingsDoctorComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+  obtenerImagen(imgUser: string): string {
+    return imgUser !== null && URL_PATTERN.test(imgUser)
+      ? imgUser
+      : GENERIC_IMAGE;
   }
 }
