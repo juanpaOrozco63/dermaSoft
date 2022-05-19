@@ -13,9 +13,11 @@ import Swal from 'sweetalert2';
 export class PatientAdminComponent implements OnInit {
   // Declaraciones de la clase
   public strTitle: String = 'Pacientes';
-  public identificacion: number = null;
+  public identificacion: string = null;
   // Arreglo de pacientes
   public patients: Patient[];
+  // Arreglo para filtrar pacientes
+  public patientsFilter: Patient[];
   // Paciente edit
   public patModal: Patient;
   // Rol edit
@@ -41,6 +43,7 @@ export class PatientAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de pacientes
         this.patients = data;
+        this.patientsFilter = data;
         this.identificacion = null;
       },
       (err) => {
@@ -48,19 +51,13 @@ export class PatientAdminComponent implements OnInit {
       }
     );
   }
-  //Método para traer un paciente por su id
-  findById(id: number): void {
-    if (Boolean(id)) {
-      this.patientService.findById(id).subscribe((data) => {
-        if (data) {
-          this.patients = [];
-          this.patients.push(data);
-        } else {
-          Swal.fire('Error', 'No se encontraron doctores', 'error');
-        }
-      });
-    } else {
-      this.findAll();
+  findByIdentificacion(identificacion: string) {
+    const arreglito = this.patientsFilter.slice();
+    this.patients = arreglito;
+    if (Boolean(identificacion)) {
+      this.patients = arreglito.filter((patient) =>
+        patient.userId.includes(identificacion)
+      );
     }
   }
   openCentrado(contenido, pat: Patient) {
@@ -94,8 +91,10 @@ export class PatientAdminComponent implements OnInit {
               allowEscapeKey: false,
               icon: 'success',
               title: 'Paciente',
-              text: `${data.firstName+' '+data.lastName+' '+data.lastName2} se edito satisfactoriamente`,
-            })
+              text: `${
+                data.firstName + ' ' + data.lastName + ' ' + data.lastName2
+              } se edito satisfactoriamente`,
+            });
           },
           (error) => {
             console.error(error);
@@ -122,7 +121,11 @@ export class PatientAdminComponent implements OnInit {
         this.rolEdit.state = 'I';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
-            Swal.fire('Paciente', `${data.email} ahora esta inactivo `, 'warning');
+            Swal.fire(
+              'Paciente',
+              `${data.email} ahora esta inactivo `,
+              'warning'
+            );
             this.findAll();
           },
           (err) => {
@@ -142,7 +145,11 @@ export class PatientAdminComponent implements OnInit {
         this.rolEdit.state = 'A';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
-            Swal.fire('Paciente', `${data.email} ahora esta activado `, 'success');
+            Swal.fire(
+              'Paciente',
+              `${data.email} ahora esta activado `,
+              'success'
+            );
             this.findAll();
           },
           (err) => {

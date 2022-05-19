@@ -2,13 +2,13 @@
     <h1 class="text-center">{{ strTitle }}</h1>
     <div class="form-group row">
         <button class="btn bg-main ml-3 text-white" (click)="findAll()">
-            <i class="fas fa-users"></i> Mostrar todos
+      <i class="fas fa-users"></i> Mostrar todos
     </button>
-        <button class="btn btn-secondary ml-3" (click)="findById(identificacion)">
-      <i class="fas fa-search"></i> Buscar
+        <button class="btn btn-secondary ml-3" (click)="findAll()">
+            <i class="fas fa-redo-alt"></i>Actualizar
     </button>
         <div class="col">
-            <input class="form-control" type="text" placeholder="Buscar por id" [(ngModel)]="identificacion" (keyup.enter)="findById(identificacion)" />
+            <input class="form-control" type="text" placeholder="Buscar por id" [(ngModel)]="identificacion" (keyup)="findByIdentificacion(identificacion)" />
         </div>
     </div>
     <hr class="" />
@@ -26,13 +26,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let p of patients | paginate: { itemsPerPage: 5, currentPage: pageActual} ; let i = index">
+            <tr *ngFor="
+          let p of patients
+            | paginate: { itemsPerPage: 5, currentPage: pageActual };
+          let i = index
+        ">
                 <td>{{ p.patientId }}</td>
                 <td>{{ p.firstName + " " + p.lastName + " " + p.lastName2 }}</td>
                 <td>{{ p.phone }}</td>
                 <td>{{ getFormattedDate(p.birthdate) | date }}</td>
                 <td>{{ p.userId }}</td>
-                <td>{{ p.state | state}}</td>
+                <td>{{ p.state | state }}</td>
                 <td>
                     <button class="btn bg-main btn-editar" (click)="openCentrado(contenido, p)">
             <i class="fas fa-user-edit"></i>
@@ -51,8 +55,7 @@
             </tr>
         </tbody>
     </table>
-    <pagination-controls class="text-center " (pageChange)="pageActual=$event"></pagination-controls>
-
+    <pagination-controls class="text-center" (pageChange)="pageActual = $event"></pagination-controls>
 </div>
 <ng-template #contenido let-modal>
     <div class="modal-header">
