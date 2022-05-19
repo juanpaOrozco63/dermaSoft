@@ -21,21 +21,18 @@ export const SHAREDROUTES: Routes = [
     path: 'admin-principal',
     component: AdminPrincipalComponent,
     children: ADMINDROUTES,
-    canActivate:[AuthAdminGuard]
+    canActivate: [AuthAdminGuard],
   },
   {
     path: 'patient-principal',
     component: PatientPrincipalComponent,
     children: PATIENTROUTES,
-    canActivate:[AuthPatientGuard]
-
+    canActivate: [AuthPatientGuard],
   },
   {
     path: 'doctor-principal',
     component: DoctorPrincipalComponent,
     children: DOCTORROUTES,
-    canActivate:[AuthDoctorGuard]
-
+    canActivate: [AuthDoctorGuard],
   },
-  { path: 'restorePassword', component: RestorePasswordComponent },
 ];

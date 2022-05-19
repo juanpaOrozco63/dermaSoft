@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { User } from 'src/app/domains/user';
 import { PatientService } from 'src/app/patient/services/patient.service';
@@ -8,6 +9,7 @@ import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { RolService } from 'src/app/services/rol.service';
 import Swal from 'sweetalert2';
+import { RestorePasswordComponent } from '../restore-password/restore-password.component';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +34,8 @@ export class LoginComponent implements OnInit {
     private patientService: PatientService,
     private rolService: RolService,
     private authFirebaseService: AuthFirebaseService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public modal: NgbModal
   ) {
     this.crearFormulario();
     this.cargarDataFormulario();
@@ -57,7 +60,7 @@ export class LoginComponent implements OnInit {
         timer: 3000,
         didOpen: () => {
           Swal.showLoading();
-        }
+        },
       });
       this.user.username = 'admin';
       this.user.password = 'password';
@@ -89,8 +92,8 @@ export class LoginComponent implements OnInit {
                           title: 'Bienvenido',
                           text: `${data.email}`,
                         });
-                        localStorage.setItem("Role","1")
-                        localStorage.setItem("Email",data.email)
+                        localStorage.setItem('Role', '1');
+                        localStorage.setItem('Email', data.email);
                         this.router.navigate(['/admin-principal/home']);
                       } else if (data.role === 2) {
                         Swal.fire({
@@ -99,8 +102,8 @@ export class LoginComponent implements OnInit {
                           title: 'Bienvenido',
                           text: `${data.email}`,
                         });
-                        localStorage.setItem("Role","2")
-                        localStorage.setItem("Email",data.email)                        
+                        localStorage.setItem('Role', '2');
+                        localStorage.setItem('Email', data.email);
                         this.router.navigate(['/doctor-principal/home']);
                       } else if (data.role === 3) {
                         Swal.fire({
@@ -109,8 +112,8 @@ export class LoginComponent implements OnInit {
                           title: 'Bienvenido',
                           text: `${data.email}`,
                         });
-                        localStorage.setItem("Role","3")
-                        localStorage.setItem("Email",data.email)
+                        localStorage.setItem('Role', '3');
+                        localStorage.setItem('Email', data.email);
                         this.router.navigate(['/patient-principal/home']);
                       }
                     },
@@ -163,11 +166,11 @@ export class LoginComponent implements OnInit {
       password: '',
     });
   }
-  crearEscuchadores(){
-    this.formLogin.valueChanges.subscribe(valor=>{
-    this.strIdentification= valor.nIdentificacion;
-    this.strPassword =valor.password
-    })
+  crearEscuchadores() {
+    this.formLogin.valueChanges.subscribe((valor) => {
+      this.strIdentification = valor.nIdentificacion;
+      this.strPassword = valor.password;
+    });
   }
   // Método para obtener el valor del campo de nIdentificacion
   public get nIdentificacionNoValido() {
@@ -182,5 +185,11 @@ export class LoginComponent implements OnInit {
       this.formLogin.get('password').invalid &&
       this.formLogin.get('password').touched
     );
+  }
+
+  //Abri el modal centrado
+  openModalRestorePassword() {
+    //Abrir modal
+    this.modal.open(RestorePasswordComponent, { size: 'lg', centered: true });
   }
 }
