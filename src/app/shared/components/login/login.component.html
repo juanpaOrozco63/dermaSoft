@@ -25,7 +25,7 @@
                                     <input id="customCheck1" type="checkbox" checked class="custom-control-input">
                                     <label for="customCheck1" class="custom-control-label">Recordar contraseña</label>
                                 </div>
-                                <button type="submit" class="btn bg-main text-white btn-block text-uppercase mb-2 rounded-pill shadow-sm">Ingresar</button>
+                                <button type="submit" [disabled]="formLogin.invalid" class="btn bg-main text-white btn-block text-uppercase mb-2 rounded-pill shadow-sm">Ingresar</button>
                                 <div class="text-center d-flex justify-content-between mt-4">
                                     <p routerLink="/registerDoctor">
                                         <a class="font-italic text-muted link">Registrarse como doctor</a>

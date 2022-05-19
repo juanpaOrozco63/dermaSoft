@@ -5,73 +5,155 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
-                            <h3 class="display-4 color-titles">{{title}}</h3>
-                            <form autocomplete="off" [formGroup]="formRegister" (ngSubmit)="register(tIdentificacion.value,ciudad.value,eps.value)">
+                            <h3 class="display-4 color-titles">{{ title }}</h3>
+                            <form autocomplete="off" [formGroup]="formRegister" (ngSubmit)="
+                  register(tIdentificacion.value, ciudad.value, eps.value)
+                ">
                                 <div class="form-group mb-3">
                                     <select name="tIdentificacion" id="tIdentificacion" #tIdentificacion class="form-control rounded-pill border-0 shadow-sm px-4" required="" [class.is-invalid]="tIdentificacionNoValido" formControlName="tIdentificacion">
-                                        <option [ngValue]="null" [disabled]="true">Seleccione un tipo de identificación</option>
-                                        <option *ngFor="let idT of idType; let i = index" [value]="idT.id">
-                                            {{idT.name}}                            
-                                        </option>
-                                    </select>
+                    <option [ngValue]="null" [disabled]="true">
+                      Seleccione un tipo de identificación
+                    </option>
+                    <option
+                      *ngFor="let idT of idType; let i = index"
+                      [value]="idT.id"
+                    >
+                      {{ idT.name }}
+                    </option>
+                  </select>
                                     <div class="text-left">
-                                        <small *ngIf="tIdentificacionNoValido" class="text-danger ">Seleccione un tipo de identificación</small>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input id="nIdentificacion" type="text" placeholder="Número de identificación" required="" class="form-control rounded-pill border-0 shadow-sm px-4" [class.is-invalid]="nIdentificacionNoValido" formControlName="nIdentificacion" name="nIdentificacion"
-                                        #nIdentificacion>
-                                    <div class="text-left">
-                                        <small *ngIf="nIdentificacionNoValido" class="text-danger ">Ingrese un número de identificación</small>
-                                    </div>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <input id="email" type="email" name="email" placeholder="Correo" required="" class="form-control rounded-pill border-0 shadow-sm px-4" required [class.is-invalid]="correoNoValido" formControlName="correo" #email>
-                                    <div class="text-left">
-                                        <small *ngIf="correoNoValido" class="text-danger ">Ingrese un formato de correo valido</small>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input id="password" name="password" type="password" placeholder="Contraseña" required="" class="form-control rounded-pill border-0 shadow-sm px-4 " name="password" formControlName="password" [class.is-invalid]="passNoValido" #password>
-                                    <div class="text-left">
-                                        <small *ngIf="passNoValido" class="text-danger ">La contraseña debe tener mínimo 9 caracteres, un número, una mayúscula y un símbolo</small>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <select name="ciudad" id="ciudad" #ciudad class="form-control rounded-pill border-0 shadow-sm px-4" required="" [class.is-invalid]="ciudadNoValido" formControlName="ciudad">
-                                        <option [ngValue]="null" [disabled]="true">Seleccione una ciudad</option>                             
-                                        <option *ngFor="let cityName of cities" [value]="cityName.cityId">                                    
-                                            {{cityName.description}}
-                                        </option>
-                                    </select>
-                                    <div class="text-left">
-                                        <small *ngIf="ciudadNoValido" class="text-danger ">Seleccione una ciudad</small>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <select name="eps" id="eps" #eps class="form-control rounded-pill border-0 shadow-sm px-4" required formControlName="eps" [class.is-invalid]="epsNoValido">
-                                        <option [ngValue]="null" [disabled]="true">Seleccione una eps</option>
-                                        <option *ngFor="let epsName of epsArray" [value]="epsName.epsId">
-                                            {{epsName.epsName}}
-                                        </option>
-                                    </select>
-                                    <div class="text-left">
-                                        <small *ngIf="epsNoValido" class="text-danger ">Seleccione una eps</small>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn bg-main text-white btn-block text-uppercase mb-2 rounded-pill shadow-sm">Registrarse</button>
-                                <div class="text-center d-flex justify-content-center mt-4">
-                                    <p routerLink="/login">
-                                        <a class="font-italic text-muted link">Ingresar</a>
-                                    </p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                                        <small *ngIf="tIdentificacionNoValido" class="text-danger">Seleccione un tipo de identificación</small
+                    >
+                  </div>
                 </div>
+                <div class="form-group mb-3">
+                  <input
+                    id="nIdentificacion"
+                    type="text"
+                    placeholder="Número de identificación"
+                    required=""
+                    class="form-control rounded-pill border-0 shadow-sm px-4"
+                    [class.is-invalid]="nIdentificacionNoValido"
+                    formControlName="nIdentificacion"
+                    name="nIdentificacion"
+                    #nIdentificacion
+                  />
+                  <div class="text-left">
+                    <small *ngIf="nIdentificacionNoValido" class="text-danger"
+                      >Ingrese un número de identificación</small
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group mb-3">
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="Correo"
+                    required=""
+                    class="form-control rounded-pill border-0 shadow-sm px-4"
+                    required
+                    [class.is-invalid]="correoNoValido"
+                    formControlName="correo"
+                    #email
+                  />
+                  <div class="text-left">
+                    <small *ngIf="correoNoValido" class="text-danger"
+                      >Ingrese un formato de correo valido</small
+                    >
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Contraseña"
+                    required=""
+                    class="form-control rounded-pill border-0 shadow-sm px-4"
+                    name="password"
+                    formControlName="password"
+                    [class.is-invalid]="passNoValido"
+                    #password
+                  />
+                  <div class="text-left">
+                    <small *ngIf="passNoValido" class="text-danger"
+                      >La contraseña debe tener mínimo 9 caracteres, un número,
+                      una mayúscula y un símbolo</small
+                    >
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <select
+                    name="ciudad"
+                    id="ciudad"
+                    #ciudad
+                    class="form-control rounded-pill border-0 shadow-sm px-4"
+                    required=""
+                    [class.is-invalid]="ciudadNoValido"
+                    formControlName="ciudad"
+                  >
+                    <option [ngValue]="null" [disabled]="true">
+                      Seleccione una ciudad
+                    </option>
+                    <option
+                      *ngFor="let cityName of cities"
+                      [value]="cityName.cityId"
+                    >
+                      {{ cityName.description }}
+                    </option>
+                  </select>
+                  <div class="text-left">
+                    <small *ngIf="ciudadNoValido" class="text-danger"
+                      >Seleccione una ciudad</small
+                    >
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <select
+                    name="eps"
+                    id="eps"
+                    #eps
+                    class="form-control rounded-pill border-0 shadow-sm px-4"
+                    required
+                    formControlName="eps"
+                    [class.is-invalid]="epsNoValido"
+                  >
+                    <option [ngValue]="null" [disabled]="true">
+                      Seleccione una eps
+                    </option>
+                    <option
+                      *ngFor="let epsName of epsArray"
+                      [value]="epsName.epsId"
+                    >
+                      {{ epsName.epsName }}
+                    </option>
+                  </select>
+                  <div class="text-left">
+                    <small *ngIf="epsNoValido" class="text-danger"
+                      >Seleccione una eps</small
+                    >
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  [disabled]="formRegister.invalid"
+                  class="btn bg-main text-white btn-block text-uppercase mb-2 rounded-pill shadow-sm"
+                >
+                  Registrarse
+                </button>
+                <div class="text-center d-flex justify-content-center mt-4">
+                  <p routerLink="/login">
+                    <a class="font-italic text-muted link">Ingresar</a>
+                  </p>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
-        <div class="col-md-6 d-none d-md-flex bg-image"></div>
+      </div>
     </div>
+    <div class="col-md-6 d-none d-md-flex bg-image"></div>
+  </div>
 </div>
