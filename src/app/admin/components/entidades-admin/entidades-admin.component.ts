@@ -11,10 +11,12 @@ import Swal from 'sweetalert2';
 })
 export class EntidadesAdminComponent implements OnInit {
   pageActual: number = 1;
-  public id: number = null;
+  public nombre: string = null;
   public strTitle = 'Entidades';
   // Arreglo de eps
   public eps: Eps[];
+  // Arreglo de eps filter
+  public epsFilter: Eps[];
   // Eps edit
   public epsModal: Eps;
   // Doctor edit
@@ -30,26 +32,21 @@ export class EntidadesAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de eps
         this.eps = data;
-        this.id = null;
+        this.epsFilter = data;
+        this.nombre = null;
       },
       (error) => {
         console.error(error);
       }
     );
   }
-  //Método para traer un doctor por su id
-  findById(id: number): void {
-    if (Boolean(id)) {
-      this.epsService.findById(id).subscribe((data) => {
-        if (data) {
-          this.eps = [];
-          this.eps.push(data);
-        } else {
-          Swal.fire('Error', 'No se encontraron eps', 'error');
-        }
-      });
-    } else {
-      this.findAll();
+  findByNombre(nombre: string) {
+    const arreglito = this.epsFilter.slice();
+    this.eps = arreglito;
+    if (Boolean(nombre)) {
+      this.eps = arreglito.filter((eps) =>
+        eps.epsName.toLowerCase().includes(nombre.toLowerCase())
+      );
     }
   }
   inactivarE(eps: Eps): void {

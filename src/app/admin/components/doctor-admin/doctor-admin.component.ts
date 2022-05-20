@@ -16,9 +16,11 @@ export class DoctorAdminComponent implements OnInit {
 
   // Declaraciones de la clase
   public strTitle: String = 'Doctores';
-  public identificacion: number = null;
+  public identificacion: string = null;
   // Arreglo de doctores
   public doctors: Doctor[];
+  // Arreglo de doctores filter
+  public doctorsFilter: Doctor[];
   // Doctor edit
   public doctorModal: Doctor;
   // Rol edit
@@ -42,6 +44,7 @@ export class DoctorAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de doctores
         this.doctors = data;
+        this.doctorsFilter = data;
         this.identificacion = null;
       },
       (error) => {
@@ -49,19 +52,14 @@ export class DoctorAdminComponent implements OnInit {
       }
     );
   }
-  //Método para traer un doctor por su id
-  findById(id: number): void {
-    if (Boolean(id)) {
-      this.doctorService.findById(id).subscribe((data) => {
-        if (data) {
-          this.doctors = [];
-          this.doctors.push(data);
-        } else {
-          Swal.fire('Error', 'No se encontraron doctores', 'error');
-        }
-      });
-    } else {
-      this.findAll();
+  //Método para traer un doctor por su identificacion
+  findByIdentificacion(identificacion: string) {
+    const arreglito = this.doctorsFilter.slice();
+    this.doctorsFilter = arreglito;
+    if (Boolean(identificacion)) {
+      this.doctors = arreglito.filter((doctor) =>
+        doctor.userId.includes(identificacion)
+      );
     }
   }
 
@@ -129,7 +127,11 @@ export class DoctorAdminComponent implements OnInit {
         this.rolEdit.state = 'I';
         this.rolService.update(this.rolEdit).subscribe(
           (data) => {
-            Swal.fire('Doctor', `${data.email} ahora esta inactivo `, 'warning');
+            Swal.fire(
+              'Doctor',
+              `${data.email} ahora esta inactivo `,
+              'warning'
+            );
             this.findAll();
           },
           (err) => {

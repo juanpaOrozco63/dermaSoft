@@ -10,11 +10,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./products-admin.component.css'],
 })
 export class ProductsAdminComponent implements OnInit {
-  public id:number=null
+  public nombre: string = null;
   // Declaraciones de la clase
   public strTitle: String = 'Productos';
   // Arreglo de pacientes
   public products: Product[];
+  // Arreglo de productos filter
+  public productsFilter: Product[];
   // Paciente edit
   public patModal: Product;
   constructor(public productService: ProductService, public modal: NgbModal) {}
@@ -28,26 +30,21 @@ export class ProductsAdminComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de pacientes
         this.products = data;
-        this.id=null
+        this.productsFilter = data;
+        this.nombre = null;
       },
       (err) => {
         console.error(err);
       }
     );
   }
-  //Método para traer un product por su id
-  findById(id: number): void {
-    if (Boolean(id)) {
-      this.productService.findById(id).subscribe((data) => {
-        if (data) {
-          this.products = [];
-          this.products.push(data);
-        } else {
-          Swal.fire('Error', 'No se encontraron productos', 'error');
-        }
-      });
-    } else {
-      this.findAll();
+  findByNombre(nombre: string) {
+    const arreglito = this.productsFilter.slice();
+    this.products = arreglito;
+    if (Boolean(nombre)) {
+      this.products = arreglito.filter((product) =>
+        product.name.toLowerCase().includes(nombre.toLowerCase())
+      );
     }
   }
   crearP(): void {
@@ -101,15 +98,18 @@ export class ProductsAdminComponent implements OnInit {
         );
       },
     });
-  
   }
-  
+
   inactivarP(product: Product): void {
     //Inactivamos producto
     product.state = 'I';
     this.productService.update(product).subscribe(
       (data) => {
-        Swal.fire('Producto', `${data.description} ahora esta inactivo`, 'warning');
+        Swal.fire(
+          'Producto',
+          `${data.description} ahora esta inactivo`,
+          'warning'
+        );
         this.findAll();
       },
       (err) => {
@@ -122,7 +122,11 @@ export class ProductsAdminComponent implements OnInit {
     product.state = 'A';
     this.productService.update(product).subscribe(
       (data) => {
-        Swal.fire('Producto', `${data.description} ahora esta activo`, 'success');
+        Swal.fire(
+          'Producto',
+          `${data.description} ahora esta activo`,
+          'success'
+        );
         this.findAll();
       },
       (err) => {
