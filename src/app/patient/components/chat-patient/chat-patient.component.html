@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" *ngIf="doctores?.length > 0">
         <div class="col-3">
             <app-chat-aside [usuarios]="mapDoctorsToGeneric()" (actualizarChatUsuario)="actualizarChat($event)"></app-chat-aside>
         </div>
@@ -7,4 +7,15 @@
             <app-chat-content [isDoctorUsuarioPrincipal]="false" [usuarioPrincipal]="mapPatientToGeneric()" [usuarioSecundario]="usuarioActivoChat"></app-chat-content>
         </div>
     </div>
+    <div class="d-flex align-items-center justify-content-center vh-100" *ngIf="doctores?.length === 0">
+        <div class="text-center">
+            <h1 class="display-1 fw-bold">Sin chats</h1>
+            <p class="fs-3">
+                <span class="text-danger">Opps!</span> No tienes ningún doctor para chatear.
+            </p>
+            <p class="lead">¿Deseas adquirir un servicio?.</p>
+            <a routerLink="/patient-principal/servicios-medicos" class="btn sc-button">Adquirir</a
+      >
+    </div>
+  </div>
 </div>

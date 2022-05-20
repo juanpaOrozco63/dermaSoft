@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="col-md-4 mb-3" *ngFor="let d of doctors; let i = index">
                                     <div class="card" *ngIf="i > ad && i < (in + 1) * 3">
-                                        <img [src]="d.image" alt="John" style="width: 100%" />
+                                        <img [src]="obtenerImagen(d.image)" alt="John" class="img-carousel" />
                                         <h1>
                                             {{ d.firstName + " " + d.lastName }}
                                         </h1>
@@ -64,7 +64,7 @@
             </div>
             <div class="form-group">
                 <label for="inputFecha">Fecha</label>
-                <input type="date" class="form-control" id="inputFecha" name="inputFecha" [(ngModel)]="citaModal.date" />
+                <input type="date" [min]="fechaActual" class="form-control" id="inputFecha" name="inputFecha" [(ngModel)]="citaModal.date" />
             </div>
             <div class="form-group">
                 <label for="inputHora">Hora</label>
@@ -82,7 +82,7 @@
           <option value="17">5 p.m</option>
         </select>
             </div>
-            <button class="btn bg-main text-white btn-block" (click)="guardarCita(inputHora.value)">
+            <button class="btn bg-main text-white btn-block" [disabled]="!validarCitaModal()" (click)="guardarCita(inputHora.value)">
         Solicitar cita
       </button>
         </form>

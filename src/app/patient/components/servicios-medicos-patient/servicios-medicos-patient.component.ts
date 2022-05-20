@@ -6,6 +6,7 @@ import { DoctorService } from 'src/app/doctor/services/doctor.service';
 import { Appointment } from 'src/app/domains/appointment';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
+import { ImageService } from 'src/app/services/image.service';
 import Swal from 'sweetalert2';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
@@ -31,15 +32,25 @@ export class ServiciosMedicosPatientComponent implements OnInit {
   public userF$: Observable<any> = this.authFirebaseService.afAuth.user;
   // Usuario
   public usuario: Patient;
+  // Fecha actual
+  public fechaActual: any = new Date();
   constructor(
     public doctorService: DoctorService,
     public appointmentService: AppointmentService,
+    private imageService: ImageService,
     public modal: NgbModal,
     private authFirebaseService: AuthFirebaseService,
     public patientService: PatientService
   ) {}
 
   ngOnInit(): void {
+    this.fechaActual.setDate(new Date().getDate() + 1);
+    this.fechaActual = this.fechaActual.toISOString().split('T')[0];
+    this.asignarCitaModal();
+    this.findAll();
+    this.findUserFire();
+  }
+  asignarCitaModal() {
     this.citaModal = new Appointment(
       0,
       null,
@@ -51,16 +62,19 @@ export class ServiciosMedicosPatientComponent implements OnInit {
       0,
       0
     );
-    this.findAll();
-    this.findUserFire();
   }
   //Método para traer todos los doctores
   findAll(): void {
     //Traer doctores
     this.doctorService.findAll().subscribe(
-      (data) => {
+      (data: Doctor[]) => {
         //Asignamos la data al arreglo de doctores
-        this.doctors = data;
+        this.doctors = data.map((d) => {
+          if (!Boolean(d.reputation)) {
+            d.reputation = 1;
+          }
+          return d;
+        });
         this.division = this.doctors.length / 3;
         let numeroSlides = Math.ceil(this.division);
         let inicio = -1;
@@ -91,6 +105,7 @@ export class ServiciosMedicosPatientComponent implements OnInit {
   openCentrado(contenido, doc: Doctor) {
     //Asignamos el doctor especifico al doctor del modal para que el paciente pueda pedir una cita
     this.doctorModal = doc;
+    this.asignarCitaModal();
     //Abrir modal
     this.modal.open(contenido, { centered: true });
   }
@@ -140,5 +155,19 @@ export class ServiciosMedicosPatientComponent implements OnInit {
 
   crearArrayConNumerosHasta(tope: number) {
     return Array.from({ length: tope }, (v, k) => k + 1);
+  }
+  obtenerImagen(imgUser: string): string {
+    return this.imageService.getImage(imgUser);
+  }
+
+  validarCitaModal(): boolean {
+    if (
+      new Date(this.citaModal.date) >= new Date() &&
+      this.citaModal.description?.length > 0 &&
+      this.citaModal.reason?.length > 0
+    ) {
+      return true;
+    }
+    return false;
   }
 }

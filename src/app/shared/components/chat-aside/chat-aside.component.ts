@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
 import { EventoCambioChat } from '../../model/evento-cambio-chat.model';
 import { UsuarioGenerico } from '../../model/usuario-generico.model';
-const GENERIC_IMAGE = 'https://www.asf.com.mx/Imagenes/Login.png';
-const URL_PATTERN = /^(ftp|http|https):\/\/[^ "]+$/;
 @Component({
   selector: 'app-chat-aside',
   templateUrl: './chat-aside.component.html',
@@ -13,7 +12,7 @@ export class ChatAsideComponent implements OnInit {
   public actualizarChatUsuario: EventEmitter<EventoCambioChat> = new EventEmitter();
   @Input()
   public usuarios: UsuarioGenerico[];
-  constructor() {}
+  constructor(private imageService: ImageService) {}
 
   ngOnInit(): void {}
 
@@ -28,8 +27,6 @@ export class ChatAsideComponent implements OnInit {
   }
 
   obtenerImagen(imgUser: string): string {
-    return imgUser !== null && URL_PATTERN.test(imgUser)
-      ? imgUser
-      : GENERIC_IMAGE;
+    return this.imageService.getImage(imgUser);
   }
 }

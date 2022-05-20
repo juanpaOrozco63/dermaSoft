@@ -7,19 +7,18 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { ChatService } from 'src/app/services/chat.service';
+import { ImageService } from 'src/app/services/image.service';
 import * as Stomp from 'stompjs';
 import { MessageDto } from '../../model/message-dto.model';
 import { UsuarioGenerico } from '../../model/usuario-generico.model';
 const PREFIX_DOCTOR = 'D';
 const PREFIX_PATIENT = 'P';
 const CONNECTOR_CHARACTER = '&';
-const GENERIC_IMAGE = 'https://www.asf.com.mx/Imagenes/Login.png';
-const URL_PATTERN = /^(ftp|http|https):\/\/[^ "]+$/;
 @Component({
   selector: 'app-chat-content',
   templateUrl: './chat-content.component.html',
@@ -40,7 +39,10 @@ export class ChatContentComponent implements OnInit, OnChanges, OnDestroy {
   newMessage: string;
   messages?: Observable<MessageDto[]>;
   senderName?: string;
-  constructor(private chatService: ChatService) {}
+  constructor(
+    private chatService: ChatService,
+    private imageService: ImageService
+  ) {}
   @HostListener('window:beforeunload', ['$event'])
   async onBeforeUnload(): Promise<void> {
     this.disconnectChat();
@@ -131,9 +133,7 @@ export class ChatContentComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
   obtenerImagen(imgUser: string): string {
-    return imgUser !== null && URL_PATTERN.test(imgUser)
-      ? imgUser
-      : GENERIC_IMAGE;
+    return this.imageService.getImage(imgUser);
   }
   obtenerSenderName(): string {
     return this.isDoctorUsuarioPrincipal

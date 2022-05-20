@@ -1,11 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImageService } from 'src/app/services/image.service';
+import Swal from 'sweetalert2';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
-import Swal from 'sweetalert2';
-const GENERIC_IMAGE = 'https://www.asf.com.mx/Imagenes/Login.png';
-const URL_PATTERN = /^(ftp|http|https):\/\/[^ "]+$/;
 @Component({
   selector: 'app-patient-profile',
   templateUrl: './patient-profile.component.html',
@@ -37,6 +36,7 @@ export class PatientProfileComponent implements OnInit {
   formActualizar: FormGroup;
   constructor(
     private patientService: PatientService,
+    private imageService: ImageService,
     private fb: FormBuilder,
     public datepipe: DatePipe
   ) {}
@@ -93,8 +93,13 @@ export class PatientProfileComponent implements OnInit {
     this.patient.weight = this.formActualizar.get('peso')?.value;
     this.patientService.update(this.patient).subscribe(
       (data) => {
-        Swal.fire('Paciente', `${data.firstName+' '+data.lastName+' '+data.lastName2} fue actualizado`, 'success');
-
+        Swal.fire(
+          'Paciente',
+          `${
+            data.firstName + ' ' + data.lastName + ' ' + data.lastName2
+          } fue actualizado`,
+          'success'
+        );
       },
       (err) => {
         Swal.fire('Paciente', `No se logro actualizar`, 'error');
@@ -105,8 +110,6 @@ export class PatientProfileComponent implements OnInit {
   }
 
   obtenerImagen(imgUser: string): string {
-    return imgUser !== null && URL_PATTERN.test(imgUser)
-      ? imgUser
-      : GENERIC_IMAGE;
+    return this.imageService.getImage(imgUser);
   }
 }

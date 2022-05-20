@@ -4,8 +4,7 @@ import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
-const GENERIC_IMAGE = 'https://www.asf.com.mx/Imagenes/Login.png';
-const URL_PATTERN = /^(ftp|http|https):\/\/[^ "]+$/;
+import { ImageService } from 'src/app/services/image.service';
 @Component({
   selector: 'app-settings-doctor',
   templateUrl: './settings-doctor.component.html',
@@ -35,6 +34,7 @@ export class SettingsDoctorComponent implements OnInit {
   formActualizar: FormGroup;
   constructor(
     private doctorService: DoctorService,
+    private imageService: ImageService,
     private fb: FormBuilder,
     public datepipe: DatePipe
   ) {}
@@ -85,8 +85,13 @@ export class SettingsDoctorComponent implements OnInit {
     this.doctor.price = this.formActualizar.get('precio')?.value;
     this.doctorService.update(this.doctor).subscribe(
       (data) => {
-        Swal.fire('Doctor', `${data.firstName+' '+data.lastName+' '+data.lastName2} fue actualizado`, 'success');
-
+        Swal.fire(
+          'Doctor',
+          `${
+            data.firstName + ' ' + data.lastName + ' ' + data.lastName2
+          } fue actualizado`,
+          'success'
+        );
       },
       (err) => {
         Swal.fire('Doctor', `No se logro actualizar`, 'error');
@@ -96,8 +101,6 @@ export class SettingsDoctorComponent implements OnInit {
     );
   }
   obtenerImagen(imgUser: string): string {
-    return imgUser !== null && URL_PATTERN.test(imgUser)
-      ? imgUser
-      : GENERIC_IMAGE;
+    return this.imageService.getImage(imgUser);
   }
 }
