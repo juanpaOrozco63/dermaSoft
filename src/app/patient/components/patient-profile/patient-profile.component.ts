@@ -34,6 +34,8 @@ export class PatientProfileComponent implements OnInit {
   );
   //Forms
   formActualizar: FormGroup;
+  // Fecha actual
+  public fechaActual = new Date().toISOString().split('T')[0];
   constructor(
     private patientService: PatientService,
     private imageService: ImageService,

@@ -34,7 +34,7 @@
                 <label class="col-form-label" for="">Fecha nacimiento :</label>
             </div>
             <div class="col-xl-10 form-group">
-                <input type="date" class="form-control" formControlName="{{ 'fechaNacimiento' }}" />
+                <input type="date" [max]="fechaActual" class="form-control" formControlName="{{ 'fechaNacimiento' }}" />
             </div>
             <div class="col-xl-2 form-group">
                 <label class="col-form-label" for="">Telefono :</label>

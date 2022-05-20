@@ -1,17 +1,16 @@
 <div class="container">
-    <h2 class="text-center mb-5">{{strTitle}}</h2>
+    <h2 class="text-center mb-5">{{ strTitle }}</h2>
     <div class="row">
         <div class="col-md-4 mb-3" *ngFor="let p of patients">
             <div class="card" *ngIf="p">
-                <img [src]="p.image"  style="width: 100%" />
+                <img [src]="obtenerImagen(p.image)" style="width: 100%" />
 
                 <h3 class="title text-center">
-                    {{ p.firstName + " " + p.lastName + " " + p.lastName2}}
+                    {{ p.firstName + " " + p.lastName + " " + p.lastName2 }}
                 </h3>
-                <p class="ml-3"> <b>Altura:</b> {{ p.height }}</p>
-                <p class="ml-3"> <b>Peso:</b> {{ p.weight }}</p>
-                <p class="ml-3"> <b>Teléfono:</b> {{ p.phone }}</p>
-
+                <p class="ml-3"><b>Altura:</b> {{ p.height }}</p>
+                <p class="ml-3"><b>Peso:</b> {{ p.weight }}</p>
+                <p class="ml-3"><b>Teléfono:</b> {{ p.phone }}</p>
             </div>
         </div>
     </div>

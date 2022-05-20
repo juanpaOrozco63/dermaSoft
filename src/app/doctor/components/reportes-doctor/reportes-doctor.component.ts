@@ -46,7 +46,10 @@ export class ReportesDoctorComponent implements OnInit {
   public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: '2021' },
+    {
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      label: new Date().getFullYear().toString(),
+    },
   ];
   // events
   public chartClicked({

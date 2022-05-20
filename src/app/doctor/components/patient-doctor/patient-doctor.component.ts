@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
+import { ImageService } from 'src/app/services/image.service';
 import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
 
@@ -15,11 +16,12 @@ export class PatientDoctorComponent implements OnInit {
   public strTitle: String = 'Mis pacientes';
   // Usuario
   public usuario: Doctor;
-  public patients:any
+  public patients: any;
   // Usuario firebase
   public userF$: Observable<any> = this.authFirebaseService.afAuth.user;
   constructor(
     public doctorService: DoctorService,
+    private imageService: ImageService,
     private authFirebaseService: AuthFirebaseService,
     public appointmentService: AppointmentService
   ) {}
@@ -48,13 +50,15 @@ export class PatientDoctorComponent implements OnInit {
       .subscribe(
         (data) => {
           //Asignamos la data al arreglo de pacientes
-          this.patients = data
+          this.patients = data;
           console.log(this.patients);
-          
         },
         (error) => {
           console.error(error);
         }
       );
+  }
+  obtenerImagen(imgUsr: string) {
+    return this.imageService.getImage(imgUsr);
   }
 }
