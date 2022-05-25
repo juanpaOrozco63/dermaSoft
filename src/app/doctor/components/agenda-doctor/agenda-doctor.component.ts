@@ -39,6 +39,7 @@ export class AgendaDoctorComponent implements OnInit {
         this.doctorService.findByEmail(data.email).subscribe((data) => {
           if (data) {
             this.usuario = data;
+            this.doctorService.comprobarRegistrado(this.usuario);
             this.traerDataCitas(this.usuario.doctorId);
           }
         });

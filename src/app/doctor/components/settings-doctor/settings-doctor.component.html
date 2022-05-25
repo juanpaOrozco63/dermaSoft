@@ -34,7 +34,7 @@
                 <label class="col-form-label" for="">Fecha nacimiento :</label>
             </div>
             <div class="col-xl-10 form-group">
-                <input type="date" class="form-control" #fechaNacimiento formControlName="{{ 'fechaNacimiento' }}" />
+                <input type="date" class="form-control" [max]="fechaMaxima" #fechaNacimiento formControlName="{{ 'fechaNacimiento' }}" />
             </div>
             <div class="col-xl-2 form-group">
                 <label class="col-form-label" for="">Telefono :</label>
@@ -53,7 +53,7 @@
         <div class="row">
             <div class="offset-xl-2"></div>
             <div class="col-xl-10 form-group">
-                <button class="btn bg-main text-white btn-block" type="submit">
+                <button class="btn bg-main text-white btn-block" [disabled]="formActualizar.invalid" type="submit">
           Editar
         </button>
             </div>

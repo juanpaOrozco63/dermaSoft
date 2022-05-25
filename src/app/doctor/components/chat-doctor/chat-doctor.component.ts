@@ -38,6 +38,7 @@ export class ChatDoctorComponent implements OnInit {
         this.doctorService.findByEmail(data.email).subscribe((data) => {
           if (data) {
             this.usuario = data;
+            this.doctorService.comprobarRegistrado(this.usuario);
             this.findAll();
           }
         });

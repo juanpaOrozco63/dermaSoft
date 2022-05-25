@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://backend-dermasoft.herokuapp.com',
-  //apiUrl: 'http://localhost:9090',
+  //apiUrl: 'https://backend-dermasoft.herokuapp.com',
+  apiUrl: 'http://localhost:9090',
   contextPath: '/dermasoft',
   chatApiUrl:'https://dermasoft-chat.herokuapp.com',
   //chatApiUrl: 'http://localhost:8080',

@@ -77,6 +77,8 @@ export class ReportesDoctorComponent implements OnInit {
   public strTitle: String = 'Reportes';
   // Arreglo de cantidadCitas
   public cantCitasAnual: CantidadCitasAno[];
+  // Cantidad total
+  public cantidadTotal: number = 0;
   // Usuario
   public usuario: Doctor;
   // Usuario firebase
@@ -98,6 +100,7 @@ export class ReportesDoctorComponent implements OnInit {
         this.doctorService.findByEmail(data.email).subscribe((data) => {
           if (data) {
             this.usuario = data;
+            this.doctorService.comprobarRegistrado(this.usuario);
             this.findAll();
           }
         });
@@ -112,9 +115,9 @@ export class ReportesDoctorComponent implements OnInit {
       (data) => {
         //Asignamos la data al arreglo de cantCitas
         this.cantCitasAnual = data;
-        //console.log(this.cantCitasAnual)
         let array: number[] = [];
         this.cantCitasAnual.forEach((cita) => {
+          this.cantidadTotal += cita.cantidadCitas;
           array.push(cita.cantidadCitas);
         });
 

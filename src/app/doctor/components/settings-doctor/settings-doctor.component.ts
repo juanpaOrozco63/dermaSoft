@@ -5,12 +5,14 @@ import { DoctorService } from '../../services/doctor.service';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { ImageService } from 'src/app/services/image.service';
+import { isThursday } from 'date-fns';
 @Component({
   selector: 'app-settings-doctor',
   templateUrl: './settings-doctor.component.html',
   styleUrls: ['./settings-doctor.component.css'],
 })
 export class SettingsDoctorComponent implements OnInit {
+  fechaMaxima: string;
   email: String;
   doctor: Doctor = new Doctor(
     null,
@@ -41,10 +43,15 @@ export class SettingsDoctorComponent implements OnInit {
 
   ngOnInit() {
     this.email = localStorage.getItem('Email');
+    this.inicializarFechaMaximaNacimiento();
     this.findDoctor(this.email);
     this.crearFormulario();
   }
-
+  inicializarFechaMaximaNacimiento() {
+    let fechaM = new Date();
+    fechaM.setFullYear(fechaM.getFullYear() - 18);
+    this.fechaMaxima = fechaM.toISOString().split('T')[0];
+  }
   crearFormulario() {
     this.formActualizar = this.fb.group({
       correo: [this.email, [Validators.required]],
@@ -89,7 +96,7 @@ export class SettingsDoctorComponent implements OnInit {
           'Doctor',
           `${
             data.firstName + ' ' + data.lastName + ' ' + data.lastName2
-          } fue actualizado`,
+          } sus datos fueron actualizados con éxito`,
           'success'
         );
       },

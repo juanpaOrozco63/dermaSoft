@@ -1,8 +1,16 @@
-<div>
+<div *ngIf="cantidadTotal > 0">
     <div>
         <div style="display: block">
             <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
         </canvas>
         </div>
+    </div>
+</div>
+<div class="d-flex align-items-center justify-content-center vh-100" *ngIf="cantidadTotal=== 0">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">Sin reportes</h1>
+        <p class="fs-3">
+            <span class="text-danger">Opps!</span> No has atendido a ningún paciente en el transcurso del año.
+        </p>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="patients?.length > 0">
     <h2 class="text-center mb-5">{{ strTitle }}</h2>
     <div class="row">
         <div class="col-md-4 mb-3" *ngFor="let p of patients">
@@ -13,5 +13,13 @@
                 <p class="ml-3"><b>Teléfono:</b> {{ p.phone }}</p>
             </div>
         </div>
+    </div>
+</div>
+<div class="d-flex align-items-center justify-content-center vh-100" *ngIf="patients?.length === 0">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">Sin pacientes</h1>
+        <p class="fs-3">
+            <span class="text-danger">Opps!</span> Todavía no has atendido a ningún paciente.
+        </p>
     </div>
 </div>
