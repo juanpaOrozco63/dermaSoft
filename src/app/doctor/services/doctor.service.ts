@@ -83,14 +83,11 @@ export class DoctorService {
     });
   }
 
-  async comprobarRegistrado(doctor: Doctor) {
-    if (doctor.verified !== 'Y') {
-      this.router.navigate(['doctor-principal/settings-doctor']);
-      await Swal.fire(
-        'Completar datos',
-        'Para utilizar todos los servicios disponibles, debes completar tus datos personales',
-        'warning'
-      );
+  comprobarRegistrado(doctor: Doctor) {
+    if (doctor.verified === 'Y') {
+      localStorage.setItem('datosCompletos', 'true');
+    } else {
+      localStorage.setItem('datosCompletos', 'false');
     }
   }
 }

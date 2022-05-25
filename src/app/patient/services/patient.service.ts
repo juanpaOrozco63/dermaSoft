@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import Swal from 'sweetalert2';
 import { Patient } from '../domains/patient';
 // API
 const API_NAME_CONTROLLER = '/patient';
@@ -64,14 +63,11 @@ export class PatientService {
       headers: headers,
     });
   }
-  async comprobarRegistrado(patient: Patient) {
-    if (patient.verified !== 'Y') {
-      this.router.navigate(['patient-principal/perfil']);
-      await Swal.fire(
-        'Completar datos',
-        'Para utilizar todos los servicios disponibles, debes completar tus datos personales',
-        'warning'
-      );
+  comprobarRegistrado(patient: Patient) {
+    if (patient.verified === 'Y') {
+      localStorage.setItem('datosCompletos', 'true');
+    } else {
+      localStorage.setItem('datosCompletos', 'false');
     }
   }
 }

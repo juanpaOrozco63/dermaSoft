@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     //Inicializar objeto login JWT
+    localStorage.clear();
     this.user = new User('', '');
   }
 
