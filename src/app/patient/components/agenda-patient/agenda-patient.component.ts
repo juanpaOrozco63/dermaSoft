@@ -12,7 +12,8 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
-
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-agenda-patient',
   templateUrl: './agenda-patient.component.html',
@@ -43,6 +44,7 @@ export class AgendaPatientComponent implements OnInit {
         this.patientService.findByEmail(data.email).subscribe((data) => {
           if (data) {
             this.usuario = data;
+            this.patientService.comprobarRegistrado(this.usuario);
             this.traerDataCitas(this.usuario.patientId);
           }
         });
@@ -112,6 +114,7 @@ export class AgendaPatientComponent implements OnInit {
 
   constructor(
     private modal: NgbModal,
+    private router: Router,
     private appointmentService: AppointmentService,
     private authFirebaseService: AuthFirebaseService,
     private patientService: PatientService

@@ -97,6 +97,7 @@ export class ServiciosMedicosPatientComponent implements OnInit {
       if (data) {
         this.patientService.findByEmail(data.email).subscribe((data) => {
           this.usuario = data;
+          this.patientService.comprobarRegistrado(this.usuario);
         });
       }
     });

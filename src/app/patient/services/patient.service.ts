@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 import { Patient } from '../domains/patient';
 // API
 const API_NAME_CONTROLLER = '/patient';
@@ -11,7 +13,7 @@ const API_ENDPOINT =
   providedIn: 'root',
 })
 export class PatientService {
-  constructor(public httpClient: HttpClient) {}
+  constructor(public httpClient: HttpClient, private router: Router) {}
 
   //Obtener token jwt
   createTokenHeader(): HttpHeaders {
@@ -61,5 +63,15 @@ export class PatientService {
     return this.httpClient.get(API_ENDPOINT + '/email/' + email, {
       headers: headers,
     });
+  }
+  async comprobarRegistrado(patient: Patient) {
+    if (patient.verified !== 'Y') {
+      this.router.navigate(['patient-principal/perfil']);
+      await Swal.fire(
+        'Completar datos',
+        'Para utilizar todos los servicios disponibles, debes completar tus datos personales',
+        'warning'
+      );
+    }
   }
 }

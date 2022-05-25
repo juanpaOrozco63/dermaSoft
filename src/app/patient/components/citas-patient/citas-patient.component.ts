@@ -54,6 +54,7 @@ export class CitasPatientComponent implements OnInit {
         this.patientService.findByEmail(data.email).subscribe((data) => {
           if (data) {
             this.usuario = data;
+            this.patientService.comprobarRegistrado(this.usuario);
             this.traerDataCitas(this.usuario.patientId);
           }
         });

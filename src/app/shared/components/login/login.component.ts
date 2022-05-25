@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
                         });
                         localStorage.setItem('Role', '3');
                         localStorage.setItem('Email', data.email);
-                        this.router.navigate(['/patient-principal/home']);
+                        this.router.navigate(['patient-principal/home']);
                       }
                     },
                     (err) => {
