@@ -4,10 +4,10 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree
+  UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,7 +24,18 @@ export class SubscriptionGuard implements CanActivate {
     if (localStorage.getItem('subActual')) {
       return true;
     } else {
-      this.router.navigate(['doctor-principal/facturacion-doctor']);
+      Swal.fire({
+        title:
+          'Necesitas adquirir una membresía para acceder a esta funcionalidad',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Adquirir',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['doctor-principal/facturacion-doctor']);
+        }
+      });
       return false;
     }
   }
