@@ -22,7 +22,9 @@ export class EpsService {
 
   //Obtener token jwt para registro
   createTokenHeaderR(): HttpHeaders {
-    let token = localStorage.getItem('tokenR');
+    let token = localStorage.getItem('tokenR')
+      ? localStorage.getItem('tokenR')
+      : localStorage.getItem('token');
     let headers = new HttpHeaders({ Authorization: token });
     return headers;
   }

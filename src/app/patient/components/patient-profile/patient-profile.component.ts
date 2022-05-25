@@ -95,6 +95,7 @@ export class PatientProfileComponent implements OnInit {
     this.patient.weight = this.formActualizar.get('peso')?.value;
     this.patientService.update(this.patient).subscribe(
       (data) => {
+        this.patientService.comprobarRegistrado(data);
         Swal.fire(
           'Paciente',
           `${

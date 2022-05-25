@@ -92,6 +92,7 @@ export class SettingsDoctorComponent implements OnInit {
     this.doctor.price = this.formActualizar.get('precio')?.value;
     this.doctorService.update(this.doctor).subscribe(
       (data) => {
+        this.doctorService.comprobarRegistrado(data);
         Swal.fire(
           'Doctor',
           `${

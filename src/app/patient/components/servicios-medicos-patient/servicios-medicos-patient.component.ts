@@ -69,12 +69,14 @@ export class ServiciosMedicosPatientComponent implements OnInit {
     this.doctorService.findAll().subscribe(
       (data: Doctor[]) => {
         //Asignamos la data al arreglo de doctores
-        this.doctors = data.map((d) => {
-          if (!Boolean(d.reputation)) {
-            d.reputation = 1;
-          }
-          return d;
-        });
+        this.doctors = data
+          .filter((d) => d.verified === 'Y')
+          .map((d) => {
+            if (!Boolean(d.reputation)) {
+              d.reputation = 1;
+            }
+            return d;
+          });
         this.division = this.doctors.length / 3;
         let numeroSlides = Math.ceil(this.division);
         let inicio = -1;
