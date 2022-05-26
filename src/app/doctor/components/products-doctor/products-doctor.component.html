@@ -2,6 +2,39 @@
     <h1 class="text-center">Sugerir productos</h1>
     <hr />
     <form [formGroup]="formSugerirProducto" (ngSubmit)="sugerirProducto()">
-
+        <div class="row">
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Nombre :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" formControlName="{{ 'nombre' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Url de compra :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" formControlName="{{ 'urlCompra' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Url imagen del producto :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" formControlName="{{ 'urlImagen' }}" />
+            </div>
+            <div class="col-xl-2 form-group">
+                <label class="col-form-label" for="">Descripción :</label>
+            </div>
+            <div class="col-xl-10 form-group">
+                <input type="text" class="form-control" formControlName="{{ 'descripcion' }}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-xl-2"></div>
+            <div class="col-xl-10 form-group">
+                <button class="btn bg-main text-white btn-block" [disabled]="formSugerirProducto.invalid" type="submit">
+          Sugerir producto
+        </button>
+            </div>
+        </div>
     </form>
 </div>

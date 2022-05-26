@@ -5,6 +5,7 @@ import { ImageService } from 'src/app/services/image.service';
 import Swal from 'sweetalert2';
 import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
+const URL_PATTERN = /^(ftp|http|https):\/\/[^ "]+$/;
 @Component({
   selector: 'app-settings-doctor',
   templateUrl: './settings-doctor.component.html',
@@ -63,9 +64,9 @@ export class SettingsDoctorComponent implements OnInit {
       fechaNacimiento: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       precio: ['', [Validators.required]],
-      facebookUrl: [''],
-      instagramUrl: [''],
-      twitterUrl: [''],
+      facebookUrl: ['', [Validators.pattern(URL_PATTERN)]],
+      instagramUrl: ['', [Validators.pattern(URL_PATTERN)]],
+      twitterUrl: ['', [Validators.pattern(URL_PATTERN)]],
     });
   }
 
