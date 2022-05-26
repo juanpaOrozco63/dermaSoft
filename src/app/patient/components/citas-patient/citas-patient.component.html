@@ -2,12 +2,14 @@
     <h2 class="text-center mb-5">{{ strTitle }}</h2>
     <div class="row">
         <div class="col-md-4 mb-3" *ngFor="let c of citas">
-            <div class="card">
-                <h2 class="title">
-                    {{ c.firstName + " " + c.lastName }}
-                </h2>
-                <p>Descripción: {{ c.description }}</p>
-                <p>Fecha de la cita: {{ c.date | date }}</p>
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="title">
+                        {{ c.firstName + " " + c.lastName }}
+                    </h2>
+                    <p>Descripción: {{ c.description }}</p>
+                    <p>Fecha de la cita: {{ c.date | date }}</p>
+                </div>
                 <button class="btn bg-main btn-block text-white" (click)="openCentrado(contenido, c)">
           Detalles de la cita
         </button>

@@ -18,57 +18,115 @@
                         <div class="carousel-item" *ngFor="let ad of arrayDiv; let in = index; let isFirst = first" [ngClass]="{ active: isFirst }">
                             <div class="row">
                                 <div class="col-md-4 mb-3" *ngFor="let d of doctors; let i = index">
-                                    <div class="card" *ngIf="i > ad && i < (in + 1) * 3">
-                                        <img [src]="obtenerImagen(d.image)" alt="John" class="img-carousel" />
-                                        <h1>
-                                            {{ d.firstName + " " + d.lastName }}
-                                        </h1>
-                                        <p class="title">{{ d.description }}</p>
-                                        <p>{{ d.price | currency: "COP " }}</p>
-                                        <p>
-                                            <i class="fas fa-star" *ngFor="let dd of [].constructor(d.reputation)"></i>
-                                            <i class="fas fa-star" style="color: rgb(182, 169, 169)" *ngFor="let dd of [].constructor(5 - d.reputation)"></i>
-                                        </p>
-                                        <p>
-                                            <button class="card_button bg-main" (click)="openCentrado(contenido, d)">
+                                    <div class="card h-100" *ngIf="i > ad && i < (in + 1) * 3">
+                                        <div class="card-body">
+                                            <img [src]="obtenerImagen(d.image)" alt="John" class="img-carousel" />
+                                            <h1>
+                                                {{ d.firstName + " " + d.lastName }}
+                                            </h1>
+                                            <p class="title">{{ d.description }}</p>
+                                            <p>{{ d.price | currency: "COP " }}</p>
+                                            <p>
+                                                <i class="fas fa-star" *ngFor="let dd of [].constructor(d.reputation)"></i>
+                                                <i class="fas fa-star" style="color: rgb(182, 169, 169)" *ngFor="let dd of [].constructor(5 - d.reputation)"></i>
+                                            </p>
+                                            <p>
+                                                <a [href]="d.facebookUrl" target="_blank" *ngIf="d.facebookUrl">
+                                                    <i title="Facebook" class="fa-brands fa-facebook mx-1" style="font-size: 20px; color: #3b5998"></i
+                        ></a>
+                        <a
+                          [href]="d.twitterUrl"
+                          target="_blank"
+                          *ngIf="d.twitterUrl"
+                        >
+                          <i
+                            title="Twitter"
+                            class="fa-brands fa-twitter mx-1"
+                            style="font-size: 20px; color: #00acee"
+                          ></i
+                        ></a>
+                        <a
+                          [href]="d.instagramUrl"
+                          target="_blank"
+                          *ngIf="d.instagramUrl"
+                        >
+                          <i
+                            title="Instagram"
+                            class="fa-brands fa-instagram mx-1"
+                          ></i
+                        ></a>
+                      </p>
+                    </div>
+
+                    <p>
+                      <button
+                        class="card_button bg-main"
+                        (click)="openCentrado(contenido, d)"
+                      >
                         Pedir cita
                       </button>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </p>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <ng-template #contenido let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">Pedir cita</h4>
-        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+  <div class="modal-header">
+    <h4 class="modal-title">Pedir cita</h4>
+    <button
+      class="close"
+      aria-label="close"
+      type="button"
+      (click)="modal.dismiss()"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="inputDescription">Descripción</label>
-                <input type="text" class="form-control" id="inputDescription" name="inputDescription" [(ngModel)]="citaModal.description" placeholder="Descripción" />
-            </div>
-            <div class="form-group">
-                <label for="inputMotivo">Motivo</label>
-                <input type="text" class="form-control" id="inputMotivo" name="inputMotivo" [(ngModel)]="citaModal.reason" placeholder="Motivo" />
-            </div>
-            <div class="form-group">
-                <label for="inputFecha">Fecha</label>
-                <input type="date" [min]="fechaActual" class="form-control" id="inputFecha" name="inputFecha" [(ngModel)]="citaModal.date" />
-            </div>
-            <div class="form-group">
-                <label for="inputHora">Hora</label>
-                <select class="form-control" id="inputHora" #inputHora name="inputHora">
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="inputDescription">Descripción</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputDescription"
+          name="inputDescription"
+          [(ngModel)]="citaModal.description"
+          placeholder="Descripción"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inputMotivo">Motivo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputMotivo"
+          name="inputMotivo"
+          [(ngModel)]="citaModal.reason"
+          placeholder="Motivo"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inputFecha">Fecha</label>
+        <input
+          type="date"
+          [min]="fechaActual"
+          class="form-control"
+          id="inputFecha"
+          name="inputFecha"
+          [(ngModel)]="citaModal.date"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inputHora">Hora</label>
+        <select class="form-control" id="inputHora" #inputHora name="inputHora">
           <option value="7">7 a.m</option>
           <option value="8">8 a.m</option>
           <option value="9">9 a.m</option>
@@ -81,15 +139,23 @@
           <option value="16">4 p.m</option>
           <option value="17">5 p.m</option>
         </select>
-            </div>
-            <button class="btn bg-main text-white btn-block" [disabled]="!validarCitaModal()" (click)="guardarCita(inputHora.value)">
+      </div>
+      <button
+        class="btn bg-main text-white btn-block"
+        [disabled]="!validarCitaModal()"
+        (click)="guardarCita(inputHora.value)"
+      >
         Solicitar cita
       </button>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-block" (click)="modal.close()">
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-danger btn-block"
+      (click)="modal.close()"
+    >
       Cancelar
     </button>
-    </div>
+  </div>
 </ng-template>
