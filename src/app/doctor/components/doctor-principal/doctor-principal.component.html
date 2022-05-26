@@ -60,6 +60,13 @@
         >
       </li>
       <li>
+        <a
+          routerLink="/doctor-principal/products-doctor"
+          [routerLinkActive]="['is-active']"
+          >Productos</a
+        >
+      </li>
+      <li>
         <a (click)="closeSession()">Salir</a>
             </li>
         </ul>
@@ -118,6 +125,11 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/doctor-principal/reportes-doctor"
                 >Reportes</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/doctor-principal/products-doctor"
+                >Productos</a
               >
             </li>
             <li class="nav-item">

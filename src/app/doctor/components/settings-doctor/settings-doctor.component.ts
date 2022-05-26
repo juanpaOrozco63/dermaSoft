@@ -1,11 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImageService } from 'src/app/services/image.service';
+import Swal from 'sweetalert2';
 import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
-import { DatePipe } from '@angular/common';
-import Swal from 'sweetalert2';
-import { ImageService } from 'src/app/services/image.service';
-import { isThursday } from 'date-fns';
 @Component({
   selector: 'app-settings-doctor',
   templateUrl: './settings-doctor.component.html',
@@ -15,6 +14,9 @@ export class SettingsDoctorComponent implements OnInit {
   fechaMaxima: string;
   email: String;
   doctor: Doctor = new Doctor(
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -61,12 +63,17 @@ export class SettingsDoctorComponent implements OnInit {
       fechaNacimiento: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       precio: ['', [Validators.required]],
+      facebookUrl: [''],
+      instagramUrl: [''],
+      twitterUrl: [''],
     });
   }
 
   findDoctor(email) {
     this.doctorService.findByEmail(email).subscribe(async (data) => {
       this.doctor = data;
+      console.log(this.doctor);
+
       //
       this.formActualizar.get('nombre')?.setValue(this.doctor.firstName);
       this.formActualizar.get('primerApellido')?.setValue(this.doctor.lastName);
@@ -78,6 +85,11 @@ export class SettingsDoctorComponent implements OnInit {
         ?.setValue(this.datepipe.transform(this.doctor.birthday, 'yyyy-MM-dd'));
       this.formActualizar.get('telefono')?.setValue(this.doctor.phone);
       this.formActualizar.get('precio')?.setValue(this.doctor.price);
+      this.formActualizar.get('facebookUrl')?.setValue(this.doctor.facebookUrl);
+      this.formActualizar
+        .get('instagramUrl')
+        ?.setValue(this.doctor.instagramUrl);
+      this.formActualizar.get('twitterUrl')?.setValue(this.doctor.twitterUrl);
     });
   }
 
@@ -90,6 +102,9 @@ export class SettingsDoctorComponent implements OnInit {
     this.doctor.birthday = fechita;
     this.doctor.phone = this.formActualizar.get('telefono')?.value;
     this.doctor.price = this.formActualizar.get('precio')?.value;
+    this.doctor.facebookUrl = this.formActualizar.get('facebookUrl')?.value;
+    this.doctor.instagramUrl = this.formActualizar.get('instagramUrl')?.value;
+    this.doctor.twitterUrl = this.formActualizar.get('twitterUrl')?.value;
     this.doctorService.update(this.doctor).subscribe(
       (data) => {
         this.doctorService.comprobarRegistrado(data);
