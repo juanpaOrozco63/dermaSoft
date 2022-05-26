@@ -20,10 +20,11 @@ import { FinalizarCitaComponent } from './components/finalizar-cita/finalizar-ci
 import { ChartsModule } from 'ng2-charts';
 import { ChatDoctorComponent } from './components/chat-doctor/chat-doctor.component';
 import { SharedModule } from '../shared/shared.module';
+import { ProductsDoctorComponent } from './components/products-doctor/products-doctor.component';
 
 
 @NgModule({
-  declarations: [DoctorPrincipalComponent, HomeComponent, PatientDoctorComponent, AgendaDoctorComponent, CitasDoctorComponent, ReportesDoctorComponent, FacturacionDoctorComponent, SettingsDoctorComponent, FinalizarCitaComponent, ChatDoctorComponent],
+  declarations: [DoctorPrincipalComponent, HomeComponent, PatientDoctorComponent, AgendaDoctorComponent, CitasDoctorComponent, ReportesDoctorComponent, FacturacionDoctorComponent, SettingsDoctorComponent, FinalizarCitaComponent, ChatDoctorComponent, ProductsDoctorComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -14,6 +14,9 @@ export class Doctor {
     public verified: string,
     public cityId_City: number,
     public userId: string,
-    public state: string
+    public state: string,
+    public facebookUrl: string,
+    public instagramUrl: string,
+    public twitterUrl: string
   ) {}
 }
