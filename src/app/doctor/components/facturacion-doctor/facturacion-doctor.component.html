@@ -57,7 +57,7 @@
             <div class="col-1"></div>
             <label class="col-2 col-form-label">Fecha de expiración</label>
             <div class="col-8">
-                <input class="form-control" type="date" name="expirationDate" formControlName="fechaTarjeta" required />
+                <input class="form-control" type="date" [min]="fechaActual" name="expirationDate" formControlName="fechaTarjeta" required />
                 <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('fechaTarjeta')">
                     La fecha de expiración es requerida
                 </div>
@@ -67,9 +67,9 @@
             <div class="col-1"></div>
             <label class="col-2 col-form-label">CVV</label>
             <div class="col-8">
-                <input class="form-control" type="password" placeholder="CVV" name="cvv" formControlName="cvvTarjeta" required minlength="3" maxlength="4" />
+                <input class="form-control" type="password" placeholder="CVV" name="cvv" formControlName="cvvTarjeta" required minlength="3" maxlength="3" />
                 <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('cvvTarjeta')">
-                    El CVV debe tener 3 o 4 digitos
+                    El CVV debe tener 3 digitos
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@
             <div class="card-body text-center">
                 <h5 class="card-title">{{ membActual.name }}</h5>
                 <h5 class="card-title">{{ membActual.description }}</h5>
-                <h5 class="card-title">Finalización membresia:</h5>
+                <h5 class="card-title">Finalización membresía:</h5>
                 <h5 class="card-title">{{ fechaSubFin | date }}</h5>
             </div>
         </div>

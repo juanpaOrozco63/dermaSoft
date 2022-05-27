@@ -15,7 +15,7 @@ import {
   Subscription,
 } from './facturacion-doctor.model';
 const MINIMO_CVV = 100;
-const MAXIMO_CVV = 9999;
+const MAXIMO_CVV = 999;
 const LONGITUD_MINIMA_TARJETA = 15;
 const LONGITUD_MAXIMA_TARJETA = 16;
 const PATRON_TARJETA = '^[0-9]+$';
@@ -45,6 +45,7 @@ export class FacturacionDoctorComponent implements OnInit {
   membActual: Subscription = null;
   subActual: DoctorSubscription = null;
   fechaSubFin: Date = new Date();
+  public fechaActual = new Date().toISOString().split('T')[0];
   constructor(
     public doctorService: DoctorService,
     private authFirebaseService: AuthFirebaseService,

@@ -61,6 +61,7 @@ export class SettingsDoctorComponent implements OnInit {
       nombre: ['', [Validators.required]],
       primerApellido: ['', [Validators.required]],
       segundoApellido: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       precio: ['', [Validators.required]],
@@ -81,6 +82,7 @@ export class SettingsDoctorComponent implements OnInit {
       this.formActualizar
         .get('segundoApellido')
         ?.setValue(this.doctor.lastName2);
+      this.formActualizar.get('descripcion')?.setValue(this.doctor.description);
       this.formActualizar
         .get('fechaNacimiento')
         ?.setValue(this.datepipe.transform(this.doctor.birthday, 'yyyy-MM-dd'));
@@ -98,6 +100,7 @@ export class SettingsDoctorComponent implements OnInit {
     this.doctor.firstName = this.formActualizar.get('nombre')?.value;
     this.doctor.lastName = this.formActualizar.get('primerApellido')?.value;
     this.doctor.lastName2 = this.formActualizar.get('segundoApellido')?.value;
+    this.doctor.description = this.formActualizar.get('descripcion')?.value;
     let fechita = new Date(this.formActualizar.get('fechaNacimiento')?.value);
     let horas = fechita.setHours(fechita.getHours() + 5);
     this.doctor.birthday = fechita;

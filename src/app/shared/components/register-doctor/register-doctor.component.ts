@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { RegisterPatient } from '../../../patient/domains/registerPatient';
-import Swal from 'sweetalert2';
-import { User } from '../../../domains/user';
-import { RolService } from '../../../services/rol.service';
-import { AuthFirebaseService } from '../../../services/auth-firebase.service';
-import { IdTypeService } from '../../../services/id-type.service';
-import { EpsService } from '../../../services/eps.service';
-import { CityService } from '../../../services/city.service';
-import { AuthService } from '../../../services/auth.service';
-import { IdType } from '../../../domains/idType';
-import { Eps } from '../../../domains/eps';
-import { City } from '../../../domains/city';
-import { RegisterDoctor } from 'src/app/doctor/domains/registerDoctor';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { RegisterDoctor } from 'src/app/doctor/domains/registerDoctor';
+import Swal from 'sweetalert2';
+import { City } from '../../../domains/city';
+import { IdType } from '../../../domains/idType';
+import { User } from '../../../domains/user';
+import { AuthFirebaseService } from '../../../services/auth-firebase.service';
+import { AuthService } from '../../../services/auth.service';
+import { CityService } from '../../../services/city.service';
+import { EpsService } from '../../../services/eps.service';
+import { IdTypeService } from '../../../services/id-type.service';
+import { RolService } from '../../../services/rol.service';
+const PATTERN_DOCUMENT = '^[0-9A-Za-z]+$';
 @Component({
   selector: 'app-register-doctor',
   templateUrl: './register-doctor.component.html',
@@ -107,79 +105,85 @@ export class RegisterDoctorComponent implements OnInit {
   //Registro pacientes
   register(idTy: string, cityI: number) {
     // Validar formulario
-    if(this.formRegister.invalid){
+    if (this.formRegister.invalid) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Complete todos los datos',
       });
-      return Object.values(this.formRegister.controls).forEach(control =>{
+      return Object.values(this.formRegister.controls).forEach((control) => {
         control.markAsTouched();
-      })
-    }else{
-    //Guardamos la contraseña
-    let pass = this.rol.password;
-    //Asignacion de valores al objeto paciente
-    this.rol.identificationType = idTy;
-    this.rol.cityI = cityI;
-    console.log(this.rol);
-    //Registro en firebase
-    this.authFirebaseService
-      .registerFirebase(this.rol.email, this.rol.password)
-      .then((result) => {
-        //Asignamos la contrasela encriptada de firebase al paciente
-        this.rol.password = result.user.uid;
-        //Registro en la bd del paciente
-        this.rolService.registerDoctor(this.rol).subscribe(
-          (data) => {
-            //Inicializar objeto rol
-            this.rol = new RegisterDoctor(
-              null,
-              null,
-              null,
-              'Y',
-              2,
-              'A',
-              null,
-              new Date(),
-              0
-            );
-            Swal.fire(
-              'Registro éxitoso',
-              'Te has registrado con éxito, verifica tu correo',
-              'success'
-            );
-            this.router.navigate(['/login']);
-          },
-          (err) => {
-            //Se elimina usuario de firebase si el registro en la bd no fue exitoso
-            this.authFirebaseService.delete().then();
-            //Se vuelve a poner la contraseña anterior
-            this.rol.password = pass;
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Ya existe un perfil registrado con este número de documento',
-            });
-          }
-        );
-      })
-      .catch((error) => {
-        //Se vuelve a poner la contraseña anterior
-        this.rol.password = pass;
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ya existe un perfil registrado con este correo',
-        });
       });
+    } else {
+      //Guardamos la contraseña
+      let pass = this.rol.password;
+      //Asignacion de valores al objeto paciente
+      this.rol.identificationType = idTy;
+      this.rol.cityI = cityI;
+      console.log(this.rol);
+      //Registro en firebase
+      this.authFirebaseService
+        .registerFirebase(this.rol.email, this.rol.password)
+        .then((result) => {
+          //Asignamos la contrasela encriptada de firebase al paciente
+          this.rol.password = result.user.uid;
+          //Registro en la bd del paciente
+          this.rolService.registerDoctor(this.rol).subscribe(
+            (data) => {
+              //Inicializar objeto rol
+              this.rol = new RegisterDoctor(
+                null,
+                null,
+                null,
+                'Y',
+                2,
+                'A',
+                null,
+                new Date(),
+                0
+              );
+              Swal.fire(
+                'Registro éxitoso',
+                'Te has registrado con éxito, verifica tu correo',
+                'success'
+              );
+              this.router.navigate(['/login']);
+            },
+            (err) => {
+              //Se elimina usuario de firebase si el registro en la bd no fue exitoso
+              this.authFirebaseService.delete().then();
+              //Se vuelve a poner la contraseña anterior
+              this.rol.password = pass;
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ya existe un perfil registrado con este número de documento',
+              });
+            }
+          );
+        })
+        .catch((error) => {
+          //Se vuelve a poner la contraseña anterior
+          this.rol.password = pass;
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ya existe un perfil registrado con este correo',
+          });
+        });
     }
-
   }
   // Método para crear formulario
   crearFormulario() {
     this.formRegister = this.fb.group({
-      nIdentificacion: ['', [Validators.required]],
+      nIdentificacion: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.pattern(PATTERN_DOCUMENT),
+        ],
+      ],
       password: [
         '',
         [
@@ -211,45 +215,45 @@ export class RegisterDoctorComponent implements OnInit {
     });
   }
   // Método para estar pendiente de los cambios en el HTMl es como un ngModel
-  crearEscuchadores(){
-    this.formRegister.valueChanges.subscribe(valor=>{
-      this.rol.userIdentification=valor.nIdentificacion
-      this.rol.email=valor.correo
-      this.rol.password=valor.password
-      this.rol.identificationType=valor.tIdentificacion
-      this.rol.cityI=valor.ciudad
-    })
+  crearEscuchadores() {
+    this.formRegister.valueChanges.subscribe((valor) => {
+      this.rol.userIdentification = valor.nIdentificacion;
+      this.rol.email = valor.correo;
+      this.rol.password = valor.password;
+      this.rol.identificationType = valor.tIdentificacion;
+      this.rol.cityI = valor.ciudad;
+    });
   }
   // Método para obtener el valor del campo de nIdentificacion
-   get nIdentificacionNoValido() {
+  get nIdentificacionNoValido() {
     return (
       this.formRegister.get('nIdentificacion').invalid &&
       this.formRegister.get('nIdentificacion').touched
     );
   }
   // Método para obtener el valor del campo password
-   get passNoValido() {
+  get passNoValido() {
     return (
       this.formRegister.get('password').invalid &&
       this.formRegister.get('password').touched
     );
   }
   // Método para obtener el valor del campo correo
-   get correoNoValido() {
+  get correoNoValido() {
     return (
       this.formRegister.get('correo').invalid &&
       this.formRegister.get('correo').touched
     );
   }
   // Método para obtener el valor del campo tipo de identificación
-   get tIdentificacionNoValido() {
+  get tIdentificacionNoValido() {
     return (
       this.formRegister.get('tIdentificacion').invalid &&
       this.formRegister.get('tIdentificacion').touched
     );
   }
   // Método para obtener el valor del campo de ciudad
-   get ciudadNoValido() {
+  get ciudadNoValido() {
     return (
       this.formRegister.get('ciudad').invalid &&
       this.formRegister.get('ciudad').touched
