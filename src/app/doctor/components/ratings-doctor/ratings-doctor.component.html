@@ -1,0 +1,80 @@
+<div class="container-fluid" *ngIf="ratings?.length > 0">
+    <h1 class="text-center">Mis calificaciones</h1>
+    <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-10 col-12 text-center mb-5">
+            <div class="card">
+                <div class="row justify-content-left d-flex">
+                    <div class="col-md-4 d-flex flex-column">
+                        <div class="rating-box">
+                            <h1 class="pt-4">{{ valoracion }}</h1>
+                            <p class="">sobre 5</p>
+                        </div>
+                        <div>
+                            <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+                                <li [ngClass]="{ selected: star <= valoracion }">
+                                    <i class="fa fa-star"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="rating-bar0 justify-content-center">
+                            <table class="text-left mx-auto">
+                                <tr *ngFor="let t of tipoCalificacion">
+                                    <td class="rating-label">{{ t.descripcion }}</td>
+                                    <td class="rating-bar">
+                                        <div class="bar-container">
+                                            <div [ngClass]="{
+                          'bar-1': t.cantidad === 0,
+                          'bar-2': t.cantidad > 0 && t.cantidad < 2,
+                          'bar-3': t.cantidad >= 2 && t.cantidad < 5,
+                          'bar-4': t.cantidad >= 5 && t.cantidad < 10,
+                          'bar-5': t.cantidad >= 10
+                        }"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">{{ t.cantidad }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" *ngFor="let rating of ratings">
+                <div class="row d-flex">
+                    <div class="">
+                        <img class="profile-pic" [src]="obtenerImagen(rating.image)" />
+                    </div>
+                    <div class="d-flex flex-column">
+                        <h3 class="mt-2 mb-0">
+                            {{ rating.firstName + " " + rating.lastName }}
+                        </h3>
+                        <div>
+                            <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+                                <li [ngClass]="{ selected: star <= rating.ratingValue }">
+                                    <i class="fa fa-star"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ml-auto">
+                        <p class="text-muted pt-5 pt-sm-3">
+                            {{ rating.validRegister | date }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row text-left">
+                    <h4 class="blue-text mt-3">"{{ rating.ratingDescription }}"</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex align-items-center justify-content-center vh-100" *ngIf="ratings?.length === 0">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">Sin calificaciones</h1>
+        <p class="fs-3">
+            <span class="text-danger">Opps!</span> Todavia no has recibido ninguna calificación por parte de tus pacientes.
+        </p>
+    </div>
+</div>

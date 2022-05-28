@@ -19,6 +19,7 @@ import { ProductsPatientComponent } from './components/products-patient/products
 import { ServiciosMedicosPatientComponent } from './components/servicios-medicos-patient/servicios-medicos-patient.component';
 import { PATIENTROUTES } from './routes/patient.routes';
 import { RatingCitasComponent } from './components/rating-citas/rating-citas.component';
+import { RatingServicioComponent } from './components/rating-servicio/rating-servicio.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { RatingCitasComponent } from './components/rating-citas/rating-citas.com
     ProductsPatientComponent,
     PatientProfileComponent,
     RatingCitasComponent,
+    RatingServicioComponent,
   ],
   imports: [
     BrowserModule,

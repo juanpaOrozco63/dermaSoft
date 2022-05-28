@@ -57,7 +57,13 @@
                         ></a>
                       </p>
                     </div>
-
+                    <p
+                      class="link-calificacion"
+                      (click)="revisarCalificacion(d.doctorId)"
+                      *ngIf="d.reputation>1"
+                    >
+                      Revisar calificaciones
+                    </p>
                     <p>
                       <button
                         class="card_button bg-main"

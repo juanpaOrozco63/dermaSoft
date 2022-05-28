@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
+import { RatingDoctor } from '../shared/model/rating-doctor.model';
 import { Rating } from '../shared/model/rating.model';
 // API
 const API_NAME_CONTROLLER = '/rating';
@@ -33,10 +34,13 @@ export class RatingService {
     });
   }
 
-  public findByDoctorId(doctorId: number): Observable<Rating[]> {
+  public findByDoctorId(doctorId: number): Observable<RatingDoctor[]> {
     let headers = this.createTokenHeader();
-    return this.httpClient.get<Rating[]>(`${API_ENDPOINT}/doctor/${doctorId}`, {
-      headers: headers,
-    });
+    return this.httpClient.get<RatingDoctor[]>(
+      `${API_ENDPOINT}/doctor/${doctorId}`,
+      {
+        headers: headers,
+      }
+    );
   }
 }

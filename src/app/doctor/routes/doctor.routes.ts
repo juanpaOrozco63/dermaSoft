@@ -7,6 +7,7 @@ import { FinalizarCitaComponent } from '../components/finalizar-cita/finalizar-c
 import { HomeComponent } from '../components/home/home.component';
 import { PatientDoctorComponent } from '../components/patient-doctor/patient-doctor.component';
 import { ProductsDoctorComponent } from '../components/products-doctor/products-doctor.component';
+import { RatingsDoctorComponent } from '../components/ratings-doctor/ratings-doctor.component';
 import { ReportesDoctorComponent } from '../components/reportes-doctor/reportes-doctor.component';
 import { SettingsDoctorComponent } from '../components/settings-doctor/settings-doctor.component';
 import { RegistradoDoctorGuard } from '../guards/registrado-doctor.guard';
@@ -53,6 +54,11 @@ export const DOCTORROUTES: Routes = [
   {
     path: 'products-doctor',
     component: ProductsDoctorComponent,
+    canActivate: [SubscriptionGuard, RegistradoDoctorGuard],
+  },
+  {
+    path: 'ratings-doctor',
+    component: RatingsDoctorComponent,
     canActivate: [SubscriptionGuard, RegistradoDoctorGuard],
   },
 ];

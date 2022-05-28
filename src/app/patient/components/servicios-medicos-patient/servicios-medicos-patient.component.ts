@@ -10,6 +10,7 @@ import { ImageService } from 'src/app/services/image.service';
 import Swal from 'sweetalert2';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
+import { RatingServicioComponent } from '../rating-servicio/rating-servicio.component';
 
 @Component({
   selector: 'app-servicios-medicos-patient',
@@ -172,5 +173,12 @@ export class ServiciosMedicosPatientComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  revisarCalificacion(doctorId: number) {
+    const modalRef = this.modal.open(RatingServicioComponent, {
+      centered: true,
+    });
+    modalRef.componentInstance.doctorId = doctorId;
   }
 }

@@ -44,3 +44,9 @@ a:hover {
 .disabled-link {
     pointer-events: none;
 }
+
+.link-calificacion {
+    cursor: pointer;
+    color: #61a7da;
+    text-decoration: underline;
+}
