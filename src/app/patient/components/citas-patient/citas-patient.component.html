@@ -97,7 +97,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-md-12">
+      <div class="col-md-6">
         <button
           class="btn bg-main text-white btn-block"
           type="button"
@@ -105,6 +105,16 @@
           (click)="generarPdfCita(citaModal.appointmentId)"
         >
           Descargar reporte
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button
+          class="btn btn-secondary btn-block"
+          type="button"
+          [disabled]="citaModal.state === 'A' || citaModal.rating === 'Y'"
+          (click)="calificarCita(citaModal)"
+        >
+          Calificar cita
         </button>
       </div>
     </div>

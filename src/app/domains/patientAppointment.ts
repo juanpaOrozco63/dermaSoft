@@ -7,7 +7,8 @@ export class PatientAppointment {
     public description: string,
     public price: number,
     public appointmentId: number,
-    public reason:string,
-    public state:string
+    public reason: string,
+    public state: string,
+    public rating: string
   ) {}
 }

@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Calificar cita</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismissAll()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="card text-center mb-5">
+            <div class="circle-image">
+                <img [src]="obtenerImagen(cita.image)" width="50" />
+            </div>
+
+            <span class="name mb-1 fw-500">{{
+        cita.firstName + " " + cita.lastName
+      }}</span>
+            <small class="text-black-50">{{ cita.date | date }}</small>
+            <small class="text-black-50 font-weight-bold">{{
+        cita.price | currency: "COP "
+      }}</small>
+
+            <div class="location mt-4">
+                <p>{{ cita.description }}</p>
+                <small class="text-truncate ml-2">{{ cita.reason }}</small>
+            </div>
+
+            <div class="rate bg-main py-3 text-white mt-3">
+                <h6 class="mb-0">Califica tu cita</h6>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+                            <li (mouseover)="countStar(star)" (click)="countStar(star)" [ngClass]="{ selected: star <= selectedValue }">
+                                <i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-10 offset-xl-1">
+                        <textarea [(ngModel)]="description" class="form-control sc-text-area" placeholder="Escriba los comentarios"></textarea>
+                    </div>
+                </div>
+
+                <div class="buttons px-4 mt-0">
+                    <button class="btn btn-warning btn-block rating-submit" type="button" (click)="calificar()" [disabled]="selectedValue < 1 || description.length === 0">
+            Submit
+          </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

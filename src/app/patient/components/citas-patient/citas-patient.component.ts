@@ -8,6 +8,7 @@ import { JasperService } from 'src/app/services/jasper.service';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
 import Swal from 'sweetalert2';
+import { RatingCitasComponent } from '../rating-citas/rating-citas.component';
 declare var saveAs: any;
 
 @Component({
@@ -33,6 +34,7 @@ export class CitasPatientComponent implements OnInit {
     '',
     0,
     0,
+    '',
     '',
     ''
   );
@@ -107,5 +109,16 @@ export class CitasPatientComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+  calificarCita(cita: PatientAppointment) {
+    this.modal.dismissAll();
+    const modalRef = this.modal.open(RatingCitasComponent, {
+      centered: true,
+    });
+    modalRef.componentInstance.cita = cita;
+    modalRef.componentInstance.passEntry.subscribe(() => {
+      this.traerDataCitas(this.usuario.patientId);
+      modalRef.close();
+    });
   }
 }

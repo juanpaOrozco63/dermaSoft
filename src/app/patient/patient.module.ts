@@ -18,6 +18,7 @@ import { PatientProfileComponent } from './components/patient-profile/patient-pr
 import { ProductsPatientComponent } from './components/products-patient/products-patient.component';
 import { ServiciosMedicosPatientComponent } from './components/servicios-medicos-patient/servicios-medicos-patient.component';
 import { PATIENTROUTES } from './routes/patient.routes';
+import { RatingCitasComponent } from './components/rating-citas/rating-citas.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PATIENTROUTES } from './routes/patient.routes';
     ChatPatientComponent,
     ProductsPatientComponent,
     PatientProfileComponent,
+    RatingCitasComponent,
   ],
   imports: [
     BrowserModule,

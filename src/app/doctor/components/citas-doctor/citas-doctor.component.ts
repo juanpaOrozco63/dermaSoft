@@ -33,6 +33,7 @@ export class CitasDoctorComponent implements OnInit {
     0,
     0,
     '',
+    '',
     ''
   );
   constructor(
