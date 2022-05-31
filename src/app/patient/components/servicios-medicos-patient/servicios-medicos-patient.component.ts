@@ -7,6 +7,9 @@ import { Appointment } from 'src/app/domains/appointment';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
 import { ImageService } from 'src/app/services/image.service';
+import { InformacionDermaService } from 'src/app/services/informacion-derma.service';
+import { ModalVideoComponent } from 'src/app/shared/components/modal-video/modal-video.component';
+import { InfoVideo } from 'src/app/shared/model/info-video.modal';
 import Swal from 'sweetalert2';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
@@ -41,10 +44,12 @@ export class ServiciosMedicosPatientComponent implements OnInit {
     private imageService: ImageService,
     public modal: NgbModal,
     private authFirebaseService: AuthFirebaseService,
-    public patientService: PatientService
+    public patientService: PatientService,
+    private informacionDermaService: InformacionDermaService
   ) {}
 
   ngOnInit(): void {
+    this.abrirModalInformativo();
     this.fechaActual.setDate(new Date().getDate() + 1);
     this.fechaActual = this.fechaActual.toISOString().split('T')[0];
     this.asignarCitaModal();
@@ -180,5 +185,15 @@ export class ServiciosMedicosPatientComponent implements OnInit {
       centered: true,
     });
     modalRef.componentInstance.doctorId = doctorId;
+  }
+  abrirModalInformativo() {
+    const modalRef = this.modal.open(ModalVideoComponent, {
+      centered: true,
+      windowClass: 'my-class',
+    });
+    const video: InfoVideo =
+      this.informacionDermaService.getVideoPacienteServicios();
+    modalRef.componentInstance.titulo = video.titulo;
+    modalRef.componentInstance.urlVideo = video.url;
   }
 }

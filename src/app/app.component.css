@@ -1,0 +1,7 @@
+::ng-deep .modal-content {
+    height: 400px;
+}
+
+::ng-deep app-modal-video {
+    height: 100%;
+}

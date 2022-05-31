@@ -11,6 +11,8 @@ import { RegisterDoctorComponent } from './components/register-doctor/register-d
 import { RegisterComponent } from './components/register/register.component';
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 import { SHAREDROUTES } from './routes/shared.routes';
+import { ModalVideoComponent } from './components/modal-video/modal-video.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { SHAREDROUTES } from './routes/shared.routes';
     RegisterDoctorComponent,
     ChatContentComponent,
     ChatAsideComponent,
+    ModalVideoComponent,
+    SafePipe,
   ],
   imports: [
     CommonModule,

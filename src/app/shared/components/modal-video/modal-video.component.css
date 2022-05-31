@@ -1,0 +1,9 @@
+.embed-responsive-item {
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.modal-body {
+    height: 80%;
+}

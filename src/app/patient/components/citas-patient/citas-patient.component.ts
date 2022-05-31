@@ -9,6 +9,9 @@ import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
 import Swal from 'sweetalert2';
 import { RatingCitasComponent } from '../rating-citas/rating-citas.component';
+import { ModalVideoComponent } from 'src/app/shared/components/modal-video/modal-video.component';
+import { InfoVideo } from 'src/app/shared/model/info-video.modal';
+import { InformacionDermaService } from 'src/app/services/informacion-derma.service';
 declare var saveAs: any;
 
 @Component({
@@ -43,10 +46,12 @@ export class CitasPatientComponent implements OnInit {
     private appointmentService: AppointmentService,
     private authFirebaseService: AuthFirebaseService,
     private patientService: PatientService,
-    private jasperService: JasperService
+    private jasperService: JasperService,
+    private informacionDermaService: InformacionDermaService
   ) {}
 
   ngOnInit() {
+    this.abrirModalInformativo();
     this.findUserFire();
   }
   //Traer usuario firebase
@@ -120,5 +125,16 @@ export class CitasPatientComponent implements OnInit {
       this.traerDataCitas(this.usuario.patientId);
       modalRef.close();
     });
+  }
+
+  abrirModalInformativo() {
+    const modalRef = this.modal.open(ModalVideoComponent, {
+      centered: true,
+      windowClass: 'my-class',
+    });
+    const video: InfoVideo =
+      this.informacionDermaService.getVideoPacienteCitas();
+    modalRef.componentInstance.titulo = video.titulo;
+    modalRef.componentInstance.urlVideo = video.url;
   }
 }

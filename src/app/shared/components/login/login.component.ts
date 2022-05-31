@@ -7,8 +7,11 @@ import { User } from 'src/app/domains/user';
 import { PatientService } from 'src/app/patient/services/patient.service';
 import { AuthFirebaseService } from 'src/app/services/auth-firebase.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { InformacionDermaService } from 'src/app/services/informacion-derma.service';
 import { RolService } from 'src/app/services/rol.service';
 import Swal from 'sweetalert2';
+import { InfoVideo } from '../../model/info-video.modal';
+import { ModalVideoComponent } from '../modal-video/modal-video.component';
 import { RestorePasswordComponent } from '../restore-password/restore-password.component';
 
 @Component({
@@ -35,7 +38,8 @@ export class LoginComponent implements OnInit {
     private rolService: RolService,
     private authFirebaseService: AuthFirebaseService,
     private fb: FormBuilder,
-    public modal: NgbModal
+    public modal: NgbModal,
+    private informacionDermaService: InformacionDermaService
   ) {
     this.crearFormulario();
     this.cargarDataFormulario();
@@ -44,6 +48,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     //Inicializar objeto login JWT
+    this.abrirModal();
     localStorage.clear();
     this.user = new User('', '');
   }
@@ -192,5 +197,14 @@ export class LoginComponent implements OnInit {
   openModalRestorePassword() {
     //Abrir modal
     this.modal.open(RestorePasswordComponent, { size: 'lg', centered: true });
+  }
+  abrirModal() {
+    const modalRef = this.modal.open(ModalVideoComponent, {
+      centered: true,
+      windowClass: 'my-class',
+    });
+    const video: InfoVideo = this.informacionDermaService.getVideoPrincipal();
+    modalRef.componentInstance.titulo = video.titulo;
+    modalRef.componentInstance.urlVideo = video.url;
   }
 }

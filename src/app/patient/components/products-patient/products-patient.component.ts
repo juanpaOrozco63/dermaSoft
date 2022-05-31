@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/domains/product';
+import { InformacionDermaService } from 'src/app/services/informacion-derma.service';
 import { ProductService } from 'src/app/services/product.service';
+import { ModalVideoComponent } from 'src/app/shared/components/modal-video/modal-video.component';
+import { InfoVideo } from 'src/app/shared/model/info-video.modal';
 const ACTIVO: string = 'A';
 @Component({
   selector: 'app-products-patient',
@@ -12,9 +16,14 @@ export class ProductsPatientComponent implements OnInit {
   public strTitle: String = 'Productos';
   // Arreglo de pacientes
   public products: Product[];
-  constructor(public productService: ProductService) {}
+  constructor(
+    public productService: ProductService,
+    private modal: NgbModal,
+    private informacionDermaService: InformacionDermaService
+  ) {}
 
   ngOnInit(): void {
+    this.abrirModal();
     this.findAll();
   }
   findAll(): void {
@@ -28,5 +37,15 @@ export class ProductsPatientComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+  abrirModal() {
+    const modalRef = this.modal.open(ModalVideoComponent, {
+      centered: true,
+      windowClass: 'my-class',
+    });
+    const video: InfoVideo =
+      this.informacionDermaService.getVideoPacienteProductos();
+    modalRef.componentInstance.titulo = video.titulo;
+    modalRef.componentInstance.urlVideo = video.url;
   }
 }

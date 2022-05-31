@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { City } from 'src/app/domains/city';
 import { Eps } from 'src/app/domains/eps';
 import { IdType } from 'src/app/domains/idType';
@@ -11,8 +12,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CityService } from 'src/app/services/city.service';
 import { EpsService } from 'src/app/services/eps.service';
 import { IdTypeService } from 'src/app/services/id-type.service';
+import { InformacionDermaService } from 'src/app/services/informacion-derma.service';
 import { RolService } from 'src/app/services/rol.service';
 import Swal from 'sweetalert2';
+import { InfoVideo } from '../../model/info-video.modal';
+import { ModalVideoComponent } from '../modal-video/modal-video.component';
 const PATTERN_DOCUMENT = '^[0-9A-Za-z]+$';
 @Component({
   selector: 'app-register',
@@ -42,7 +46,9 @@ export class RegisterComponent implements OnInit {
     private idTypeService: IdTypeService,
     private authFirebaseService: AuthFirebaseService,
     private rolService: RolService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modal: NgbModal,
+    private informacionDermaService: InformacionDermaService
   ) {
     this.crearFormulario();
     this.cargarDataFormulario();
@@ -50,6 +56,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.abrirModalInformativo();
     //Inicializar objeto login JWT
     this.user = new User('', '');
     //Inicializar objeto rol
@@ -70,7 +77,16 @@ export class RegisterComponent implements OnInit {
     //FindAll typeId
     this.findAllIdType();
   }
-
+  abrirModalInformativo() {
+    const modalRef = this.modal.open(ModalVideoComponent, {
+      centered: true,
+      windowClass: 'my-class',
+    });
+    const video: InfoVideo =
+      this.informacionDermaService.getVideoPacienteRegistro();
+    modalRef.componentInstance.titulo = video.titulo;
+    modalRef.componentInstance.urlVideo = video.url;
+  }
   //FindAll tipos de identificación
   public findAllIdType(): void {
     this.idType = this.idTypeService.findAll();
