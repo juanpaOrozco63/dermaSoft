@@ -1,0 +1,9 @@
+.form-group.required .col-form-label:after {
+    content: "*";
+    color: black;
+}
+
+.form-group.err .col-form-label:after {
+    content: "*";
+    color: red;
+}
