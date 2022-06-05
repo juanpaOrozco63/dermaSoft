@@ -6,71 +6,101 @@
     <hr />
     <form [formGroup]="formActualizar" (ngSubmit)="actualizarDoctor()">
         <div class="row">
-            <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Correo :</label>
+            <div class="col-xl-2 form-group required" [ngClass]="{ err: isValidFieldDatosForm('correo') }">
+                <label class="col-form-label" for="">Correo</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" disabled formControlName="{{ 'correo' }}" />
             </div>
-            <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Nombre :</label>
+            <div class="col-xl-2 form-group required" [ngClass]="{ err: isValidFieldDatosForm('nombre') }">
+                <label class="col-form-label" for="">Nombre</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" #nombre formControlName="{{ 'nombre' }}" />
             </div>
-            <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Primer apellido :</label>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('nombre')">
+                Ingresa un nombre válido
+            </div>
+            <div class="col-xl-2 form-group required" [ngClass]="{ err: isValidFieldDatosForm('primerApellido') }">
+                <label class="col-form-label" for="">Primer apellido</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" #apellidos formControlName="{{ 'primerApellido' }}" />
             </div>
-            <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Segundo apellido :</label>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('primerApellido')">
+                Ingresa un apellido válido
+            </div>
+            <div class="col-xl-2 form-group required" [ngClass]="{ err: isValidFieldDatosForm('segundoApellido') }">
+                <label class="col-form-label" for="">Segundo apellido</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" #apellidos formControlName="{{ 'segundoApellido' }}" />
             </div>
-            <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Descripción :</label>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('segundoApellido')">
+                Ingresa un apellido válido
+            </div>
+            <div class="col-xl-2 form-group required" [ngClass]="{ err: isValidFieldDatosForm('descripcion') }">
+                <label class="col-form-label" for="">Descripción</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" #descripcion formControlName="{{ 'descripcion' }}" />
             </div>
-            <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Fecha nacimiento :</label>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('descripcion')">
+                La descripción debe contener minimo 10 caracteres
+            </div>
+            <div class="col-xl-2 form-group required" [ngClass]="{ err: isValidFieldDatosForm('fechaNacimiento') }">
+                <label class="col-form-label" for="">Fecha nacimiento</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="date" class="form-control" [max]="fechaMaxima" #fechaNacimiento formControlName="{{ 'fechaNacimiento' }}" />
             </div>
-            <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Telefono :</label>
+            <div class="col-xl-2 form-group required" [ngClass]="{ err: isValidFieldDatosForm('telefono') }">
+                <label class="col-form-label" for="">Telefono</label>
             </div>
             <div class="col-xl-10 form-group">
-                <input type="text" class="form-control" #telefono formControlName="{{ 'telefono' }}" />
+                <input type="text" maxlength="10" class="form-control" #telefono formControlName="{{ 'telefono' }}" />
             </div>
-            <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Precio :</label>
+
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('telefono')">
+                Ingresa un telefono válido, entre 7 y 10 caracteres numericos
+            </div>
+            <div class="col-xl-2 form-group required" [ngClass]="{ err: isValidFieldDatosForm('precio') }">
+                <label class="col-form-label" for="">Precio</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="number" class="form-control" #precio formControlName="{{ 'precio' }}" />
             </div>
+
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('precio')">
+                Ingresa un precio válido
+            </div>
             <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Facebook :</label>
+                <label class="col-form-label" for="">Facebook</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" #facebookUrl formControlName="{{ 'facebookUrl' }}" />
             </div>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('facebookUrl')">
+                Ingresa una url válida
+            </div>
             <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Instagram :</label>
+                <label class="col-form-label" for="">Instagram</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" #instagramUrl formControlName="{{ 'instagramUrl' }}" />
             </div>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('instagramUrl')">
+                Ingresa una url válida
+            </div>
             <div class="col-xl-2 form-group">
-                <label class="col-form-label" for="">Twitter :</label>
+                <label class="col-form-label" for="">Twitter</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" #twitterUrl formControlName="{{ 'twitterUrl' }}" />
+            </div>
+
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('twitterUrl')">
+                Ingresa una url válida
             </div>
         </div>
         <hr />

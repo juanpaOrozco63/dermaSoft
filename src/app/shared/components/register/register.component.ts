@@ -18,6 +18,8 @@ import Swal from 'sweetalert2';
 import { InfoVideo } from '../../model/info-video.modal';
 import { ModalVideoComponent } from '../modal-video/modal-video.component';
 const PATTERN_DOCUMENT = '^[0-9A-Za-z]+$';
+const PATTERN_PASSWORD =
+  '^(?=.*[a-zA-Z])(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*-._?&])[A-Za-z0-9d$@$!%*?&].{8,}';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -217,12 +219,7 @@ export class RegisterComponent implements OnInit {
       ],
       password: [
         '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*-._?&])[A-Za-zd$@$!%*?&].{8,}'
-          ),
-        ],
+        [Validators.required, Validators.pattern(PATTERN_PASSWORD)],
       ],
       correo: [
         '',

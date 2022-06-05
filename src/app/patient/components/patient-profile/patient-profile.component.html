@@ -18,17 +18,26 @@
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" formControlName="{{ 'nombre' }}" />
             </div>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('nombre')">
+                Ingresa un nombre válido
+            </div>
             <div class="col-xl-2 form-group">
                 <label class="col-form-label" for="">Primer apellido :</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" formControlName="{{ 'primerApellido' }}" />
             </div>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('primerApellido')">
+                Ingresa un apellido válido
+            </div>
             <div class="col-xl-2 form-group">
                 <label class="col-form-label" for="">Segundo apellido :</label>
             </div>
             <div class="col-xl-10 form-group">
                 <input type="text" class="form-control" formControlName="{{ 'segundoApellido' }}" />
+            </div>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('segundoApellido')">
+                Ingresa un apellido válido
             </div>
             <div class="col-xl-2 form-group">
                 <label class="col-form-label" for="">Fecha nacimiento :</label>
@@ -42,17 +51,26 @@
             <div class="col-xl-10 form-group">
                 <input type="number" class="form-control" formControlName="{{ 'telefono' }}" />
             </div>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('telefono')">
+                Ingresa un telefono válido, entre 7 y 10 caracteres numericos
+            </div>
             <div class="col-xl-2 form-group">
                 <label class="col-form-label" for="">Alto (Cm):</label>
             </div>
             <div class="col-xl-10 form-group">
-                <input type="text" class="form-control" formControlName="{{ 'alto' }}" />
+                <input type="number" class="form-control" formControlName="{{ 'alto' }}" />
+            </div>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('alto')">
+                Ingresa una altura entre 20 y 250 cm
             </div>
             <div class="col-xl-2 form-group">
                 <label class="col-form-label" for="">Peso (Kg):</label>
             </div>
             <div class="col-xl-10 form-group">
-                <input type="text" class="form-control" formControlName="{{ 'peso' }}" />
+                <input type="number" class="form-control" formControlName="{{ 'peso' }}" />
+            </div>
+            <div class="col-xl-12 alert alert-danger p-0" *ngIf="isValidFieldDatosForm('peso')">
+                Ingresa un peso entre 5 y 250 kg
             </div>
             <!-- <div class="col-xl-2 form-group">
             <label class="col-form-label" for="">Ocupación :</label>
@@ -71,7 +89,9 @@
         <div class="row">
             <div class="offset-xl-2"></div>
             <div class="col-xl-10 form-group">
-                <button class="btn bg-main text-white btn-block" type="submit">Editar</button>
+                <button class="btn bg-main text-white btn-block" [disabled]="formActualizar.invalid" type="submit">
+          Editar
+        </button>
             </div>
         </div>
     </form>

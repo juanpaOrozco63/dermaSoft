@@ -6,6 +6,17 @@ import Swal from 'sweetalert2';
 import { Doctor } from '../../domains/doctor';
 import { DoctorService } from '../../services/doctor.service';
 const URL_PATTERN = /^(ftp|http|https):\/\/[^ "]+$/;
+const LONGITUD_MINIMA_NOMBRE = 3;
+const LONGITUD_MAXIMA_NOMBRE = 50;
+const LONGITUD_MINIMA_DESCRIPCION = 10;
+const LONGITUD_MAXIMA_DESCRIPCION = 150;
+const LONGITUD_MINIMA_TELEFONO = 7;
+const LONGITUD_MAXIMA_TELEFONO = 10;
+const NUMBER_PATTERN = '^[0-9]+$';
+const NAMES_PATTERN =
+  '^[a-zA-ZÀ-ÿ\u00f1\u00d1_]+(\\s+[a-zA-ZÀ-ÿ\u00f1\u00d1_]+)*$';
+const DESCRIPTION_PATTERN =
+  '^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1_]+(\\s+[a-zA-ZÀ-ÿ0-9\u00f1\u00d1_]+)*$';
 @Component({
   selector: 'app-settings-doctor',
   templateUrl: './settings-doctor.component.html',
@@ -58,13 +69,53 @@ export class SettingsDoctorComponent implements OnInit {
   crearFormulario() {
     this.formActualizar = this.fb.group({
       correo: [this.email, [Validators.required]],
-      nombre: ['', [Validators.required]],
-      primerApellido: ['', [Validators.required]],
-      segundoApellido: ['', [Validators.required]],
-      descripcion: ['', [Validators.required]],
+      nombre: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_NOMBRE),
+          Validators.maxLength(LONGITUD_MAXIMA_NOMBRE),
+          Validators.pattern(NAMES_PATTERN),
+        ],
+      ],
+      primerApellido: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_NOMBRE),
+          Validators.maxLength(LONGITUD_MAXIMA_NOMBRE),
+          Validators.pattern(NAMES_PATTERN),
+        ],
+      ],
+      segundoApellido: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_NOMBRE),
+          Validators.maxLength(LONGITUD_MAXIMA_NOMBRE),
+          Validators.pattern(NAMES_PATTERN),
+        ],
+      ],
+      descripcion: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_DESCRIPCION),
+          Validators.maxLength(LONGITUD_MAXIMA_DESCRIPCION),
+          Validators.pattern(DESCRIPTION_PATTERN),
+        ],
+      ],
       fechaNacimiento: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      precio: ['', [Validators.required]],
+      telefono: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_TELEFONO),
+          Validators.maxLength(LONGITUD_MAXIMA_TELEFONO),
+          Validators.pattern(NUMBER_PATTERN),
+        ],
+      ],
+      precio: ['', [Validators.required, Validators.pattern(NUMBER_PATTERN)]],
       facebookUrl: ['', [Validators.pattern(URL_PATTERN)]],
       instagramUrl: ['', [Validators.pattern(URL_PATTERN)]],
       twitterUrl: ['', [Validators.pattern(URL_PATTERN)]],
@@ -129,5 +180,12 @@ export class SettingsDoctorComponent implements OnInit {
   }
   obtenerImagen(imgUser: string): string {
     return this.imageService.getImage(imgUser);
+  }
+  isValidFieldDatosForm(field: string) {
+    return (
+      (this.formActualizar.get(field)?.dirty ||
+        this.formActualizar.get(field)?.touched) &&
+      this.formActualizar.get(field)?.invalid
+    );
   }
 }

@@ -56,17 +56,29 @@
         <div class="form-group row">
             <div class="col-1"></div>
             <label class="col-2 col-form-label">Fecha de expiración</label>
-            <div class="col-8">
-                <input class="form-control" type="date" [min]="fechaActual" name="expirationDate" formControlName="fechaTarjeta" required />
-                <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('fechaTarjeta')">
-                    La fecha de expiración es requerida
+            <div class="col-2">
+                <select class="custom-select" name="expirationMonth" formControlName="mesTarjeta" required>
+          <option *ngFor="let mes of meses" value="{{ mes }}">
+            {{ mes }}
+          </option>
+        </select>
+                <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('mesTarjeta')">
+                    El mes de expiracion es requerido
                 </div>
             </div>
-        </div>
-        <div class="form-group row">
+            <div class="col-2">
+                <select class="custom-select" name="expirationYear" formControlName="anioTarjeta" required>
+          <option *ngFor="let anio of anios" value="{{ anio }}">
+            {{ anio }}
+          </option>
+        </select>
+                <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('anioTarjeta')">
+                    El año de expiracion es requerido
+                </div>
+            </div>
             <div class="col-1"></div>
-            <label class="col-2 col-form-label">CVV</label>
-            <div class="col-8">
+            <label class="col-1 col-form-label">CVV</label>
+            <div class="col-2">
                 <input class="form-control" type="password" placeholder="CVV" name="cvv" formControlName="cvvTarjeta" required minlength="3" maxlength="3" />
                 <div class="alert alert-danger p-0" *ngIf="isValidFieldDatosForm('cvvTarjeta')">
                     El CVV debe tener 3 digitos

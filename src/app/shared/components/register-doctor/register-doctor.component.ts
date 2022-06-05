@@ -13,6 +13,8 @@ import { EpsService } from '../../../services/eps.service';
 import { IdTypeService } from '../../../services/id-type.service';
 import { RolService } from '../../../services/rol.service';
 const PATTERN_DOCUMENT = '^[0-9A-Za-z]+$';
+const PATTERN_PASSWORD =
+  '^(?=.*[a-zA-Z])(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*-._?&])[A-Za-z0-9d$@$!%*?&].{8,}';
 @Component({
   selector: 'app-register-doctor',
   templateUrl: './register-doctor.component.html',
@@ -186,12 +188,7 @@ export class RegisterDoctorComponent implements OnInit {
       ],
       password: [
         '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*-._?&])[A-Za-zd$@$!%*?&].{8,}'
-          ),
-        ],
+        [Validators.required, Validators.pattern(PATTERN_PASSWORD)],
       ],
       correo: [
         '',

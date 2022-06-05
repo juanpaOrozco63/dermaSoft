@@ -5,6 +5,17 @@ import { ImageService } from 'src/app/services/image.service';
 import Swal from 'sweetalert2';
 import { Patient } from '../../domains/patient';
 import { PatientService } from '../../services/patient.service';
+const LONGITUD_MINIMA_NOMBRE = 3;
+const LONGITUD_MAXIMA_NOMBRE = 50;
+const LONGITUD_MINIMA_TELEFONO = 7;
+const LONGITUD_MAXIMA_TELEFONO = 10;
+const ALTURA_MINIMA = 20;
+const ALTURA_MAXIMA = 250;
+const PESO_MINIMO = 5;
+const PESO_MAXIMO = 250;
+const NUMBER_PATTERN = '^[0-9]+$';
+const NAMES_PATTERN =
+  '^[a-zA-ZÀ-ÿ\u00f1\u00d1_]+(\\s+[a-zA-ZÀ-ÿ\u00f1\u00d1_]+)*$';
 @Component({
   selector: 'app-patient-profile',
   templateUrl: './patient-profile.component.html',
@@ -52,13 +63,59 @@ export class PatientProfileComponent implements OnInit {
   crearFormulario() {
     this.formActualizar = this.fb.group({
       correo: [this.email, [Validators.required]],
-      nombre: ['', [Validators.required]],
-      primerApellido: ['', [Validators.required]],
-      segundoApellido: ['', [Validators.required]],
-      fechaNacimiento: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      alto: ['', [Validators.required]],
-      peso: ['', [Validators.required]],
+      nombre: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_NOMBRE),
+          Validators.maxLength(LONGITUD_MAXIMA_NOMBRE),
+          Validators.pattern(NAMES_PATTERN),
+        ],
+      ],
+      primerApellido: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_NOMBRE),
+          Validators.maxLength(LONGITUD_MAXIMA_NOMBRE),
+          Validators.pattern(NAMES_PATTERN),
+        ],
+      ],
+      segundoApellido: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_NOMBRE),
+          Validators.maxLength(LONGITUD_MAXIMA_NOMBRE),
+          Validators.pattern(NAMES_PATTERN),
+        ],
+      ],
+      fechaNacimiento: [null, [Validators.required]],
+      telefono: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(LONGITUD_MINIMA_TELEFONO),
+          Validators.maxLength(LONGITUD_MAXIMA_TELEFONO),
+          Validators.pattern(NUMBER_PATTERN),
+        ],
+      ],
+      alto: [
+        null,
+        [
+          Validators.required,
+          Validators.min(ALTURA_MINIMA),
+          Validators.max(ALTURA_MAXIMA),
+        ],
+      ],
+      peso: [
+        null,
+        [
+          Validators.required,
+          Validators.min(PESO_MINIMO),
+          Validators.max(PESO_MAXIMO),
+        ],
+      ],
     });
   }
   findPatient(email) {
@@ -114,5 +171,12 @@ export class PatientProfileComponent implements OnInit {
 
   obtenerImagen(imgUser: string): string {
     return this.imageService.getImage(imgUser);
+  }
+  isValidFieldDatosForm(field: string) {
+    return (
+      (this.formActualizar.get(field)?.dirty ||
+        this.formActualizar.get(field)?.touched) &&
+      this.formActualizar.get(field)?.invalid
+    );
   }
 }

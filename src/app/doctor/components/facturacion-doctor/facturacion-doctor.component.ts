@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
@@ -19,6 +20,7 @@ const MAXIMO_CVV = 999;
 const LONGITUD_MINIMA_TARJETA = 15;
 const LONGITUD_MAXIMA_TARJETA = 16;
 const PATRON_TARJETA = '^[0-9]+$';
+const CANTIDAD_ANIOS_POSTERIORES = 7;
 @Component({
   selector: 'app-facturacion-doctor',
   templateUrl: './facturacion-doctor.component.html',
@@ -46,6 +48,9 @@ export class FacturacionDoctorComponent implements OnInit {
   subActual: DoctorSubscription = null;
   fechaSubFin: Date = new Date();
   public fechaActual = new Date().toISOString().split('T')[0];
+  // Arreglo de meses permitidos
+  meses: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  anios: number[] = [];
   constructor(
     public doctorService: DoctorService,
     private authFirebaseService: AuthFirebaseService,
@@ -60,6 +65,8 @@ export class FacturacionDoctorComponent implements OnInit {
     this.findAllSubscriptions();
     this.findUserFire();
     this.crearFormularioSubscription();
+    this.suscripcionCambioFormulario();
+    this.llenarAnios();
   }
   buscarActiva() {
     this.subActual = JSON.parse(localStorage.getItem('subActual'));
@@ -84,7 +91,11 @@ export class FacturacionDoctorComponent implements OnInit {
         ],
       ],
       tipoTarjeta: [null, [Validators.required]],
-      fechaTarjeta: [null, [Validators.required]],
+      anioTarjeta: [
+        null,
+        [Validators.required, Validators.min(new Date().getFullYear())],
+      ],
+      mesTarjeta: [null, [Validators.required]],
       cvvTarjeta: [
         null,
         [
@@ -94,6 +105,17 @@ export class FacturacionDoctorComponent implements OnInit {
           Validators.pattern(PATRON_TARJETA),
         ],
       ],
+    });
+  }
+  suscripcionCambioFormulario() {
+    this.doctorSubForm.valueChanges.subscribe((form) => {
+      if (form.anioTarjeta) {
+        if (+form.anioTarjeta === new Date().getFullYear()) {
+          this.eliminarMesesDisponibles();
+        } else {
+          this.estadoInicialMeses();
+        }
+      }
     });
   }
   isValidFieldDatosForm(field: string) {
@@ -190,5 +212,22 @@ export class FacturacionDoctorComponent implements OnInit {
         );
       },
     });
+  }
+
+  llenarAnios() {
+    let anioActual = new Date().getFullYear();
+    for (let index = 0; index < CANTIDAD_ANIOS_POSTERIORES; index++) {
+      this.anios.push(anioActual + index);
+    }
+  }
+  eliminarMesesDisponibles() {
+    this.meses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    const mesActual: number = new Date().getMonth();
+    for (let index = 0; index < mesActual; index++) {
+      this.meses.shift();
+    }
+  }
+  estadoInicialMeses() {
+    this.meses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   }
 }
