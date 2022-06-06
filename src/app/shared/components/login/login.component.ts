@@ -201,7 +201,7 @@ export class LoginComponent implements OnInit {
   abrirModal() {
     const modalRef = this.modal.open(ModalVideoComponent, {
       centered: true,
-      windowClass: 'my-class',
+      windowClass: 'my-class'
     });
     const video: InfoVideo = this.informacionDermaService.getVideoPrincipal();
     modalRef.componentInstance.titulo = video.titulo;

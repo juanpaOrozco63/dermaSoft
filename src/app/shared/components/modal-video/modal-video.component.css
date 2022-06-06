@@ -5,5 +5,9 @@
 }
 
 .modal-body {
-    height: 80%;
+    height: 400px;
+}
+
+::ng-deep app-modal-video {
+    height: 100%;
 }
